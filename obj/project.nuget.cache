@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "kbLLUyUhYMTNlGv34Xw9YBAhZ2G45YTp1tbVNXnJYRr0VT91tsiWNeClmmafnkhm5+c5VyrtWgjjc6OgUPvCFw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\fredh\\OneDrive\\Skrivbord\\Untitled BaseBuilding Game\\Untitled BaseBuilding Game.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\fredh\\.nuget\\packages\\csfml\\2.5.0\\csfml.2.5.0.nupkg.sha512",
+    "C:\\Users\\fredh\\.nuget\\packages\\sfml.audio\\2.5.0\\sfml.audio.2.5.0.nupkg.sha512",
+    "C:\\Users\\fredh\\.nuget\\packages\\sfml.graphics\\2.5.0\\sfml.graphics.2.5.0.nupkg.sha512",
+    "C:\\Users\\fredh\\.nuget\\packages\\sfml.net\\2.5.0\\sfml.net.2.5.0.nupkg.sha512",
+    "C:\\Users\\fredh\\.nuget\\packages\\sfml.system\\2.5.0\\sfml.system.2.5.0.nupkg.sha512",
+    "C:\\Users\\fredh\\.nuget\\packages\\sfml.window\\2.5.0\\sfml.window.2.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
