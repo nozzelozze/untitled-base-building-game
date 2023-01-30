@@ -3,7 +3,7 @@ using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
 
-class Tile
+public class Tile
 {
     private Texture texture;
     private Sprite sprite;

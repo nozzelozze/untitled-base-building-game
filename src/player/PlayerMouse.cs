@@ -4,7 +4,7 @@ using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
 
-class PlayerMouse
+public class PlayerMouse
 {
     Texture crosshairTexture;
     Sprite crosshairSprite;

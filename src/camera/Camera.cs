@@ -4,7 +4,7 @@ using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
 
-class Camera
+public class Camera
 {
     Vector2i cameraMouseOffset;
     static View view = new View();

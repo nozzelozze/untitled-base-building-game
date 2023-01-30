@@ -4,21 +4,22 @@ using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
 
-class Player
+public class Player
 {
 
-    PlayerMouse mouse = new PlayerMouse();
+    public PlayerMouse mouse = new PlayerMouse();
     PlayerState currentState;
     Camera camera;
 
     public Player(Camera camera)
     {
         this.camera = camera;
-        currentState = PlayerState.IdleState;
+        currentState = PlayerState.IdleState.IdleInstance;
     }
 
     public void enterNewState(PlayerState newState)
     {
+        currentState.leave();
         currentState = newState;
     }
 
@@ -27,14 +28,17 @@ class Player
         mouse.renderCrosshair();
         if (events.Contains(Keyboard.Key.Space))
         {
-            enterBuildState();
+            enterNewState(PlayerState.BuildState.BuildInstance);
+            PlayerState.BuildState.BuildInstance.enterBuild(new Structure());
         }
+        if (events.Contains(Keyboard.Key.Enter))
+        {
+            enterNewState(PlayerState.IdleState.IdleInstance);
+        }
+        if (events.Contains(Mouse.Button.Right))
+        {
+            currentState.onPlayerClick();
+        }
+        currentState.update(this);
     }
-
-    public void placeObject()
-    {
-        Structure newStructure = new Structure(mouse.getTileFromMouse());
-        Map.Instance.structures.Add(newStructure);
-    }
-
 }
