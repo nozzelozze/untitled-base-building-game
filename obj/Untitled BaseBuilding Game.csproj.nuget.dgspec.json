@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\fredh\\OneDrive\\Skrivbord\\Untitled BaseBuilding Game\\Untitled BaseBuilding Game.csproj": {}
+    "C:\\Users\\fredh\\Desktop\\untitled-base-building-game\\Untitled BaseBuilding Game.csproj": {}
   },
   "projects": {
-    "C:\\Users\\fredh\\OneDrive\\Skrivbord\\Untitled BaseBuilding Game\\Untitled BaseBuilding Game.csproj": {
+    "C:\\Users\\fredh\\Desktop\\untitled-base-building-game\\Untitled BaseBuilding Game.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\fredh\\OneDrive\\Skrivbord\\Untitled BaseBuilding Game\\Untitled BaseBuilding Game.csproj",
+        "projectUniqueName": "C:\\Users\\fredh\\Desktop\\untitled-base-building-game\\Untitled BaseBuilding Game.csproj",
         "projectName": "Untitled BaseBuilding Game",
-        "projectPath": "C:\\Users\\fredh\\OneDrive\\Skrivbord\\Untitled BaseBuilding Game\\Untitled BaseBuilding Game.csproj",
+        "projectPath": "C:\\Users\\fredh\\Desktop\\untitled-base-building-game\\Untitled BaseBuilding Game.csproj",
         "packagesPath": "C:\\Users\\fredh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\fredh\\OneDrive\\Skrivbord\\Untitled BaseBuilding Game\\obj\\",
+        "outputPath": "C:\\Users\\fredh\\Desktop\\untitled-base-building-game\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Users\\fredh\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder"
