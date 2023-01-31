@@ -9,7 +9,7 @@ public class PlayerState
 
     public static PlayerState Instance = new PlayerState();
 
-    public virtual void onPlayerClick() {}
+    public virtual void onPlayerClick(Player player) {}
     public virtual void enter() {}
     public virtual void leave() {}
     public virtual void update(Player player) {}
@@ -39,15 +39,19 @@ public class PlayerState
             wantedStructure.position = (Vector2i)structurePosition;
             if (Map.Instance.isStructureValid(wantedStructure))
             {
-
+                wantedStructure.sprite.Color = Color.Green;
+            } else
+            {
+                wantedStructure.sprite.Color = Color.Red;
             }
             RenderQueue.queue(wantedStructure.sprite);
         }
 
-        public override void onPlayerClick()
+        public override void onPlayerClick(Player player)
         {
-            base.onPlayerClick();
-            Console.WriteLine("Clicked while in build state.");
+            base.onPlayerClick(player);
+            wantedStructure.placeStructure(player.mouse.getTileFromMouse());
+            player.enterNewState(IdleState.IdleInstance);
         }
     }
 }

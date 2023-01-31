@@ -29,11 +29,12 @@ class Map
         tile.occupied = true;
     }
 
-    public void occupyTilesFromStructure(int indexX, int indexY, Structure structure)
+    public void occupyTilesFromStructure(Tile tile, Structure structure)
     {
-        for (int i = indexX; i < structure.size.X+indexX; i++)
+        Tuple<int, int> tileIndex = getTileIndex(tile);
+        for (int i = tileIndex.Item1; i < structure.size.X+tileIndex.Item1; i++)
         {
-            for (int j = indexY; j < structure.size.Y+indexY; j++)
+            for (int j = tileIndex.Item2; j < structure.size.Y+tileIndex.Item2; j++)
             {
                 occupyTile(tiles[i, j]);
             }
@@ -42,11 +43,11 @@ class Map
 
     public bool isStructureValid(Structure structure)
     {
-        Tile firstTile = getTileAt((Vector2f)structure.position);
-        
-        for (int x = structure.position.X; x < structure.position.X+structure.size.X-1; x++)
+        Tuple<int, int> firstTileIndex = getTileIndex(getTileAt((Vector2f)structure.position));
+
+        for (int x = firstTileIndex.Item1; x < firstTileIndex.Item1+structure.size.X; x++)
         {
-            for (int y = structure.position.Y; y < structure.position.Y+structure.size.Y-1; y++)
+            for (int y = firstTileIndex.Item2; y < firstTileIndex.Item2+structure.size.Y; y++)
                 {
                     if (tiles[x, y].isOccupied())
                     {
@@ -54,8 +55,6 @@ class Map
                     }
                 }   
         }
-
-
         return true;
     }
 
@@ -81,12 +80,12 @@ class Map
             for (int y = 0; y < mapHeight; y++)
             {
                 Vector2f tilePosition = new Vector2f((float)x*tileSize, (float)y*tileSize);
-                if (!tiles[x, y].occupied) tiles[x,y].render(tilePosition);
+                if (!tiles[x, y].isOccupied()) tiles[x,y].render(tilePosition);
             }
         }
         foreach (Structure structure in structures)
         {
-            RenderQueue.queue(structure.sprite);
+            //RenderQueue.queue(structure.sprite);
         }
     }
     

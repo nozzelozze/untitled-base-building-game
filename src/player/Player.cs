@@ -8,13 +8,12 @@ public class Player
 {
 
     public PlayerMouse mouse = new PlayerMouse();
-    PlayerState currentState;
+    public static PlayerState currentState = PlayerState.IdleState.IdleInstance;
     Camera camera;
 
     public Player(Camera camera)
     {
         this.camera = camera;
-        currentState = PlayerState.IdleState.IdleInstance;
     }
 
     public void enterNewState(PlayerState newState)
@@ -35,9 +34,9 @@ public class Player
         {
             enterNewState(PlayerState.IdleState.IdleInstance);
         }
-        if (events.Contains(Mouse.Button.Right))
+        if (events.Contains(Mouse.Button.Left))
         {
-            currentState.onPlayerClick();
+            currentState.onPlayerClick(this);
         }
         currentState.update(this);
     }

@@ -19,8 +19,8 @@ public class Structure
     {
         position = (Vector2i)Map.Instance.getTilePosition(tile);
         sprite.Position = (Vector2f)position;
+        sprite.Color = Color.White;
         Map.Instance.structures.Add(this);
-        Tuple<int, int> tileIndex = Map.Instance.getTileIndex(tile);
-        Map.Instance.occupyTilesFromStructure(tileIndex.Item1, tileIndex.Item2, this);
+        Map.Instance.occupyTilesFromStructure(tile, this);
     }
 }
