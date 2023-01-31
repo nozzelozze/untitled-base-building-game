@@ -50,8 +50,11 @@ public class PlayerState
         public override void onPlayerClick(Player player)
         {
             base.onPlayerClick(player);
-            wantedStructure.placeStructure(player.mouse.getTileFromMouse());
-            player.enterNewState(IdleState.IdleInstance);
+            if (Map.Instance.isStructureValid(wantedStructure))
+            {
+                wantedStructure.placeStructure(player.mouse.getTileFromMouse());
+                player.enterNewState(IdleState.IdleInstance);
+            }
         }
     }
 }

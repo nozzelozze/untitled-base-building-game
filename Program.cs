@@ -31,6 +31,7 @@ class Game
             camera.updateCamera(window, events);
             Map.Instance.render();
             player.updatePlayer(events);
+            
             RenderQueue.render(window);
             window.Display();
         }
