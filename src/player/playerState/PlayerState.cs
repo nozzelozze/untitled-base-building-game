@@ -34,7 +34,13 @@ public class PlayerState
         public override void update(Player player)
         {
             base.update(player);
-            wantedStructure.sprite.Position = Map.Instance.getTilePosition(player.mouse.getTileFromMouse());
+            Vector2f structurePosition = Map.Instance.getTilePosition(player.mouse.getTileFromMouse());
+            wantedStructure.sprite.Position = structurePosition;
+            wantedStructure.position = (Vector2i)structurePosition;
+            if (Map.Instance.isStructureValid(wantedStructure))
+            {
+
+            }
             RenderQueue.queue(wantedStructure.sprite);
         }
 

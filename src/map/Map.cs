@@ -40,6 +40,25 @@ class Map
         }
     }
 
+    public bool isStructureValid(Structure structure)
+    {
+        Tile firstTile = getTileAt((Vector2f)structure.position);
+        
+        for (int x = structure.position.X; x < structure.position.X+structure.size.X-1; x++)
+        {
+            for (int y = structure.position.Y; y < structure.position.Y+structure.size.Y-1; y++)
+                {
+                    if (tiles[x, y].isOccupied())
+                    {
+                        return false;
+                    }
+                }   
+        }
+
+
+        return true;
+    }
+
     public Tuple<int, int>? getTileIndex(Tile tile)
     {
         for (int i = 0; i < tiles.GetLength(0); i++)

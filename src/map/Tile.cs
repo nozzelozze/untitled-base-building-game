@@ -9,6 +9,11 @@ public class Tile
     private Sprite sprite;
     public bool occupied = false;
 
+    public bool isOccupied()
+    {
+        return occupied;
+    }
+
     public Tile(Texture texture)
     {
         this.texture = texture;
