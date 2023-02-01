@@ -19,6 +19,8 @@ class Game
         Input input = new Input();
         Player player = new Player(camera);
 
+        Window testWindow = new Window(new Vector2f(200, 200));
+
         window.SetVerticalSyncEnabled(true);
         window.Closed += (sender, args) => window.Close();
         window.MouseWheelScrolled += camera.scroll;
@@ -31,7 +33,7 @@ class Game
             camera.updateCamera(window, events);
             Map.Instance.render();
             player.updatePlayer(events);
-            
+            testWindow.render();
             RenderQueue.render(window);
             window.Display();
         }
