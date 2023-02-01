@@ -38,6 +38,7 @@ public class Camera
 
     public void updateCamera(RenderWindow renderWindow, List<object> events)
     {
+        renderWindow.SetView(view);
         if (events.Contains(Mouse.Button.Right)) cameraMouseOffset = -Mouse.GetPosition(renderWindow) - (Vector2i)view.Center;
         if (Mouse.IsButtonPressed(Mouse.Button.Right))
         {

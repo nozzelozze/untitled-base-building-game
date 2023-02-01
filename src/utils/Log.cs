@@ -2,11 +2,10 @@ using System;
 
 public static class Log
 {
-
     public static void Error(string message)
     {
         Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine(message);
+        Console.WriteLine("Error: " + message);
         Console.ResetColor();
     }
 

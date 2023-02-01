@@ -15,7 +15,8 @@ class Game
         VideoMode mode = new VideoMode(WIDTH, HEIGHT);
         RenderWindow window = new RenderWindow(mode, TITLE);
 
-        Camera camera = new Camera(window.GetView());
+        Camera camera = new Camera(new View(window.GetView()));
+        View uiView = new View(window.GetView());
         Input input = new Input();
         Player player = new Player(camera);
         ResourceLoader resourceLoader = new ResourceLoader();
@@ -31,11 +32,14 @@ class Game
             window.DispatchEvents();
             window.Clear(Color.Black);
             List<object> events = input.getEvents();
+
             camera.updateCamera(window, events);
             Map.Instance.render();
             player.updatePlayer(events);
+
             testWindow.render();
-            RenderQueue.render(window);
+
+            RenderQueue.render(window, uiView);
             window.Display();
         }
     }

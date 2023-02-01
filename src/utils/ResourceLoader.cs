@@ -24,10 +24,10 @@ public class ResourceLoader
     public ResourceLoader()
     {
         // textures
-        loadedTextures.Add(TextureType.Stone, new Texture(new string(texturesPath + "stoneTile.png")));
-        loadedTextures.Add(TextureType.Grass, new Texture(new string(texturesPath + "grassTile.png")));
-        loadedTextures.Add(TextureType.Bed, new Texture(new string(texturesPath + "bed.png")));
-        loadedTextures.Add(TextureType.Bed, new Texture(new string(texturesPath + "crosshair.png")));
+        loadedTextures.Add(TextureType.Stone, new Texture(texturesPath + "stoneTile.png"));
+        loadedTextures.Add(TextureType.Grass, new Texture(texturesPath + "grassTile.png"));
+        loadedTextures.Add(TextureType.Bed, new Texture(texturesPath + "bed.png"));
+        loadedTextures.Add(TextureType.Crosshair, new Texture(texturesPath + "crosshair.png"));
 
         // fonts
         fonts.Add("default", new Font(fontsPath + "default.ttf"));
@@ -36,13 +36,18 @@ public class ResourceLoader
     public static Font fetchFont(string fontName)
     {
         if (!fonts.ContainsKey(fontName))
+        {
+            Log.Error($"{fontName} does not exist.");
+            return null;
+        }
+        return fonts[fontName];
     }
 
     public static Texture fetchTexture(TextureType type)
     {
         if (!loadedTextures.ContainsKey(type))
         {
-            Console.WriteLine($"error {type} does not exist");
+            Log.Error($"{type} does not exist.");
             return null;
         }
         return loadedTextures[type];
