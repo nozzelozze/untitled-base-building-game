@@ -18,8 +18,9 @@ class Game
         Camera camera = new Camera(window.GetView());
         Input input = new Input();
         Player player = new Player(camera);
+        ResourceLoader resourceLoader = new ResourceLoader();
 
-        Window testWindow = new Window(new Vector2f(200, 200));
+        Window testWindow = new Window(new Vector2f(200, 200), "TextWindow");
 
         window.SetVerticalSyncEnabled(true);
         window.Closed += (sender, args) => window.Close();

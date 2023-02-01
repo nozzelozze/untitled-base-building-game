@@ -11,7 +11,7 @@ public class PlayerMouse
 
     public PlayerMouse()
     {
-        crosshairTexture = new Texture("imgs/crosshair.png");
+        crosshairTexture = ResourceLoader.fetchTexture(ResourceLoader.TextureType.Crosshair);
         crosshairSprite = new Sprite(crosshairTexture);
     }
 

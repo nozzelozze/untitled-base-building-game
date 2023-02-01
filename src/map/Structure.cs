@@ -5,7 +5,7 @@ using SFML.System;
 
 public class Structure
 {
-    public Texture texture = new Texture("imgs/bed.png");
+    public Texture texture = ResourceLoader.fetchTexture(ResourceLoader.TextureType.Bed);
     public Sprite sprite;
     public Vector2i position;
     public Vector2i size = new Vector2i(2, 1);

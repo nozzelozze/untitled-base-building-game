@@ -20,7 +20,7 @@ class Window : Transformable
         barRect = new RectangleShape(new Vector2f(size.X, 20f));
         barRect.FillColor = Color.Cyan;
         barRect.OutlineThickness = 5;
-        title = new Text(titleName);
+        title = new Text(titleName, );
         Position = new Vector2f(500, 500);
     }
 
