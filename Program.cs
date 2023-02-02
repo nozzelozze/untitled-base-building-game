@@ -35,7 +35,7 @@ class Game
 
             camera.updateCamera(window);
             Map.Instance.render();
-            player.updatePlayer();
+            player.updatePlayer(window);
 
             gui.render();
 

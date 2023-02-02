@@ -24,7 +24,7 @@ public class PlayerMouse
 
     public Tile getTileFromMouse()
     {
-        return Map.Instance.getTileAt(Camera.winPositionToCam((Vector2f)Mouse.GetPosition()));
+        return Map.Instance.getTileAt(Camera.winPositionToCam((Vector2f)getPosition()));
     }
 
     public void renderCrosshair(RenderWindow renderWindow)

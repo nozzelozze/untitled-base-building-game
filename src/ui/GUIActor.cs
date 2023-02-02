@@ -23,6 +23,8 @@ class GUIActor : Transformable
     public void render()
     {
         drawRect.Position = Position;
+        collisionRect.Top = Position.Y;
+        collisionRect.Left = Position.X;
         RenderQueue.queueGUI(drawRect);
         if (Input.events.Contains(Mouse.Button.Left) && Player.currentState == PlayerState.IdleState.IdleInstance)
         {
