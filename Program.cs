@@ -21,7 +21,7 @@ class Game
         Player player = new Player(camera);
         ResourceLoader resourceLoader = new ResourceLoader();
 
-        Window testWindow = new Window(new Vector2f(200, 200), "TextWindow");
+        GUIActor gui = new GUIActor(new Vector2f(100f, 100f), new Vector2f(500f, 500f));
 
         window.SetVerticalSyncEnabled(true);
         window.Closed += (sender, args) => window.Close();
@@ -31,13 +31,13 @@ class Game
         {
             window.DispatchEvents();
             window.Clear(Color.Black);
-            List<object> events = input.getEvents();
+            input.getEvents();
 
-            camera.updateCamera(window, events);
+            camera.updateCamera(window);
             Map.Instance.render();
-            player.updatePlayer(events);
+            player.updatePlayer();
 
-            testWindow.render();
+            gui.render();
 
             RenderQueue.render(window, uiView);
             window.Display();

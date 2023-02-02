@@ -22,19 +22,19 @@ public class Player
         currentState = newState;
     }
 
-    public void updatePlayer(List<object> events)
+    public void updatePlayer(RenderWindow renderWindow)
     {
-        mouse.renderCrosshair();
-        if (events.Contains(Keyboard.Key.Space))
+        mouse.renderCrosshair(renderWindow);
+        if (Input.events.Contains(Keyboard.Key.Space))
         {
             enterNewState(PlayerState.BuildState.BuildInstance);
             PlayerState.BuildState.BuildInstance.enterBuild(new Structure());
         }
-        if (events.Contains(Keyboard.Key.Enter))
+        if (Input.events.Contains(Keyboard.Key.Enter))
         {
             enterNewState(PlayerState.IdleState.IdleInstance);
         }
-        if (events.Contains(Mouse.Button.Left))
+        if (Input.events.Contains(Mouse.Button.Left))
         {
             currentState.onPlayerClick(this);
         }

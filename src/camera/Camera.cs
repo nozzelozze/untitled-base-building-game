@@ -36,10 +36,10 @@ public class Camera
         return newPosition;
     }
 
-    public void updateCamera(RenderWindow renderWindow, List<object> events)
+    public void updateCamera(RenderWindow renderWindow)
     {
         renderWindow.SetView(view);
-        if (events.Contains(Mouse.Button.Right)) cameraMouseOffset = -Mouse.GetPosition(renderWindow) - (Vector2i)view.Center;
+        if (Input.events.Contains(Mouse.Button.Right)) cameraMouseOffset = -Mouse.GetPosition(renderWindow) - (Vector2i)view.Center;
         if (Mouse.IsButtonPressed(Mouse.Button.Right))
         {
             Vector2 zoomWeight;

@@ -6,6 +6,8 @@ class Input
     Dictionary<Mouse.Button, bool> mouseButtons = new Dictionary<Mouse.Button, bool>();
     Dictionary<Keyboard.Key, bool> keyboardButtons = new Dictionary<Keyboard.Key, bool>();
     
+    public static List<object> events = new List<object>();
+
     public Input()
     {
         foreach (Mouse.Button mouseButton in Enum.GetValues(typeof(Mouse.Button)))
@@ -18,10 +20,9 @@ class Input
         }
     }
     
-    public List<object> getEvents()
+    public void getEvents()
     {
-        var events = new List<object>();
-
+        events.Clear();
         foreach(KeyValuePair<Mouse.Button, bool> entry in mouseButtons)
         {
             if (Mouse.IsButtonPressed(entry.Key))
@@ -50,6 +51,5 @@ class Input
                 keyboardButtons[entry.Key] = false;
             }
         }
-        return events;
     }
 }

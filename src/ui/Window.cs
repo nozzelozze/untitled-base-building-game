@@ -27,6 +27,6 @@ class Window : Transformable
     public void render()
     {
         baseRect.Position = Position;
-        RenderQueue.queueUI(baseRect);
+        RenderQueue.queueGUI(baseRect);
     }
 }

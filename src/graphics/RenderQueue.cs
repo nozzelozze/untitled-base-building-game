@@ -8,15 +8,15 @@ public static class RenderQueue
 {
     
     public static List<Drawable> renderList = new List<Drawable>();
-    public static List<Drawable> renderUIList = new List<Drawable>();
+    public static List<Drawable> renderGUIList = new List<Drawable>();
 
     public static void queue(Drawable drawableToQueue)
     {
         renderList.Add(drawableToQueue);
     }
-    public static void queueUI(Drawable drawableToQueue)
+    public static void queueGUI(Drawable drawableToQueue)
     {
-        renderUIList.Add(drawableToQueue);
+        renderGUIList.Add(drawableToQueue);
     }
 
     public static void render(RenderWindow renderWindow, View uiView)
@@ -27,11 +27,11 @@ public static class RenderQueue
         }
         renderList.Clear();
         renderWindow.SetView(uiView);
-        foreach (Drawable UIdrawable in renderUIList)
+        foreach (Drawable GUIdrawable in renderGUIList)
         {
-            renderWindow.Draw(UIdrawable);
+            renderWindow.Draw(GUIdrawable);
         }
-        renderUIList.Clear();
+        renderGUIList.Clear();
     }
 
 }
