@@ -21,7 +21,7 @@ class Game
         Player player = new Player(camera);
         ResourceLoader resourceLoader = new ResourceLoader();
 
-        GUIActor gui = new GUIActor(new Vector2f(100f, 100f), new Vector2f(500f, 500f));
+        Button myButton = new Button("Accept", new Vector2f(100f, 50f), () => Log.Message("hejsan!"));
 
         window.SetVerticalSyncEnabled(true);
         window.Closed += (sender, args) => window.Close();
@@ -37,7 +37,7 @@ class Game
             Map.Instance.render();
             player.updatePlayer(window);
 
-            gui.render();
+            myButton.render();
 
             RenderQueue.render(window, uiView);
             window.Display();
