@@ -6,11 +6,12 @@ using SFML.System;
 
 class GUIActor : Transformable
 {
-
-
     public FloatRect collisionRect;
     public RectangleShape baseRect = new RectangleShape();
     public Vector2f size;
+
+    public static int outlineThickness = 5;
+    public static Color outlineColor = GUIColor.darkColor;
 
     public GUIActor(Vector2f size, Vector2f position)
     {
@@ -19,8 +20,8 @@ class GUIActor : Transformable
         baseRect.Size = size;
         Position = position;
         baseRect.FillColor = GUIColor.greyColor;
-        baseRect.OutlineThickness = 5;
-        baseRect.OutlineColor = GUIColor.darkColor;
+        baseRect.OutlineThickness = outlineThickness;
+        baseRect.OutlineColor = outlineColor;
     }
 
     public virtual void render()
