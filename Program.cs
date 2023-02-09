@@ -22,6 +22,7 @@ class Game
         ResourceLoader resourceLoader = new ResourceLoader();
 
         Button myButton = new Button("Accept", new Vector2f(100f, 50f), () => Log.Message("hejsan!"));
+        Container myContainer = new Container("Mk2 Miner");
 
         window.SetVerticalSyncEnabled(true);
         window.Closed += (sender, args) => window.Close();

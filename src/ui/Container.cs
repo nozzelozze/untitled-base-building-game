@@ -14,15 +14,15 @@ class Container : GUIActor
     
     public Container(string title) : base(new Vector2f(500, 500), new Vector2f(500, 500))
     {
-        barRect = new RectangleShape(new Vector2f(500, 20));
+        barRect = new RectangleShape(new Vector2f(500, 35));
         barRect.OutlineThickness = GUIActor.outlineThickness;
         barRect.OutlineColor = GUIActor.outlineColor;
         barRect.FillColor = GUIColor.blueColor;
         barRect.Position = Position;
         titleText = new Text(title, ResourceLoader.fetchFont("default"));
-        titleText.Position = Position + new Vector2f(5, 5);
+        titleText.CharacterSize = GUIActor.getCharacterSize(GUIActor.characterSize.HeadingSmall);
+        titleText.Position = Position + new Vector2f(5, 0);
     }
-
 
     public override void render()
     {

@@ -10,8 +10,27 @@ class GUIActor : Transformable
     public RectangleShape baseRect = new RectangleShape();
     public Vector2f size;
 
-    public static int outlineThickness = 5;
+    public static int outlineThickness = 2;
     public static Color outlineColor = GUIColor.darkColor;
+
+    public enum characterSize
+    {
+        Info,
+        HeadingSmall,
+        HeadingLarge
+    }
+
+    public static Dictionary<characterSize, uint> characterSizes = new Dictionary<characterSize, uint>
+    {
+        {characterSize.Info, 15},
+        {characterSize.HeadingSmall, 25},
+        {characterSize.HeadingLarge, 50}
+    };
+
+    public static uint getCharacterSize(characterSize size)
+    {
+        return characterSizes[size];
+    }
 
     public GUIActor(Vector2f size, Vector2f position)
     {
