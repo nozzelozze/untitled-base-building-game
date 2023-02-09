@@ -1,15 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "r2D2oDyaNb8G5STz/mIj2U6+9EmX66t12jIcUHOiKl3Q25vPClxgzlkYpnth8TRoBewyTrvn7onvEljytszzSA==",
+  "dgSpecHash": "aSBFNCcsXRq5K0XUUpTVG9fXIm2TKVeFi3YyfH/DbK2WedfB1L0Y82x8Yfm2SNB5DJxKjcUdjs6QEXLrbBCIhA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\fredh\\Desktop\\untitled-base-building-game\\Untitled BaseBuilding Game.csproj",
+  "projectFilePath": "C:\\Users\\noah.fredholm.studen\\Documents\\untitled-base-building-game\\Untitled BaseBuilding Game.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\fredh\\.nuget\\packages\\csfml\\2.5.0\\csfml.2.5.0.nupkg.sha512",
-    "C:\\Users\\fredh\\.nuget\\packages\\sfml.audio\\2.5.0\\sfml.audio.2.5.0.nupkg.sha512",
-    "C:\\Users\\fredh\\.nuget\\packages\\sfml.graphics\\2.5.0\\sfml.graphics.2.5.0.nupkg.sha512",
-    "C:\\Users\\fredh\\.nuget\\packages\\sfml.net\\2.5.0\\sfml.net.2.5.0.nupkg.sha512",
-    "C:\\Users\\fredh\\.nuget\\packages\\sfml.system\\2.5.0\\sfml.system.2.5.0.nupkg.sha512",
-    "C:\\Users\\fredh\\.nuget\\packages\\sfml.window\\2.5.0\\sfml.window.2.5.0.nupkg.sha512"
+    "C:\\Users\\noah.fredholm.studen\\.nuget\\packages\\csfml\\2.5.0\\csfml.2.5.0.nupkg.sha512",
+    "C:\\Users\\noah.fredholm.studen\\.nuget\\packages\\sfml.audio\\2.5.0\\sfml.audio.2.5.0.nupkg.sha512",
+    "C:\\Users\\noah.fredholm.studen\\.nuget\\packages\\sfml.graphics\\2.5.0\\sfml.graphics.2.5.0.nupkg.sha512",
+    "C:\\Users\\noah.fredholm.studen\\.nuget\\packages\\sfml.net\\2.5.0\\sfml.net.2.5.0.nupkg.sha512",
+    "C:\\Users\\noah.fredholm.studen\\.nuget\\packages\\sfml.system\\2.5.0\\sfml.system.2.5.0.nupkg.sha512",
+    "C:\\Users\\noah.fredholm.studen\\.nuget\\packages\\sfml.window\\2.5.0\\sfml.window.2.5.0.nupkg.sha512"
   ],
   "logs": []
 }
