@@ -21,7 +21,7 @@ class Game
         Player player = new Player(camera);
         ResourceLoader resourceLoader = new ResourceLoader();
 
-        Button myButton = new Button("Accept", new Vector2f(100f, 50f), () => Log.Message("hejsan!"));
+        Button myButton = new Button("Accept", new Vector2f(1000, 1000), () => Log.Message("hejsan!"));
         Container myContainer = new Container("Mk2 Miner");
 
         window.SetVerticalSyncEnabled(true);
@@ -38,7 +38,7 @@ class Game
             Map.Instance.render();
             player.updatePlayer(window);
 
-            //myButton.render();
+            myButton.render();
             myContainer.render();
 
             RenderQueue.render(window, uiView);

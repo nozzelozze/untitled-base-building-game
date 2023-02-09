@@ -53,13 +53,11 @@ class GUIActor : Transformable
 
     public void centerText(Text textToCenter, Vector2f centerPosition)
     {
-        FloatRect textRect = textToCenter.GetGlobalBounds();
-        //textToCenter.Origin = new Vector2f(
-        //    textRect.Left + textRect.Width/2.0f,
-        //    textRect.Top  + textRect.Height/2.0f);
-        Vector2f center = new Vector2f(textRect.Width, textRect.Height) / 2f;
-        Vector2f localBounds = center + new Vector2f(textToCenter.GetLocalBounds().Left/2, textToCenter.GetLocalBounds().Top/2);
-        textToCenter.Origin = localBounds;
-        textToCenter.Position = new Vector2f(centerPosition.X,centerPosition.Y);
+        FloatRect textRect = textToCenter.GetLocalBounds();
+        textToCenter.Origin = new Vector2f(
+            textRect.Left + textRect.Width/2.0f,
+            textRect.Top + textRect.Height/2.0f
+        );
+        textToCenter.Position = centerPosition;
     }
 }

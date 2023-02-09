@@ -22,7 +22,7 @@ class Button : GUIActor
 
         titleText = new Text(this.title, ResourceLoader.fetchFont("default"));
         titleText.FillColor = GUIColor.textColor;
-        centerText(titleText, new Vector2f(Position.X+this.baseRect.Size.X*2, Position.Y+this.baseRect.Size.Y*2));
+        centerText(titleText, new Vector2f(Position.X+this.baseRect.Size.X/2, Position.Y+this.baseRect.Size.Y/2));
     }
 
     public override void render()
