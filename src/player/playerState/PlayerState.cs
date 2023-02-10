@@ -17,6 +17,16 @@ public class PlayerState
     public class IdleState : PlayerState
     {
         public static IdleState IdleInstance = new IdleState();
+
+        public override void onPlayerClick(Player player)
+        {
+            base.onPlayerClick(player);
+            Structure? clickedStructure = Map.Instance.getStructureFromTile(Map.Instance.getTileAt((Vector2f)PlayerMouse.getPosition()));
+            if (clickedStructure != null)
+            {
+                Log.Message("clicked on a struct!");
+            }
+        }
     }
 
     public class BuildState : PlayerState

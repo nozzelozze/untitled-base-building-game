@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
@@ -37,8 +38,22 @@ class Map
             for (int j = tileIndex.Item2; j < structure.size.Y+tileIndex.Item2; j++)
             {
                 occupyTile(tiles[i, j]);
+                structure.occupiedTiles.Add(tiles[i, j]);
             }
         }
+    }
+
+    public Structure ? getStructureFromTile(Tile tile)
+    {
+        foreach (Structure structure in structures)
+        {
+            foreach (Tile structureTile in structure.occupiedTiles)
+            {
+               if (structureTile == tile) return structure;
+            }
+        }
+        //Log.Warning("Structure is not found from tile. (getStructureFromTile)");
+        return null;
     }
 
     public bool isStructureValid(Structure structure)

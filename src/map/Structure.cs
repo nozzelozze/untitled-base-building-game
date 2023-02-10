@@ -10,6 +10,8 @@ public class Structure
     public Vector2i position;
     public Vector2i size = new Vector2i(2, 1);
 
+    public List<Tile> occupiedTiles = new List<Tile>();
+
     public Structure()
     {
         sprite = new Sprite(texture);

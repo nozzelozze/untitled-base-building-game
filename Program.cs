@@ -38,8 +38,8 @@ class Game
             Map.Instance.render();
             player.updatePlayer(window);
 
-            myButton.render();
-            myContainer.render();
+            //myButton.render();
+            //myContainer.render();
 
             RenderQueue.render(window, uiView);
             window.Display();
