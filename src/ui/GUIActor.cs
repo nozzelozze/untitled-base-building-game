@@ -13,13 +13,13 @@ class GUIActor : Transformable
     public static int outlineThickness = 5;
     public static Color outlineColor = GUIColor.darkColor;
 
-    public GUIActor(Vector2f size, Vector2f position)
+    public GUIActor(Vector2f size, Vector2f position, bool isTransparent=false)
     {
         collisionRect.Width = size.X;
         collisionRect.Height = size.Y;
         baseRect.Size = size;
         Position = position;
-        baseRect.FillColor = GUIColor.greyColor;
+        baseRect.FillColor = !isTransparent ? GUIColor.greyColor : Color.Transparent;
         baseRect.OutlineThickness = outlineThickness;
         baseRect.OutlineColor = outlineColor;
     }

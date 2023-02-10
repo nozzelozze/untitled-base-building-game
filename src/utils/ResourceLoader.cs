@@ -7,15 +7,16 @@ using SFML.System;
 public class ResourceLoader
 {
 
-    private string texturesPath = "assets/imgs/";
-    private string fontsPath = "assets/fonts/";
+    private static string texturesPath = "assets/imgs/";
+    private static string fontsPath = "assets/fonts/";
 
     public enum TextureType
     {
         Stone,
         Grass,
         Bed,
-        Crosshair
+        Crosshair,
+        Icon
     }
     private static Dictionary<TextureType, Texture> loadedTextures = new Dictionary<TextureType, Texture>();
 
@@ -28,10 +29,13 @@ public class ResourceLoader
         loadedTextures.Add(TextureType.Grass, new Texture(texturesPath + "grassTile.png"));
         loadedTextures.Add(TextureType.Bed, new Texture(texturesPath + "bed.png"));
         loadedTextures.Add(TextureType.Crosshair, new Texture(texturesPath + "crosshair.png"));
+        loadedTextures.Add(TextureType.Icon, new Texture(getTexturePath("icon")));
 
         // fonts
         fonts.Add("default", new Font(fontsPath + "default.ttf"));
     }
+
+    public Func<string, string> getTexturePath = (name) => texturesPath + name + ".png";
 
     public static Font fetchFont(string fontName)
     {

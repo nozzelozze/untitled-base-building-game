@@ -21,7 +21,13 @@ class Game
         Player player = new Player(camera);
         ResourceLoader resourceLoader = new ResourceLoader();
 
-        Button myButton = new Button("Accept", new Vector2f(100f, 50f), () => Log.Message("hejsan!"));
+        
+        //Button myButton = new Button("Accept", new Vector2f(100f, 50f), () => Log.Message("hejsan!"));
+        IconButton myButton = new IconButton(
+            ResourceLoader.fetchTexture(ResourceLoader.TextureType.Icon),
+            new Vector2f(500, 500),
+            () => Log.Message("Clicked a button!")
+            );
 
         window.SetVerticalSyncEnabled(true);
         window.Closed += (sender, args) => window.Close();
@@ -37,8 +43,8 @@ class Game
             Map.Instance.render();
             player.updatePlayer(window);
 
-            //myButton.render();
-            myContainer.render();
+            myButton.render();
+            //myContainer.render();
 
             RenderQueue.render(window, uiView);
             window.Display();
