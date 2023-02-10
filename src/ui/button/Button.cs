@@ -14,7 +14,11 @@ class Button : GUIActor
 
     public static Vector2f buttonBaseSize = new Vector2f(100f, 50f);
 
-    public Button(string title, Vector2f position, Action onClick) : base(buttonBaseSize, position)
+    public Button(string title, Vector2f position, Action onClick, bool isTransparent=false, Vector2f buttonSize=buttonBaseSize) : base(
+        buttonSize, 
+        position, 
+        isTransparent
+        )
     {
         this.title = title;
 
