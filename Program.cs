@@ -41,7 +41,7 @@ class Game
             Map.Instance.render();
             player.updatePlayer(window);
 
-            myButton.render();
+            //myButton.render();
 
             RenderQueue.render(window, uiView);
             window.Display();

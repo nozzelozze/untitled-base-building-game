@@ -4,7 +4,7 @@ using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
 
-class Button : GUIActor
+public class Button : GUIActor
 {
 
     string title;

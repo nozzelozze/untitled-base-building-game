@@ -24,7 +24,7 @@ public class PlayerState
             Structure? clickedStructure = Map.Instance.getStructureFromTile(Map.Instance.getTileAt((Vector2f)PlayerMouse.getPosition()));
             if (clickedStructure != null)
             {
-                Log.Message("clicked on a struct!");
+                clickedStructure.showInfo();
             }
         }
     }

@@ -100,7 +100,7 @@ class Map
         }
         foreach (Structure structure in structures)
         {
-            RenderQueue.queue(structure.sprite);
+            structure.render();
         }
     }
     

@@ -4,7 +4,7 @@ using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
 
-class GUIActor : Transformable
+public class GUIActor : Transformable
 {
     public FloatRect collisionRect;
     public RectangleShape baseRect = new RectangleShape();
@@ -23,7 +23,7 @@ class GUIActor : Transformable
     public static Dictionary<characterSize, uint> characterSizes = new Dictionary<characterSize, uint>
     {
         {characterSize.Info, 15},
-        {characterSize.HeadingSmall, 25},
+        {characterSize.HeadingSmall, 20},
         {characterSize.HeadingLarge, 50}
     };
 

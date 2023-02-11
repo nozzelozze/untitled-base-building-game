@@ -4,7 +4,7 @@ using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
 
-class IconButton : Button
+public class IconButton : Button
 {
 
     Sprite iconSprite;
