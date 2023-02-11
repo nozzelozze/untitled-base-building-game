@@ -13,7 +13,6 @@ class GUIActor : Transformable
     public static int outlineThickness = 2;
     public static Color outlineColor = GUIColor.darkColor;
 
-<<<<<<< HEAD
     public enum characterSize
     {
         Info,
@@ -33,18 +32,18 @@ class GUIActor : Transformable
         return characterSizes[size];
     }
 
-    public GUIActor(Vector2f size, Vector2f position)
-=======
-    public GUIActor(Vector2f size, Vector2f position, bool isTransparent=false)
->>>>>>> 026816d328a501c463cbad3fa20c5e9fdf6eab9f
+    public GUIActor(Vector2f size, Vector2f position, bool isTransparent = false, bool hasOutline = true)
     {
         collisionRect.Width = size.X;
         collisionRect.Height = size.Y;
         baseRect.Size = size;
         Position = position;
         baseRect.FillColor = !isTransparent ? GUIColor.greyColor : Color.Transparent;
-        baseRect.OutlineThickness = outlineThickness;
-        baseRect.OutlineColor = outlineColor;
+        if (hasOutline)
+        {
+            baseRect.OutlineThickness = outlineThickness;
+            baseRect.OutlineColor = outlineColor;
+        }
     }
 
     public virtual void render()

@@ -21,18 +21,11 @@ class Game
         Player player = new Player(camera);
         ResourceLoader resourceLoader = new ResourceLoader();
 
-<<<<<<< HEAD
-        Button myButton = new Button("Accept", new Vector2f(1000, 1000), () => Log.Message("hejsan!"));
-        Container myContainer = new Container("Mk2 Miner");
-=======
-        
-        //Button myButton = new Button("Accept", new Vector2f(100f, 50f), () => Log.Message("hejsan!"));
         IconButton myButton = new IconButton(
             ResourceLoader.fetchTexture(ResourceLoader.TextureType.Icon),
             new Vector2f(500, 500),
             () => Log.Message("Clicked a button!")
             );
->>>>>>> 026816d328a501c463cbad3fa20c5e9fdf6eab9f
 
         window.SetVerticalSyncEnabled(true);
         window.Closed += (sender, args) => window.Close();
@@ -48,12 +41,7 @@ class Game
             Map.Instance.render();
             player.updatePlayer(window);
 
-<<<<<<< HEAD
-            //myButton.render();
-=======
             myButton.render();
->>>>>>> 026816d328a501c463cbad3fa20c5e9fdf6eab9f
-            //myContainer.render();
 
             RenderQueue.render(window, uiView);
             window.Display();

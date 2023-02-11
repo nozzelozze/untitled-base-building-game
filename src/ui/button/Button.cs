@@ -12,12 +12,14 @@ class Button : GUIActor
 
     public event Action buttonClicked;
 
-    public static Vector2f buttonBaseSize = new Vector2f(100f, 50f);
+    public const int baseButtonSizeX = 100;
+    public const int baseButtonSizeY = 50;
 
-    public Button(string title, Vector2f position, Action onClick, bool isTransparent=false, Vector2f buttonSize=buttonBaseSize) : base(
-        buttonSize, 
+    public Button(string title, Vector2f position, Action onClick, bool isTransparent=false, int sizeX = baseButtonSizeX, int sizeY = baseButtonSizeY) : base(
+        new Vector2f(sizeX, sizeY), 
         position, 
-        isTransparent
+        isTransparent,
+        false
         )
     {
         this.title = title;

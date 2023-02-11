@@ -13,7 +13,9 @@ class IconButton : Button
         title==null ? "" : title, 
         position,
         onClick,
-        true
+        true,
+        (int)iconTexture.Size.X,
+        (int)iconTexture.Size.Y
         )
     {
         iconSprite = new Sprite(iconTexture);
