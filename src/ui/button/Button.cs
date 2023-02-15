@@ -7,8 +7,7 @@ using SFML.System;
 public class Button : GUIActor
 {
 
-    string title;
-    Text titleText;
+    public Text titleText;
 
     public event Action buttonClicked;
 
@@ -19,14 +18,13 @@ public class Button : GUIActor
         new Vector2f(sizeX, sizeY), 
         position, 
         isTransparent,
-        false
+        true
         )
     {
-        this.title = title;
 
         buttonClicked += onClick;
 
-        titleText = new Text(this.title, ResourceLoader.fetchFont("default"));
+        titleText = new Text(title, ResourceLoader.fetchFont("default"));
         titleText.FillColor = GUIColor.textColor;
         centerText(titleText, new Vector2f(Position.X+this.baseRect.Size.X/2, Position.Y+this.baseRect.Size.Y/2));
     }

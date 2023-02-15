@@ -57,6 +57,7 @@ class Game
                 }
             }
         );
+        TextButton myButton = new TextButton("ASDASASASDDAS", new Vector2f(500f, 500f), () => Log.Message("s"));
 
         window.SetVerticalSyncEnabled(true);
         window.Closed += (sender, args) => window.Close();
@@ -72,7 +73,7 @@ class Game
             Map.Instance.render();
             player.updatePlayer(window);
 
-            myContainer.render();
+            myButton.render();
 
             RenderQueue.render(window, uiView);
             window.Display();
