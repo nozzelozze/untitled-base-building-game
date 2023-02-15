@@ -7,46 +7,49 @@ using SFML.System;
 public class Container : GUIActor
 {
 
-    List<GUIActor> items = new List<GUIActor>();
-    RectangleShape barRect;
+    List<List<GUIActor>> items;
+    int margin;
 
-    Text titleText;
-
-    public IconButton closeButton;
-
-    /* Sizex, sizey AND closebutton should be in a infomenu class?  */
+    /* Sizex, sizey should be in a infomenu class?  */
 
     public const int sizeX = 350;
     public const int sizeY = 450;
     
-    public Container(string title, Vector2f position) : base(new Vector2f(sizeX, sizeY), position)
+    public Container(Vector2f position, bool isTransparent = false, List<List<GUIActor>> ? containerItems = null, int containerMargin = 65) : base(new Vector2f(sizeX, sizeY), position, isTransparent)
     {
-        barRect = new RectangleShape(new Vector2f(sizeX, 32));
-        barRect.OutlineThickness = GUIActor.outlineThickness;
-        barRect.OutlineColor = GUIActor.outlineColor;
-        barRect.FillColor = GUIColor.blueColor;
-        barRect.Position = Position;
-        titleText = new Text(title, ResourceLoader.fetchFont("default"));
-        titleText.CharacterSize = GUIActor.getCharacterSize(GUIActor.characterSize.HeadingSmall);
-        titleText.Position = Position + new Vector2f(5, 0);
-        closeButton = new IconButton(
-            ResourceLoader.fetchTexture(ResourceLoader.TextureType.CloseIcon), 
-            new Vector2f(Position.X+(float)sizeX-32f, Position.Y),
-            closeWindow
-        );
+        if (containerItems == null)
+            items = new List<List<GUIActor>>();
+        else
+            items = containerItems;
+        
+        margin = containerMargin;
     }
 
-    public void closeWindow()
+    public void addRow(List<GUIActor> newRow)
     {
+        items.Add(newRow);
+    }
 
+    public void addToRow(int rowIndex, GUIActor newItem)
+    {
+        items[rowIndex].Add(newItem);
     }
 
     public override void render()
     {
+        Vector2f currentItemPosition = Position + new Vector2f(margin, margin);
         base.render();
-        RenderQueue.queueGUI(barRect);
-        RenderQueue.queueGUI(titleText);
-        closeButton.render();
+        foreach (List<GUIActor> row in items)
+        {
+            foreach (GUIActor item in row)
+            {
+                item.Position = currentItemPosition;
+                item.render();
+                currentItemPosition.X += margin;
+            }
+            currentItemPosition.Y += margin;
+            currentItemPosition.X = Position.X + margin;
+        }
     }
 
 }

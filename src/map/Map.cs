@@ -100,7 +100,7 @@ class Map
         }
         foreach (Structure structure in structures)
         {
-            structure.render();
+            structure.update();
         }
     }
     

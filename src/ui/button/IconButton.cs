@@ -19,12 +19,13 @@ public class IconButton : Button
         )
     {
         iconSprite = new Sprite(iconTexture);
-        iconSprite.Position = position;
+        Position = position;
     }
 
     public override void render()
     {
         base.render();
+        iconSprite.Position = Position;
         RenderQueue.queueGUI(iconSprite);
     }
 }

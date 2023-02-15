@@ -21,11 +21,42 @@ class Game
         Player player = new Player(camera);
         ResourceLoader resourceLoader = new ResourceLoader();
 
-        IconButton myButton = new IconButton(
-            ResourceLoader.fetchTexture(ResourceLoader.TextureType.Icon),
-            new Vector2f(500, 500),
-            () => Log.Message("Clicked a button!")
-            );
+        Container myContainer = new Container(
+            new Vector2f(500f, 500f),
+            true,
+            new List<List<GUIActor>>{
+                new List<GUIActor>
+                {
+                    new IconButton(
+                        ResourceLoader.fetchTexture(ResourceLoader.TextureType.Icon),
+                        new Vector2f(500, 500),
+                        () => Log.Message("Clicked a button!")
+                        ),
+                    new IconButton(
+                        ResourceLoader.fetchTexture(ResourceLoader.TextureType.Icon),
+                        new Vector2f(500, 500),
+                        () => Log.Message("Clicked a button!")
+                        ),
+                    new IconButton(
+                        ResourceLoader.fetchTexture(ResourceLoader.TextureType.Icon),
+                        new Vector2f(500, 500),
+                        () => Log.Message("Clicked a button!")
+                        )
+                },
+                new List<GUIActor>{
+                                        new IconButton(
+                        ResourceLoader.fetchTexture(ResourceLoader.TextureType.Icon),
+                        new Vector2f(500, 500),
+                        () => Log.Message("Clicked a button!")
+                        ),
+                                            new IconButton(
+                        ResourceLoader.fetchTexture(ResourceLoader.TextureType.Icon),
+                        new Vector2f(500, 500),
+                        () => Log.Message("Clicked a button!")
+                        )
+                }
+            }
+        );
 
         window.SetVerticalSyncEnabled(true);
         window.Closed += (sender, args) => window.Close();
@@ -41,7 +72,7 @@ class Game
             Map.Instance.render();
             player.updatePlayer(window);
 
-            //myButton.render();
+            myContainer.render();
 
             RenderQueue.render(window, uiView);
             window.Display();

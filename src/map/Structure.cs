@@ -12,13 +12,21 @@ public class Structure
 
     public List<Tile> occupiedTiles = new List<Tile>();
 
-    public Container ? infoMenu; /* Här borde det vara en separat klass InfoMenu som ärver från bas Container. */
+    bool highlighted = false;
+    Container ? infoMenu; /* Här borde det vara en separat klass InfoMenu som ärver från bas Container. */
+    RectangleShape highlightRect;
 
     public Vector2f structureInfoPosition = new Vector2f(1500, 550);
+
+    int testNumber = 0;
 
     public Structure()
     {
         sprite = new Sprite(texture);
+        highlightRect = new RectangleShape((Vector2f)texture.Size);
+        highlightRect.OutlineColor = GUIColor.textColor;
+        highlightRect.OutlineThickness = GUIActor.outlineThickness;
+        highlightRect.FillColor = Color.Transparent;
     }
 
     public void placeStructure(Tile tile)
@@ -30,20 +38,33 @@ public class Structure
         Map.Instance.occupyTilesFromStructure(tile, this);
     }
 
-    public void showInfo()
+    public void highlight()
     {
-        infoMenu = new Container("Bed ._. :D:D:D", structureInfoPosition);
-        infoMenu.closeButton.buttonClicked += hideInfo;
+        //infoMenu = new Container("Bed ._. :D:D:D", structureInfoPosition);
+        //infoMenu.closeButton.buttonClicked += minimize;
+        //highlightRect.Position = (Vector2f)position;
+        //highlighted = true;
     }
 
-    public void hideInfo()
+    public void minimize()
     {
         infoMenu = null;
+        highlighted = false;
     }
 
-    public void render()
+    private void render()
     {
         RenderQueue.queue(sprite);
-        if (infoMenu != null) infoMenu.render();
+        if (highlighted && infoMenu != null)
+        {
+            infoMenu.render();
+            RenderQueue.queue(highlightRect);
+        }
+    }
+
+    public void update()
+    {
+        render();
+        testNumber ++;
     }
 }
