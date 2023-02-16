@@ -8,9 +8,9 @@ class Menu : Container
 {
     RectangleShape barRect;
     Text titleText;
-    public IconButton closeButton; 
+    public IconButton closeButton;
 
-    public Menu(string title, Vector2f position, List<GUIActor> ? items = null) : base(position)
+    public Menu(string title, Vector2f position, List<GUIActor> ? items = null) : base(position, AlignType.Left)
     {
         if (items != null)
         {
@@ -29,8 +29,8 @@ class Menu : Container
         titleText.Position = Position + new Vector2f(5, 0);
         closeButton = new IconButton(
             ResourceLoader.fetchTexture(ResourceLoader.TextureType.CloseIcon), 
-            new Vector2f(Position.X+(float)sizeX-32f, Position.Y),
-            closeWindow
+            closeWindow,
+            new Vector2f(Position.X+(float)sizeX-32f, Position.Y)
         );
     }
 

@@ -21,43 +21,8 @@ class Game
         Player player = new Player(camera);
         ResourceLoader resourceLoader = new ResourceLoader();
 
-        Container myContainer = new Container(
-            new Vector2f(500f, 500f),
-            true,
-            new List<List<GUIActor>>{
-                new List<GUIActor>
-                {
-                    new IconButton(
-                        ResourceLoader.fetchTexture(ResourceLoader.TextureType.Icon),
-                        new Vector2f(500, 500),
-                        () => Log.Message("Clicked a button!")
-                        ),
-                    new IconButton(
-                        ResourceLoader.fetchTexture(ResourceLoader.TextureType.Icon),
-                        new Vector2f(500, 500),
-                        () => Log.Message("Clicked a button!")
-                        ),
-                    new IconButton(
-                        ResourceLoader.fetchTexture(ResourceLoader.TextureType.Icon),
-                        new Vector2f(500, 500),
-                        () => Log.Message("Clicked a button!")
-                        )
-                },
-                new List<GUIActor>{
-                                        new IconButton(
-                        ResourceLoader.fetchTexture(ResourceLoader.TextureType.Icon),
-                        new Vector2f(500, 500),
-                        () => Log.Message("Clicked a button!")
-                        ),
-                                            new IconButton(
-                        ResourceLoader.fetchTexture(ResourceLoader.TextureType.Icon),
-                        new Vector2f(500, 500),
-                        () => Log.Message("Clicked a button!")
-                        )
-                }
-            }
-        );
-        TextButton myButton = new TextButton("ASDASASASDDAS", new Vector2f(500f, 500f), () => Log.Message("s"));
+        Menu myMenu = new Menu("Main Menu", new Vector2f(500f, 500f));
+        myMenu.addItem(new TextButton("Resume", () => Log.Message("hejsan")));
 
         window.SetVerticalSyncEnabled(true);
         window.Closed += (sender, args) => window.Close();
@@ -73,7 +38,7 @@ class Game
             Map.Instance.render();
             player.updatePlayer(window);
 
-            myButton.render();
+            myMenu.render();
 
             RenderQueue.render(window, uiView);
             window.Display();

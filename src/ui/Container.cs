@@ -10,12 +10,21 @@ public class Container : GUIActor
     List<List<GUIActor>> items;
     int margin;
 
+    public enum AlignType
+    {
+        Center,
+        Left,
+        Right
+    }
+
+    AlignType alignType;
+
     /* Sizex, sizey should be in a infomenu class?  */
 
     public const int sizeX = 350;
     public const int sizeY = 450;
     
-    public Container(Vector2f position, bool isTransparent = false, List<List<GUIActor>> ? containerItems = null, int containerMargin = 65) : base(new Vector2f(sizeX, sizeY), position, isTransparent)
+    public Container(Vector2f position, AlignType alignType, bool isTransparent = false, List<List<GUIActor>> ? containerItems = null, int containerMargin = 65) : base(new Vector2f(sizeX, sizeY), position, isTransparent)
     {
         if (containerItems == null)
             items = new List<List<GUIActor>>();
@@ -23,6 +32,8 @@ public class Container : GUIActor
             items = containerItems;
         
         margin = containerMargin;
+
+        this.alignType = alignType;
     }
 
     public void addRow(List<GUIActor> newRow)
@@ -37,7 +48,9 @@ public class Container : GUIActor
 
     public override void render()
     {
-        Vector2f currentItemPosition = Position + new Vector2f(margin, margin);
+        Vector2f currentItemPosition = alignType == AlignType.Center ? Position + new Vector2f(baseRect.Size.X/3, margin) : 
+        alignType == AlignType.Left ? Position + new Vector2f(baseRect.Size.X/5, margin) : 
+        alignType == AlignType.Right ? Position + new Vector2f(baseRect.Size.X/2, margin) : Position;
         base.render();
         foreach (List<GUIActor> row in items)
         {

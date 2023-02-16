@@ -9,17 +9,16 @@ public class IconButton : Button
 
     Sprite iconSprite;
 
-    public IconButton(Texture iconTexture, Vector2f position, Action onClick, string ? title=null) : base(
+    public IconButton(Texture iconTexture, Action onClick, Vector2f ? position, string ? title=null) : base(
         title==null ? "" : title, 
-        position,
         onClick,
+        position,
         true,
         (int)iconTexture.Size.X,
         (int)iconTexture.Size.Y
         )
     {
         iconSprite = new Sprite(iconTexture);
-        Position = position;
     }
 
     public override void render()

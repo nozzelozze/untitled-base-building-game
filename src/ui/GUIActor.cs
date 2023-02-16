@@ -8,7 +8,6 @@ public class GUIActor : Transformable
 {
     public FloatRect collisionRect;
     public RectangleShape baseRect = new RectangleShape();
-    public Vector2f size;
 
     public static int outlineThickness = 2;
     public static Color outlineColor = GUIColor.darkColor;
@@ -32,12 +31,12 @@ public class GUIActor : Transformable
         return characterSizes[size];
     }
 
-    public GUIActor(Vector2f size, Vector2f position, bool isTransparent = false, bool hasOutline = true)
+    public GUIActor(Vector2f size, Vector2f ? position = null, bool isTransparent = false, bool hasOutline = true)
     {
         collisionRect.Width = size.X;
         collisionRect.Height = size.Y;
         baseRect.Size = size;
-        Position = position;
+        Position = position ?? new Vector2f(0, 0);
         baseRect.FillColor = !isTransparent ? GUIColor.greyColor : Color.Transparent;
         if (hasOutline)
         {
@@ -51,6 +50,8 @@ public class GUIActor : Transformable
         baseRect.Position = Position;
         collisionRect.Top = Position.Y;
         collisionRect.Left = Position.X;
+        collisionRect.Width = baseRect.Size.X;
+        collisionRect.Height = baseRect.Size.Y;
         RenderQueue.queueGUI(baseRect);
     }
 
