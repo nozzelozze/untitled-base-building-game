@@ -9,7 +9,7 @@ public class TextButton : Button
 
     public static int textButtonMarginW = 25;
     public static int textButtonMarginH = 25;
-
+    
     public TextButton(string title, Action onClick, Vector2f ? position = null)
     : base(title, onClick, position)
     {

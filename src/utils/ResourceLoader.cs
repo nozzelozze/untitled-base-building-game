@@ -19,6 +19,7 @@ public class ResourceLoader
         Icon,
         CloseIcon
     }
+    
     private static Dictionary<TextureType, Texture> loadedTextures = new Dictionary<TextureType, Texture>();
 
     private static Dictionary<string, Font> fonts = new Dictionary<string, Font>();
