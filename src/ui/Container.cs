@@ -48,15 +48,15 @@ public class Container : GUIActor
 
     public override void render()
     {
-        Vector2f currentItemPosition = alignType == AlignType.Center ? Position + new Vector2f(baseRect.Size.X/3, margin) : 
-        alignType == AlignType.Left ? Position + new Vector2f(baseRect.Size.X/5, margin) : 
-        alignType == AlignType.Right ? Position + new Vector2f(baseRect.Size.X/2, margin) : Position;
+        Vector2f currentItemPosition = alignType == AlignType.Center ? Position + new Vector2f(baseRect.Size.X/2, margin) : 
+        alignType == AlignType.Left ? Position + new Vector2f(baseRect.Size.X/4, margin) : 
+        alignType == AlignType.Right ? Position + new Vector2f(baseRect.Size.X/(4/3), margin) : Position;
         base.render();
         foreach (List<GUIActor> row in items)
         {
             foreach (GUIActor item in row)
             {
-                item.Position = currentItemPosition;
+                item.Position = new Vector2f(currentItemPosition.X-item.getSize().X/2, currentItemPosition.Y);
                 item.render();
                 currentItemPosition.X += margin;
             }

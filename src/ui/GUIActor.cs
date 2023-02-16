@@ -45,6 +45,11 @@ public class GUIActor : Transformable
         }
     }
 
+    public Vector2f getSize()
+    {
+        return baseRect.Size;
+    }
+
     public virtual void render()
     {
         baseRect.Position = Position;

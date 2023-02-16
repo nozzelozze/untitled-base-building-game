@@ -40,10 +40,9 @@ public class Structure
 
     public void highlight()
     {
-        //infoMenu = new Container("Bed ._. :D:D:D", structureInfoPosition);
-        //infoMenu.closeButton.buttonClicked += minimize;
-        //highlightRect.Position = (Vector2f)position;
-        //highlighted = true;
+        infoMenu = new Menu("Mk miner 2", structureInfoPosition);
+        highlightRect.Position = (Vector2f)position;
+        highlighted = true;
     }
 
     public void minimize()

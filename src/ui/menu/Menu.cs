@@ -10,7 +10,7 @@ class Menu : Container
     Text titleText;
     public IconButton closeButton;
 
-    public Menu(string title, Vector2f position, List<GUIActor> ? items = null) : base(position, AlignType.Left)
+    public Menu(string title, Vector2f position, List<GUIActor> ? items = null) : base(position, AlignType.Center)
     {
         if (items != null)
         {
