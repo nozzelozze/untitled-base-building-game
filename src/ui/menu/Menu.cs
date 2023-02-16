@@ -4,7 +4,7 @@ using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
 
-class Menu : Container
+public class Menu : Container
 {
     RectangleShape barRect;
     Text titleText;

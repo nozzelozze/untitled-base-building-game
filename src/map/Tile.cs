@@ -5,6 +5,14 @@ using SFML.System;
 
 public class Tile
 {
+
+    public enum Type
+    {
+        Grass,
+        Dirt,
+        Ore
+    }
+
     private Texture texture;
     private Sprite sprite;
     public bool occupied = false;

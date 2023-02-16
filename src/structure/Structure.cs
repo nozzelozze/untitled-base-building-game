@@ -3,25 +3,25 @@ using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
 
-public class Structure
+public class Structure : Transformable
 {
-    public Texture texture = ResourceLoader.fetchTexture(ResourceLoader.TextureType.Bed);
+    public Texture texture;
     public Sprite sprite;
-    public Vector2i position;
-    public Vector2i size = new Vector2i(2, 1);
+    public Vector2i size;
 
     public List<Tile> occupiedTiles = new List<Tile>();
 
     bool highlighted = false;
-    Container ? infoMenu; /* Här borde det vara en separat klass InfoMenu som ärver från bas Container. */
+    public Menu infoMenu;
     RectangleShape highlightRect;
 
-    public Vector2f structureInfoPosition = new Vector2f(1500, 550);
+    public Vector2f structureInfoMenuPosition = new Vector2f(1500, 550);
 
-    int testNumber = 0;
-
-    public Structure()
+    public Structure(Texture texture, Vector2i size)
     {
+        this.size = size;
+        this.texture = texture;
+
         sprite = new Sprite(texture);
         highlightRect = new RectangleShape((Vector2f)texture.Size);
         highlightRect.OutlineColor = GUIColor.textColor;
@@ -31,39 +31,38 @@ public class Structure
 
     public void placeStructure(Tile tile)
     {
-        position = (Vector2i)Map.Instance.getTilePosition(tile);
-        sprite.Position = (Vector2f)position;
+        Position = Map.Instance.getTilePosition(tile);
+        sprite.Position = (Vector2f)Position;
         sprite.Color = Color.White;
         Map.Instance.structures.Add(this);
         Map.Instance.occupyTilesFromStructure(tile, this);
     }
 
-    public void highlight()
+    public virtual void highlight()
     {
-        infoMenu = new Menu("Mk miner 2", structureInfoPosition);
-        highlightRect.Position = (Vector2f)position;
+        infoMenu = new Menu("Mk miner 2", structureInfoMenuPosition);
+        infoMenu.closeButton.buttonClicked += minimize;
+        highlightRect.Position = Position;
         highlighted = true;
     }
 
     public void minimize()
     {
-        infoMenu = null;
         highlighted = false;
     }
 
     private void render()
     {
         RenderQueue.queue(sprite);
-        if (highlighted && infoMenu != null)
+        if (highlighted)
         {
             infoMenu.render();
             RenderQueue.queue(highlightRect);
         }
     }
 
-    public void update()
+    public virtual void update()
     {
         render();
-        testNumber ++;
     }
 }

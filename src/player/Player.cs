@@ -28,7 +28,7 @@ public class Player
         if (Input.events.Contains(Keyboard.Key.Space))
         {
             enterNewState(PlayerState.BuildState.BuildInstance);
-            PlayerState.BuildState.BuildInstance.enterBuild(new Structure());
+            PlayerState.BuildState.BuildInstance.enterBuild(new Miner());
         }
         if (Input.events.Contains(Keyboard.Key.Enter))
         {

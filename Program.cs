@@ -38,7 +38,7 @@ class Game
             Map.Instance.render();
             player.updatePlayer(window);
 
-            myMenu.render();
+            //myMenu.render();
 
             RenderQueue.render(window, uiView);
             window.Display();

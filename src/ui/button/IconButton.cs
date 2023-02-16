@@ -9,7 +9,7 @@ public class IconButton : Button
 
     Sprite iconSprite;
 
-    public IconButton(Texture iconTexture, Action onClick, Vector2f ? position, string ? title=null) : base(
+    public IconButton(Texture iconTexture, Action onClick, Vector2f ? position = null, string ? title = null) : base(
         title==null ? "" : title, 
         onClick,
         position,

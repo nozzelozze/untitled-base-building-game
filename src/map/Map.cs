@@ -58,7 +58,7 @@ class Map
 
     public bool isStructureValid(Structure structure)
     {
-        Tuple<int, int> firstTileIndex = getTileIndex(getTileAt((Vector2f)structure.position));
+        Tuple<int, int> firstTileIndex = getTileIndex(getTileAt((Vector2f)structure.Position));
 
         for (int x = firstTileIndex.Item1; x < firstTileIndex.Item1+structure.size.X; x++)
         {

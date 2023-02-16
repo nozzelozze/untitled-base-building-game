@@ -46,7 +46,7 @@ public class PlayerState
             base.update(player);
             Vector2f structurePosition = Map.Instance.getTilePosition(player.mouse.getTileFromMouse());
             wantedStructure.sprite.Position = structurePosition;
-            wantedStructure.position = (Vector2i)structurePosition;
+            wantedStructure.Position = structurePosition;
             if (Map.Instance.isStructureValid(wantedStructure))
             {
                 wantedStructure.sprite.Color = Color.Green;
