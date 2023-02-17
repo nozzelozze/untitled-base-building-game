@@ -6,15 +6,8 @@ using SFML.System;
 public class Miner : Structure
 {
 
-    private int myVariable;
-
-    public int MyVariable
-    {
-        get { return myVariable; }
-        set { myVariable = value; }
-    }
-
-    //public int oreCount = 1;
+    public int oreCount = 1;
+    
 
     public Miner()
     : base(ResourceLoader.fetchTexture(ResourceLoader.TextureType.Bed), new Vector2i(2, 1))
