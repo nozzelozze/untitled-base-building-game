@@ -13,7 +13,7 @@ public class Structure : Transformable
 
     bool highlighted = false;
     public Menu infoMenu;
-    RectangleShape highlightRect;
+    Highlight highlighter;
 
     public Vector2f structureInfoMenuPosition = new Vector2f(1500, 550);
 
@@ -23,10 +23,8 @@ public class Structure : Transformable
         this.texture = texture;
 
         sprite = new Sprite(texture);
-        highlightRect = new RectangleShape((Vector2f)texture.Size);
-        highlightRect.OutlineColor = GUIColor.textColor;
-        highlightRect.OutlineThickness = GUIActor.outlineThickness;
-        highlightRect.FillColor = Color.Transparent;
+
+        highlighter = new Highlight(new Vector2f(size.X*Map.tileSize, size.Y*Map.tileSize), Position);
     }
 
     public void placeStructure(Tile tile)
@@ -42,7 +40,7 @@ public class Structure : Transformable
     {
         infoMenu = new Menu("Mk miner 2", structureInfoMenuPosition);
         infoMenu.closeButton.buttonClicked += minimize;
-        highlightRect.Position = Position;
+        highlighter.setPosition(Position);
         highlighted = true;
     }
 
@@ -57,7 +55,7 @@ public class Structure : Transformable
         if (highlighted)
         {
             infoMenu.render();
-            RenderQueue.queue(highlightRect);
+            highlighter.render();
         }
     }
 

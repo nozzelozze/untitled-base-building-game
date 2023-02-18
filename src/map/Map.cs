@@ -8,7 +8,7 @@ class Map
 {
     public static Map Instance = new Map();
 
-    const int tileSize = 64;
+    public static int tileSize = 64;
     const int mapWidth = 64;
     const int mapHeight = 64;
     public Tile[ , ] tiles = new Tile[mapWidth,mapHeight];
