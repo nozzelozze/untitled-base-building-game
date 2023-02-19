@@ -47,7 +47,7 @@ public class PlayerState
             Vector2f structurePosition = Map.Instance.getTilePosition(player.mouse.getTileFromMouse());
             wantedStructure.sprite.Position = structurePosition;
             wantedStructure.Position = structurePosition;
-            if (Map.Instance.isStructureValid(wantedStructure))
+            if (wantedStructure.isCurrentlyValid())
             {
                 wantedStructure.sprite.Color = Color.Green;
             } else
@@ -60,7 +60,7 @@ public class PlayerState
         public override void onPlayerClick(Player player)
         {
             base.onPlayerClick(player);
-            if (Map.Instance.isStructureValid(wantedStructure))
+            if (wantedStructure.isCurrentlyValid())
             {
                 wantedStructure.placeStructure(player.mouse.getTileFromMouse());
                 player.enterNewState(IdleState.IdleInstance);

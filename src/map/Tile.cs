@@ -26,13 +26,19 @@ public class Tile
     public void giveResource(Resource newResource)
     {
         resource = newResource;
-        occupied = true;
+        //occupied = true;
+    }
+
+    public bool hasResource()
+    {
+        if (resource != null) return true;
+        return false;
     }
 
     public void freeFromResource(bool stillOccupied = false)
     {
         resource = null;
-        occupied = stillOccupied ? true : false;
+        //occupied = stillOccupied ? true : false;
     }
 
     public Tile(Texture texture)

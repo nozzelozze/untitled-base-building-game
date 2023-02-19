@@ -27,13 +27,35 @@ public class Structure : Transformable
         highlighter = new Highlight(new Vector2f(size.X*Map.tileSize, size.Y*Map.tileSize), Position);
     }
 
-    public void placeStructure(Tile tile)
+    public virtual void placeStructure(Tile tile)
     {
         Position = Map.Instance.getTilePosition(tile);
         sprite.Position = (Vector2f)Position;
         sprite.Color = Color.White;
         Map.Instance.structures.Add(this);
         Map.Instance.occupyTilesFromStructure(tile, this);
+    }
+
+    public virtual bool isTileValid(Tile tile)
+    {
+        return !tile.isOccupied();
+    }
+
+    public bool isCurrentlyValid()
+    {
+        Tuple<int, int> firstTileIndex = Map.Instance.getTileIndex(Map.Instance.getTileAt(Position));
+
+        for (int x = firstTileIndex.Item1; x < firstTileIndex.Item1+size.X; x++)
+        {
+            for (int y = firstTileIndex.Item2; y < firstTileIndex.Item2+size.Y; y++)
+                {
+                    if (isTileValid(Map.Instance.tiles[x, y]) == false)
+                    {
+                        return false;
+                    }
+                }   
+        }
+        return true;
     }
 
     public virtual void highlight()

@@ -27,7 +27,13 @@ class Game
         window.SetVerticalSyncEnabled(true);
         window.Closed += (sender, args) => window.Close();
         window.MouseWheelScrolled += camera.scroll;
-
+        for (int x = 0; x < 64; x++)
+        {
+            for (int y = 0; y < 64; y++)
+            {
+                if (new Random().Next(4) == 0) new Resource(Resource.ResourceType.Iron, Map.Instance.tiles[x, y]);
+            }
+        }
         while (window.IsOpen)
         {
             window.DispatchEvents();

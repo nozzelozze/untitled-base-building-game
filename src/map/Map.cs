@@ -56,23 +56,6 @@ class Map
         return null;
     }
 
-    public bool isStructureValid(Structure structure)
-    {
-        Tuple<int, int> firstTileIndex = getTileIndex(getTileAt((Vector2f)structure.Position));
-
-        for (int x = firstTileIndex.Item1; x < firstTileIndex.Item1+structure.size.X; x++)
-        {
-            for (int y = firstTileIndex.Item2; y < firstTileIndex.Item2+structure.size.Y; y++)
-                {
-                    if (tiles[x, y].isOccupied())
-                    {
-                        return false;
-                    }
-                }   
-        }
-        return true;
-    }
-
     public Tuple<int, int>? getTileIndex(Tile tile)
     {
         for (int i = 0; i < tiles.GetLength(0); i++)
@@ -95,7 +78,14 @@ class Map
             for (int y = 0; y < mapHeight; y++)
             {
                 Vector2f tilePosition = new Vector2f((float)x*tileSize, (float)y*tileSize);
-                if (!tiles[x, y].isOccupied()) tiles[x,y].render(tilePosition);
+                if (!tiles[x, y].isOccupied() && !tiles[x, y].hasResource())
+                {
+                    tiles[x,y].render(tilePosition);
+                }
+                if (tiles[x, y].hasResource())
+                {
+                    tiles[x, y].resource.render();
+                }
             }
         }
         foreach (Structure structure in structures)
