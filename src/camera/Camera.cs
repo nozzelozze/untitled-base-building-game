@@ -16,6 +16,18 @@ public class Camera
         view = cameraView;
     }
 
+    public static float getDistanceToCamera(Vector2f position)
+    {
+        Vector2f distanceVec = position - view.Center;
+        return (float)Math.Sqrt(Math.Pow(distanceVec.X, 2) + Math.Pow(distanceVec.Y, 2)); // use built in function
+    }
+
+    public static float getZoomLevel()
+    {
+        /* returns an value between 0 and 1 */
+        return (Math.Clamp(new Vector2(Camera.view.Size.X, Camera.view.Size.Y).Length(), 1000, 4500))/4500;
+    }
+
     public void scroll(object sender, MouseWheelScrollEventArgs e)
     {
         if (e.Delta > 0)
@@ -52,5 +64,6 @@ public class Camera
         }
         view.Size += (targetSize - view.Size) * .05f;
         renderWindow.SetView(view);
+        //Log.Message(((Math.Clamp(new Vector2(view.Size.X, view.Size.Y).Length(), 900, 4500)-900)/4500).ToString());
     }
 }

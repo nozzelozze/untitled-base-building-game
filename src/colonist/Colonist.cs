@@ -2,12 +2,16 @@ using System;
 using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
+using SFML.Audio;
+using System.Numerics;
 
 class Colonist : Transformable
 {
 
     Texture texture;
     Sprite sprite;
+
+    float dt = 0;
 
     public Colonist()
     {
@@ -25,7 +29,13 @@ class Colonist : Transformable
     public void update()
     {
         render();
-        Position = new Vector2f(Position.X+1, Position.Y);
+        //Position = new Vector2f(Position.X+1, Position.Y);
+        dt += 1;
+        if (dt >= 120)
+        {
+            dt = 0;
+            SoundManager.playSFX(SoundManager.SoundType.Colonist, Position);
+        };
     }
 
 }

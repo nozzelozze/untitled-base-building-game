@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
+using SFML.Audio;
 
 class Game
 {
