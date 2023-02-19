@@ -24,6 +24,8 @@ class Game
         Menu myMenu = new Menu("Main Menu", new Vector2f(500f, 500f));
         myMenu.addItem(new TextButton("Resume", () => Log.Message("hejsan")));
 
+        Colonist colonist = new Colonist();
+
         window.SetVerticalSyncEnabled(true);
         window.Closed += (sender, args) => window.Close();
         window.MouseWheelScrolled += camera.scroll;
@@ -45,6 +47,7 @@ class Game
             player.updatePlayer(window);
 
             //myMenu.render();
+            colonist.update();
 
             RenderQueue.render(window, uiView);
             window.Display();

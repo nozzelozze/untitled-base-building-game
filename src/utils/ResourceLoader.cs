@@ -19,7 +19,8 @@ public class ResourceLoader
         Icon,
         CloseIcon,
         Copper,
-        Iron
+        Iron,
+        Colonist
     }
     
     private static Dictionary<TextureType, Texture> loadedTextures = new Dictionary<TextureType, Texture>();
@@ -37,6 +38,7 @@ public class ResourceLoader
         loadedTextures.Add(TextureType.CloseIcon, new Texture(getTexturePath("closeWindowIcon")));
         loadedTextures.Add(TextureType.Copper, new Texture(getTexturePath("copper")));
         loadedTextures.Add(TextureType.Iron, new Texture(getTexturePath("iron")));
+        loadedTextures.Add(TextureType.Colonist, new Texture(getTexturePath("colonist")));
 
         // fonts
         fonts.Add("default", new Font(fontsPath + "default.ttf"));
