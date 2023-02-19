@@ -21,7 +21,7 @@ public class PlayerState
         public override void onPlayerClick(Player player)
         {
             base.onPlayerClick(player);
-            Structure? clickedStructure = Map.Instance.getStructureFromTile(Map.Instance.getTileAt((Vector2f)PlayerMouse.getPosition()));
+            Structure? clickedStructure = Map.Instance.getStructureFromTile(Map.Instance.getTileAt(Camera.winPositionToCam((Vector2f)PlayerMouse.getPosition())));
             if (clickedStructure != null)
             {
                 clickedStructure.highlight();

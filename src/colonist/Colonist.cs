@@ -30,12 +30,6 @@ class Colonist : Transformable
     {
         render();
         //Position = new Vector2f(Position.X+1, Position.Y);
-        dt += 1;
-        if (dt >= 120)
-        {
-            dt = 0;
-            SoundManager.playSFX(SoundManager.SoundType.Colonist, Position);
-        };
     }
 
 }

@@ -11,9 +11,12 @@ public class Player
     public static PlayerState currentState = PlayerState.IdleState.IdleInstance;
     Camera camera;
 
+    public DefaultInterface defaultInterface;
+
     public Player(Camera camera)
     {
         this.camera = camera;
+        defaultInterface = new DefaultInterface(this);
     }
 
     public void enterNewState(PlayerState newState)
@@ -25,11 +28,6 @@ public class Player
     public void updatePlayer(RenderWindow renderWindow)
     {
         mouse.renderCrosshair(renderWindow);
-        if (Input.events.Contains(Keyboard.Key.Space))
-        {
-            enterNewState(PlayerState.BuildState.BuildInstance);
-            PlayerState.BuildState.BuildInstance.enterBuild(new Miner());
-        }
         if (Input.events.Contains(Keyboard.Key.Enter))
         {
             enterNewState(PlayerState.IdleState.IdleInstance);
@@ -39,5 +37,6 @@ public class Player
             currentState.onPlayerClick(this);
         }
         currentState.update(this);
+        defaultInterface.update();
     }
 }

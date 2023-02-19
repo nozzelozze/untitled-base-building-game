@@ -16,11 +16,11 @@ class Game
         VideoMode mode = new VideoMode(WIDTH, HEIGHT);
         RenderWindow window = new RenderWindow(mode, TITLE);
 
+        ResourceLoader resourceLoader = new ResourceLoader();
         Camera camera = new Camera(new View(window.GetView()));
         View uiView = new View(window.GetView());
         Input input = new Input();
         Player player = new Player(camera);
-        ResourceLoader resourceLoader = new ResourceLoader();
 
         Menu myMenu = new Menu("Main Menu", new Vector2f(500f, 500f));
         myMenu.addItem(new TextButton("Resume", () => Log.Message("hejsan")));

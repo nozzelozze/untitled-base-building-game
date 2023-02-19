@@ -23,8 +23,8 @@ public class IconButton : Button
 
     public override void render()
     {
-        base.render();
         iconSprite.Position = Position;
         RenderQueue.queueGUI(iconSprite);
+        base.render();
     }
 }
