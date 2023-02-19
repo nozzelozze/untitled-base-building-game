@@ -17,7 +17,9 @@ public class ResourceLoader
         Bed,
         Crosshair,
         Icon,
-        CloseIcon
+        CloseIcon,
+        Copper,
+        Iron
     }
     
     private static Dictionary<TextureType, Texture> loadedTextures = new Dictionary<TextureType, Texture>();
@@ -33,6 +35,8 @@ public class ResourceLoader
         loadedTextures.Add(TextureType.Crosshair, new Texture(texturesPath + "crosshair.png"));
         loadedTextures.Add(TextureType.Icon, new Texture(getTexturePath("icon")));
         loadedTextures.Add(TextureType.CloseIcon, new Texture(getTexturePath("closeWindowIcon")));
+        loadedTextures.Add(TextureType.Copper, new Texture(getTexturePath("copper")));
+        loadedTextures.Add(TextureType.Iron, new Texture(getTexturePath("iron")));
 
         // fonts
         fonts.Add("default", new Font(fontsPath + "default.ttf"));

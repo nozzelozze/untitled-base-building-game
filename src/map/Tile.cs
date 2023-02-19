@@ -16,10 +16,23 @@ public class Tile
     private Texture texture;
     private Sprite sprite;
     public bool occupied = false;
+    public Resource ? resource = null;
 
     public bool isOccupied()
     {
         return occupied;
+    }
+
+    public void giveResource(Resource newResource)
+    {
+        resource = newResource;
+        occupied = true;
+    }
+
+    public void freeFromResource(bool stillOccupied = false)
+    {
+        resource = null;
+        occupied = stillOccupied ? true : false;
     }
 
     public Tile(Texture texture)
