@@ -78,11 +78,18 @@ public class Container : GUIActor
         baseRect.Size = newSize;
     }
 
-    public override void render()
+    public Vector2f alignTypeOffset(AlignType alignType, Vector2f position)
     {
-        Vector2f currentItemPosition = alignType == AlignType.Center ? Position + new Vector2f(baseRect.Size.X/2, margin) : 
+        Vector2f newPosition = 
+        alignType == AlignType.Center ? Position + new Vector2f(baseRect.Size.X/2, margin) : 
         alignType == AlignType.Left ? Position + new Vector2f(baseRect.Size.X/4, margin) : 
         alignType == AlignType.Right ? Position + new Vector2f(baseRect.Size.X/(4/3), margin) : Position;
+        return newPosition;
+    }
+
+    public override void render()
+    {
+        Vector2f currentItemPosition = alignTypeOffset(alignType, Position);
         currentItemPosition += new Vector2f(marginOffsetX, marginOffsetY);
         base.render();
         int rowCount = 0;
@@ -98,7 +105,7 @@ public class Container : GUIActor
                 itemCount ++;
             }
             currentItemPosition.Y += margin;
-            currentItemPosition.X = Position.X + margin;
+            currentItemPosition.X = alignTypeOffset(alignType, Position).X;
         }
         if (!hasStaticSize)
         {

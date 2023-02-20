@@ -24,7 +24,7 @@ public class DefaultInterface
     public void onBuildButtonClick()
     {
         player.enterNewState(PlayerState.BuildState.BuildInstance);
-        PlayerState.BuildState.BuildInstance.enterBuild(new Miner());
+        PlayerState.BuildState.BuildInstance.enterBuild(new Chest());
     }
 
     public void update()

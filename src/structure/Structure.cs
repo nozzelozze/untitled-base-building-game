@@ -57,7 +57,7 @@ public class Structure : Transformable
 
     public virtual void highlight()
     {
-        infoMenu = new Menu("Mk miner 2", structureInfoMenuPosition);
+        infoMenu = new Menu("Structure", structureInfoMenuPosition);
         infoMenu.closeButton.buttonClicked += Player.playerHighlight.unhightlight;
     }
 

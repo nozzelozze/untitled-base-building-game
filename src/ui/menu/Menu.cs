@@ -41,6 +41,11 @@ public class Menu : Container
 
     }
 
+    public void changeTitle(string newTitle)
+    {
+        titleText.DisplayedString = newTitle;
+    }
+
     public void addItem(GUIActor item)
     {
         addRow(new List<GUIActor>{item});

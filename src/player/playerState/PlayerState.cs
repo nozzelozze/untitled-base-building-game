@@ -53,7 +53,7 @@ public class PlayerState
     {
         public static BuildState BuildInstance = new BuildState();
 
-        Structure wantedStructure = new Miner();
+        Structure wantedStructure = new Chest();
 
         public void enterBuild(Structure wanted)
         {
