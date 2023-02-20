@@ -25,17 +25,17 @@ public class Camera
     public static float getZoomLevel()
     {
         /* returns an value between 0 and 1 */
-        return (Math.Clamp(new Vector2(Camera.view.Size.X, Camera.view.Size.Y).Length(), 1000, 4500))/4500;
+        return (Math.Clamp(new Vector2(Camera.view.Size.X, Camera.view.Size.Y).Length(), 2000, 9000))/9000;
     }
 
-    public void scroll(object sender, MouseWheelScrollEventArgs e)
+    public void scroll(object ? sender, MouseWheelScrollEventArgs e)
     {
         if (e.Delta > 0)
         {
-            if (new Vector2(targetSize.X, targetSize.Y).Length() > 1000) targetSize *= 0.8f;
+            if (new Vector2(targetSize.X, targetSize.Y).Length() > 2000) targetSize *= 0.8f;
         } else if (e.Delta < 0)
         {
-            if (new Vector2(targetSize.X, targetSize.Y).Length() < 4500) targetSize *= 1.2f;
+            if (new Vector2(targetSize.X, targetSize.Y).Length() < 9000) targetSize *= 1.2f;
         }
     }
 
@@ -64,6 +64,5 @@ public class Camera
         }
         view.Size += (targetSize - view.Size) * .05f;
         renderWindow.SetView(view);
-        //Log.Message(((Math.Clamp(new Vector2(view.Size.X, view.Size.Y).Length(), 900, 4500)-900)/4500).ToString());
     }
 }
