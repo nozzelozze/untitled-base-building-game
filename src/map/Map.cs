@@ -56,7 +56,7 @@ class Map
         return null;
     }
 
-    public Tuple<int, int>? getTileIndex(Tile tile)
+    public Tuple<int, int> getTileIndex(Tile tile)
     {
         for (int i = 0; i < tiles.GetLength(0); i++)
         {
@@ -68,7 +68,8 @@ class Map
                 }
             }
         }
-        return null;
+        Log.Error($"Could not find tile index. {tile}");
+        return new Tuple<int, int>(0, 0);
     }
 
     public void render()
@@ -84,7 +85,7 @@ class Map
                 }
                 if (tiles[x, y].hasResource())
                 {
-                    tiles[x, y].resource.render();
+                    tiles[x, y].resource?.render();
                 }
             }
         }
@@ -97,7 +98,7 @@ class Map
     public Vector2f getTilePosition(Tile tile)
     {
         Vector2f position = new Vector2f();
-        Tuple<int, int>? tileIndex = getTileIndex(tile);
+        Tuple<int, int> tileIndex = getTileIndex(tile);
         position.X = tileIndex.Item1*tileSize;
         position.Y = tileIndex.Item2*tileSize;
         return position;

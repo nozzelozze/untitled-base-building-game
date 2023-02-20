@@ -8,7 +8,7 @@ public class Miner : Structure
 
     public int oreCount = 1;
     
-    public Resource resource;
+    //public Resource resource;
 
     public Miner()
     : base(ResourceLoader.fetchTexture(ResourceLoader.TextureType.Bed), new Vector2i(2, 1))
@@ -24,7 +24,7 @@ public class Miner : Structure
     public override void highlight()
     {
         base.highlight();
-        infoMenu.addItem(new TextButton("oreCount", () => {}));
+        infoMenu?.addItem(new TextButton("oreCount", () => {}));
     }
 
     public override void update()

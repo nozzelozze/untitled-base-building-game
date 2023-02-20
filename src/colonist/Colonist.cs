@@ -11,8 +11,6 @@ class Colonist : Transformable
     Texture texture;
     Sprite sprite;
 
-    float dt = 0;
-
     public Colonist()
     {
         texture = ResourceLoader.fetchTexture(ResourceLoader.TextureType.Colonist);

@@ -50,7 +50,7 @@ public class PlayerState
     {
         public static BuildState BuildInstance = new BuildState();
 
-        Structure wantedStructure;
+        Structure wantedStructure = new Miner();
 
         public void enterBuild(Structure wanted)
         {

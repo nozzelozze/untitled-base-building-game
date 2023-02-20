@@ -11,8 +11,7 @@ public class Structure : Transformable
 
     public List<Tile> occupiedTiles = new List<Tile>();
 
-    bool highlighted = false;
-    public Menu infoMenu;
+    public Menu ? infoMenu;
 
     public Vector2f structureInfoMenuPosition = new Vector2f(1500, 550);
 
@@ -64,7 +63,7 @@ public class Structure : Transformable
 
     public void renderHighlight()
     {
-        infoMenu.render();
+        infoMenu?.render();
     }
 
     private void render()

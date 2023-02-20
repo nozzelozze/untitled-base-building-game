@@ -12,6 +12,7 @@ public class ResourceLoader
 
     public enum TextureType
     {
+        DefaultTexture,
         Stone,
         Grass,
         Bed,
@@ -39,6 +40,8 @@ public class ResourceLoader
         loadedTextures.Add(TextureType.Copper, new Texture(getTexturePath("copper")));
         loadedTextures.Add(TextureType.Iron, new Texture(getTexturePath("iron")));
         loadedTextures.Add(TextureType.Colonist, new Texture(getTexturePath("colonist")));
+        loadedTextures.Add(TextureType.DefaultTexture, new Texture(getTexturePath("defaultTexture")));
+        
 
         // fonts
         fonts.Add("default", new Font(fontsPath + "default.ttf"));
@@ -51,7 +54,7 @@ public class ResourceLoader
         if (!fonts.ContainsKey(fontName))
         {
             Log.Error($"{fontName} does not exist.");
-            return null;
+            return fonts["default"];
         }
         return fonts[fontName];
     }
@@ -61,7 +64,7 @@ public class ResourceLoader
         if (!loadedTextures.ContainsKey(type))
         {
             Log.Error($"{type} does not exist.");
-            return null;
+            return loadedTextures[TextureType.DefaultTexture];
         }
         return loadedTextures[type];
     }
