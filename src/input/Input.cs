@@ -22,6 +22,7 @@ class Input
     
     public void getEvents()
     {
+        PlayerMouse.onUI = false;
         events.Clear();
         foreach(KeyValuePair<Mouse.Button, bool> entry in mouseButtons)
         {

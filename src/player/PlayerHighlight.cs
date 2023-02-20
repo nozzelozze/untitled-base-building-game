@@ -16,11 +16,13 @@ public class PlayerHighlight
 
     public RectangleShape outlineRectangle;
 
+    private int outlineThickness = 3;
+
     public PlayerHighlight()
     {
         outlineRectangle = new RectangleShape();
         outlineRectangle.OutlineColor = GUIColor.textColor;
-        outlineRectangle.OutlineThickness = GUIActor.outlineThickness;
+        outlineRectangle.OutlineThickness = outlineThickness;
         outlineRectangle.FillColor = Color.Transparent;
     }
 

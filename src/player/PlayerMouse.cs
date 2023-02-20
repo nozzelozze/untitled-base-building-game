@@ -9,6 +9,8 @@ public class PlayerMouse
     Texture crosshairTexture;
     Sprite crosshairSprite;
 
+    public static bool onUI;
+
     static Vector2i currentPosition;
 
     public PlayerMouse()

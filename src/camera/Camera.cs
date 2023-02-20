@@ -48,6 +48,15 @@ public class Camera
         return newPosition;
     }
 
+    public static Vector2f camPositionToWin(Vector2f position)
+    {
+        float factor = defaultSize.X / view.Size.X;
+        Vector2f newPosition = position/factor;
+        newPosition -= view.Center - view.Size/2;
+
+        return newPosition;
+    }
+
     public void updateCamera(RenderWindow renderWindow)
     {
         renderWindow.SetView(view);

@@ -10,7 +10,9 @@ public class Menu : Container
     Text titleText;
     public IconButton closeButton;
 
-    public Menu(string title, Vector2f position, List<GUIActor> ? items = null) : base(position, AlignType.Center)
+    public const float barRectSizeY = 32;
+
+    public Menu(string title, Vector2f position, List<GUIActor> ? items = null) : base(position, AlignType.Center, marginOffsetY: barRectSizeY)
     {
         if (items != null)
         {
@@ -19,7 +21,7 @@ public class Menu : Container
                 addRow(new List<GUIActor>{item});
             }
         }
-        barRect = new RectangleShape(new Vector2f(sizeX, 32));
+        barRect = new RectangleShape(new Vector2f(defaultSizeX, barRectSizeY));
         barRect.OutlineThickness = GUIActor.outlineThickness;
         barRect.OutlineColor = GUIActor.outlineColor;
         barRect.FillColor = GUIColor.blueColor;
@@ -30,7 +32,7 @@ public class Menu : Container
         closeButton = new IconButton(
             ResourceLoader.fetchTexture(ResourceLoader.TextureType.CloseIcon), 
             closeWindow,
-            new Vector2f(Position.X+(float)sizeX-32f, Position.Y)
+            new Vector2f(Position.X+(float)defaultSizeX-barRectSizeY, Position.Y)
         );
     }
 
@@ -47,6 +49,10 @@ public class Menu : Container
     public override void render()
     {
         base.render();
+        barRect.Position = Position;
+        titleText.Position = Position + new Vector2f(5, 0);
+        closeButton.Position = new Vector2f(Position.X+(float)getSize().X-32f, Position.Y);
+        barRect.Size = new Vector2f(baseRect.Size.X, barRectSizeY);
         RenderQueue.queueGUI(barRect);
         RenderQueue.queueGUI(titleText);
         closeButton.render(); 

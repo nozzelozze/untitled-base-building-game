@@ -22,9 +22,6 @@ class Game
         Input input = new Input();
         Player player = new Player(camera);
 
-        Menu myMenu = new Menu("Main Menu", new Vector2f(500f, 500f));
-        myMenu.addItem(new TextButton("Resume", () => Log.Message("hejsan")));
-
         Colonist colonist = new Colonist();
 
         window.SetVerticalSyncEnabled(true);
@@ -45,11 +42,10 @@ class Game
 
             camera.updateCamera(window);
             Map.Instance.render();
-            player.updatePlayer(window);
 
-            //myMenu.render();
             colonist.update();
 
+            player.updatePlayer(window);
             RenderQueue.render(window, uiView);
             window.Display();
         }

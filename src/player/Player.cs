@@ -30,16 +30,12 @@ public class Player
     public void updatePlayer(RenderWindow renderWindow)
     {
         mouse.renderCrosshair(renderWindow);
-        if (Input.events.Contains(Keyboard.Key.Enter))
-        {
-            enterNewState(PlayerState.IdleState.IdleInstance);
-        }
+        defaultInterface.update();
+        currentState.update(this);
+        playerHighlight.update();
         if (Input.events.Contains(Mouse.Button.Left))
         {
             currentState.onPlayerClick(this);
         }
-        defaultInterface.update();
-        currentState.update(this);
-        playerHighlight.update();
     }
 }

@@ -9,7 +9,9 @@ public class PlayerState
 
     public static PlayerState Instance = new PlayerState();
 
-    public virtual void onPlayerClick(Player player) {}
+    public virtual void onPlayerClick(Player player) {
+        if (PlayerMouse.onUI) return;
+    }
     public virtual void enter() {}
     public virtual void leave() {}
     public virtual void update(Player player) {}
@@ -37,10 +39,11 @@ public class PlayerState
             if (clickedTile.isOccupied() == false && clickedTile.hasResource())
             {
                 Player.playerHighlight.highlight(
-                    () => {},
+                    clickedTile.resource.highlight,
                     () => {},
                     Map.Instance.getTilePosition(clickedTile),
-                    new Vector2f(Map.tileSize, Map.tileSize)
+                    new Vector2f(Map.tileSize, Map.tileSize),
+                    () => clickedTile.resource.clickMenu.render()
                 );
             }
         }

@@ -41,6 +41,7 @@ public class Button : GUIActor
             if (collisionRect.Contains(mousePosition.X, mousePosition.Y))
             {
                 buttonClicked.Invoke();
+                Input.events.Remove(Mouse.Button.Left);
             }
         }
     }

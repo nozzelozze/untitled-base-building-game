@@ -8,7 +8,20 @@ public class Container : GUIActor
 {
 
     List<List<GUIActor>> items;
-    int margin;
+    private int margin;
+    public int Margin
+    {
+        get
+        {
+            return this.margin;
+        }
+        set
+        {
+            this.margin = value;
+        }
+    }
+    public float marginOffsetX;
+    public float marginOffsetY;
 
     public enum AlignType
     {
@@ -19,12 +32,16 @@ public class Container : GUIActor
 
     AlignType alignType;
 
-    /* Sizex, sizey should be in a infomenu class?  */
+    public const int defaultSizeX = 350;
+    public const int defaultSizeY = 450;
 
-    public const int sizeX = 350;
-    public const int sizeY = 450;
+    public bool hasStaticSize = false;
     
-    public Container(Vector2f position, AlignType alignType, bool isTransparent = false, List<List<GUIActor>> ? containerItems = null, int containerMargin = 65) : base(new Vector2f(sizeX, sizeY), position, isTransparent)
+    public Container(Vector2f position, AlignType alignType, bool isTransparent = false, 
+    List<List<GUIActor>> ? containerItems = null, int containerMargin = 65, Vector2f ? staticSize = null, 
+    float marginOffsetX = 0, float marginOffsetY = 0
+    ) : 
+    base(new Vector2f(defaultSizeX, defaultSizeY), position, isTransparent)
     {
         if (containerItems == null)
             items = new List<List<GUIActor>>();
@@ -32,6 +49,15 @@ public class Container : GUIActor
             items = containerItems;
         
         margin = containerMargin;
+
+        if (staticSize != null)
+        {
+            baseRect.Size = staticSize.Value;
+            hasStaticSize = true;
+        }
+
+        this.marginOffsetX = marginOffsetX;
+        this.marginOffsetY = marginOffsetY;
 
         this.alignType = alignType;
     }
@@ -46,22 +72,40 @@ public class Container : GUIActor
         items[rowIndex].Add(newItem);
     }
 
+    public void setStaticSize(Vector2f newSize)
+    {
+        hasStaticSize = true;
+        baseRect.Size = newSize;
+    }
+
     public override void render()
     {
         Vector2f currentItemPosition = alignType == AlignType.Center ? Position + new Vector2f(baseRect.Size.X/2, margin) : 
         alignType == AlignType.Left ? Position + new Vector2f(baseRect.Size.X/4, margin) : 
         alignType == AlignType.Right ? Position + new Vector2f(baseRect.Size.X/(4/3), margin) : Position;
+        currentItemPosition += new Vector2f(marginOffsetX, marginOffsetY);
         base.render();
+        int rowCount = 0;
+        int itemCount = 0;
         foreach (List<GUIActor> row in items)
         {
+            rowCount ++;
             foreach (GUIActor item in row)
             {
                 item.Position = new Vector2f(currentItemPosition.X-item.getSize().X/2, currentItemPosition.Y);
                 item.render();
                 currentItemPosition.X += margin;
+                itemCount ++;
             }
             currentItemPosition.Y += margin;
             currentItemPosition.X = Position.X + margin;
+        }
+        if (!hasStaticSize)
+        {
+            baseRect.Size = new Vector2f(
+                itemCount*Margin + Margin*2,
+                rowCount*Margin + Margin*2
+            );
         }
     }
 

@@ -57,6 +57,9 @@ public class GUIActor : Transformable
         collisionRect.Left = Position.X;
         collisionRect.Width = baseRect.Size.X;
         collisionRect.Height = baseRect.Size.Y;
+        Vector2i mousePosition = PlayerMouse.getPosition();
+        if (collisionRect.Contains(mousePosition.X, mousePosition.Y))
+            PlayerMouse.onUI = true;
         RenderQueue.queueGUI(baseRect);
     }
 
