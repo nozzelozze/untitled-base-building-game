@@ -21,10 +21,27 @@ public class PlayerState
         public override void onPlayerClick(Player player)
         {
             base.onPlayerClick(player);
+            Player.playerHighlight.unhightlight();
             Structure? clickedStructure = Map.Instance.getStructureFromTile(Map.Instance.getTileAt(Camera.winPositionToCam((Vector2f)PlayerMouse.getPosition())));
             if (clickedStructure != null)
             {
-                clickedStructure.highlight();
+                Player.playerHighlight.highlight(
+                    clickedStructure.highlight, 
+                    () => {}, 
+                    clickedStructure.Position, 
+                    new Vector2f(clickedStructure.size.X*Map.tileSize, clickedStructure.size.Y*Map.tileSize), 
+                    clickedStructure.renderHighlight
+                    );
+            }
+            Tile clickedTile = Map.Instance.getTileAt(Camera.winPositionToCam((Vector2f)PlayerMouse.getPosition()));
+            if (clickedTile.isOccupied() == false && clickedTile.hasResource())
+            {
+                Player.playerHighlight.highlight(
+                    () => {},
+                    () => {},
+                    Map.Instance.getTilePosition(clickedTile),
+                    new Vector2f(Map.tileSize, Map.tileSize)
+                );
             }
         }
     }

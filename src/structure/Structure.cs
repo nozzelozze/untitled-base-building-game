@@ -13,7 +13,6 @@ public class Structure : Transformable
 
     bool highlighted = false;
     public Menu infoMenu;
-    Highlight highlighter;
 
     public Vector2f structureInfoMenuPosition = new Vector2f(1500, 550);
 
@@ -24,7 +23,6 @@ public class Structure : Transformable
 
         sprite = new Sprite(texture);
 
-        highlighter = new Highlight(new Vector2f(size.X*Map.tileSize, size.Y*Map.tileSize), Position);
     }
 
     public virtual void placeStructure(Tile tile)
@@ -61,24 +59,17 @@ public class Structure : Transformable
     public virtual void highlight()
     {
         infoMenu = new Menu("Mk miner 2", structureInfoMenuPosition);
-        infoMenu.closeButton.buttonClicked += minimize;
-        highlighter.setPosition(Position);
-        highlighted = true;
+        infoMenu.closeButton.buttonClicked += Player.playerHighlight.unhightlight;
     }
 
-    public void minimize()
+    public void renderHighlight()
     {
-        highlighted = false;
+        infoMenu.render();
     }
 
     private void render()
     {
         RenderQueue.queue(sprite);
-        if (highlighted)
-        {
-            infoMenu.render();
-            highlighter.render();
-        }
     }
 
     public virtual void update()

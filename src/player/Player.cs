@@ -11,6 +11,8 @@ public class Player
     public static PlayerState currentState = PlayerState.IdleState.IdleInstance;
     Camera camera;
 
+    public static PlayerHighlight playerHighlight = new PlayerHighlight();
+
     public DefaultInterface defaultInterface;
 
     public Player(Camera camera)
@@ -36,7 +38,8 @@ public class Player
         {
             currentState.onPlayerClick(this);
         }
-        currentState.update(this);
         defaultInterface.update();
+        currentState.update(this);
+        playerHighlight.update();
     }
 }
