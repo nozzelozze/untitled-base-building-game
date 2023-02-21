@@ -80,7 +80,7 @@ public class Container : GUIActor
         baseRect.Size = newSize;
     }
 
-    public Vector2f alignTypeOffset(AlignType alignType, Vector2f position)
+    private Vector2f alignTypeOffset(AlignType alignType, Vector2f position)
     {
         Vector2f newPosition = 
         alignType == AlignType.Center ? Position + new Vector2f(baseRect.Size.X/2, edgeMargin) : 

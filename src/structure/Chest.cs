@@ -20,7 +20,11 @@ public class Chest : Structure
         infoMenu.changeTitle("Chest");
         if (wantMenu())
         {
-
+            infoMenu.addRow(new List<GUIActor>{new GUIText("Contents:")});
+            foreach (KeyValuePair<Item.Type, int> entry in storageComponent.getItems())
+            {
+                infoMenu.addRow(new List<GUIActor>{new GUIText($"{Item.itemNames[entry.Key]}: %v", tickVar: () => entry.Key)});
+            }
         }
     }
 

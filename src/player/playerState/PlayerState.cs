@@ -77,6 +77,10 @@ public class PlayerState
                 wantedStructure.sprite.Color = GUIColor.invalidRedColor;
             }
             RenderQueue.queue(wantedStructure.sprite);
+            if (Input.events.Contains(Mouse.Button.Right))
+            {
+                player.enterNewState(IdleState.IdleInstance);
+            }
         }
 
         public override void onPlayerClick(Player player)

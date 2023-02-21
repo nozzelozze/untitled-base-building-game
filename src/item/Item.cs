@@ -11,9 +11,13 @@ public class Item
     {
         Iron
     }
+    public static Dictionary<Type, string> itemNames = new Dictionary<Type, string>
+    {
+        {Type.Iron, "Iron"}
+    };
 
     string name;
-    Type type;
+    public Type type;
 
     public Item(string name, Type type)
     {

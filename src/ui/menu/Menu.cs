@@ -12,7 +12,7 @@ public class Menu : Container
 
     public const float barRectSizeY = 32;
 
-    public Menu(string title, Vector2f position, List<GUIActor> ? items = null) : base(position, AlignType.Center, marginOffsetY: barRectSizeY)
+    public Menu(string title, Vector2f position, List<GUIActor> ? items = null, AlignType alignType = AlignType.Center) : base(position, alignType)
     {
         if (items != null)
         {

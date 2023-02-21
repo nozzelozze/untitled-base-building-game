@@ -6,14 +6,19 @@ using SFML.System;
 public class StorageComponent
 {
 
-    private List<Item> items;
+    private Dictionary<Item.Type, int> items;
     bool storageFull;
     int maximumStorage;
     public int count
     {
         get
         {
-            return items.Count;
+            int sum = 0;
+            foreach (KeyValuePair<Item.Type, int> entry in items)
+            {
+                sum += entry.Value;
+            }
+            return sum;
         }
         set
         {
@@ -23,7 +28,7 @@ public class StorageComponent
 
     public StorageComponent(int maximumStorage)
     {
-        items = new List<Item>();
+        items = new Dictionary<Item.Type, int>();
         storageFull = false;
         this.maximumStorage = maximumStorage;
     }
@@ -33,10 +38,18 @@ public class StorageComponent
         return storageFull;
     }
 
+    public Dictionary<Item.Type, int> getItems()
+    {
+        return items;
+    }
+
     public void addItem(Item newItem)
     {
         if (items.Count < maximumStorage) 
-            items.Add(newItem);
+            if (items.ContainsKey(newItem.type))
+                items[newItem.type] += 1;
+            else
+                items.Add(newItem.type, 1);
         else
             storageFull = true;
     }

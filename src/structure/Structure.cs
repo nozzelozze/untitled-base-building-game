@@ -34,7 +34,7 @@ public class Structure : Transformable
         this.cost = cost;
     }
 
-    public virtual void placeStructure(Tile tile, bool instaBuild = false)
+    public virtual void placeStructure(Tile tile, bool instaBuild = true)
     {
         Position = Map.Instance.getTilePosition(tile);
         sprite.Position = Position;
@@ -42,13 +42,14 @@ public class Structure : Transformable
         sprite.Color = new Color(200, 200, 200, 205);
         Map.Instance.structures.Add(this);
         if (instaBuild) build();
+        Player.playerHighlight.unhightlight();
     }
 
     public void build()
     {
         built = true;
         sprite.Color = Color.White;
-        SoundManager.playSFX(SoundManager.SoundType.Build, Position);
+        SoundManager.playSFX(SoundManager.SoundType.Build);
     }
 
     public virtual bool isTileValid(Tile tile)

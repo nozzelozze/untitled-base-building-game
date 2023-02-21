@@ -16,7 +16,7 @@ public class SoundManager
 
     private static Dictionary<SoundType, Sound> loadedSounds = new Dictionary<SoundType, Sound>
     {
-        {SoundType.Build, getSound("build1")}
+        {SoundType.Build, getSound("build2")}
     };
 
 
