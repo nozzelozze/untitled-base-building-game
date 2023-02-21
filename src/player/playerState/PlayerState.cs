@@ -23,6 +23,7 @@ public class PlayerState
         public override void onPlayerClick(Player player)
         {
             base.onPlayerClick(player);
+            if (PlayerMouse.onUI) return;
             Player.playerHighlight.unhightlight();
             Structure? clickedStructure = Map.Instance.getStructureFromTile(Map.Instance.getTileAt(Camera.winPositionToCam((Vector2f)PlayerMouse.getPosition())));
             if (clickedStructure != null)
@@ -64,6 +65,7 @@ public class PlayerState
         public override void update(Player player)
         {
             base.update(player);
+            if (PlayerMouse.onUI) return;
             Vector2f structurePosition = Map.Instance.getTilePosition(player.mouse.getTileFromMouse());
             wantedStructure.sprite.Position = structurePosition;
             wantedStructure.Position = structurePosition;

@@ -13,7 +13,7 @@ public class Miner : Structure
     private StorageComponent storageComponent;
 
     public Miner()
-    : base(ResourceLoader.fetchTexture(ResourceLoader.TextureType.Bed), new Vector2i(2, 1), new Dictionary<Item.Type, int>())
+    : base("Miner", ResourceLoader.fetchTexture(ResourceLoader.TextureType.Bed), new Vector2i(2, 1), new Dictionary<Item.Type, int>())
     {
         storageComponent = new StorageComponent(100);
     }

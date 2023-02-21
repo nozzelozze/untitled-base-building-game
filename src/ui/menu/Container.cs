@@ -22,6 +22,7 @@ public class Container : GUIActor
     }
     public float marginOffsetX;
     public float marginOffsetY;
+    public int edgeMargin;
 
     public enum AlignType
     {
@@ -49,6 +50,7 @@ public class Container : GUIActor
             items = containerItems;
         
         margin = containerMargin;
+        edgeMargin = containerMargin;
 
         if (staticSize != null)
         {
@@ -81,9 +83,9 @@ public class Container : GUIActor
     public Vector2f alignTypeOffset(AlignType alignType, Vector2f position)
     {
         Vector2f newPosition = 
-        alignType == AlignType.Center ? Position + new Vector2f(baseRect.Size.X/2, margin) : 
-        alignType == AlignType.Left ? Position + new Vector2f(baseRect.Size.X/4, margin) : 
-        alignType == AlignType.Right ? Position + new Vector2f(baseRect.Size.X/(4/3), margin) : Position;
+        alignType == AlignType.Center ? Position + new Vector2f(baseRect.Size.X/2, edgeMargin) : 
+        alignType == AlignType.Left ? Position + new Vector2f(baseRect.Size.X/4, edgeMargin) : 
+        alignType == AlignType.Right ? Position + new Vector2f(baseRect.Size.X/(4/3), edgeMargin) : Position;
         return newPosition;
     }
 
@@ -101,7 +103,7 @@ public class Container : GUIActor
             {
                 item.Position = new Vector2f(currentItemPosition.X-item.getSize().X/2, currentItemPosition.Y);
                 item.render();
-                currentItemPosition.X += margin;
+                currentItemPosition.X += margin + item.getSize().X;
                 itemCount ++;
             }
             currentItemPosition.Y += margin;
@@ -110,8 +112,8 @@ public class Container : GUIActor
         if (!hasStaticSize)
         {
             baseRect.Size = new Vector2f(
-                itemCount*Margin + Margin*2,
-                rowCount*Margin + Margin*2
+                itemCount*edgeMargin + edgeMargin*2,
+                rowCount*edgeMargin + edgeMargin*2
             );
         }
     }

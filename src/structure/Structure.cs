@@ -5,9 +5,11 @@ using SFML.System;
 
 public class Structure : Transformable
 {
-    public Texture texture;
     public Sprite sprite;
     public Vector2i size;
+
+    public Texture texture = ResourceLoader.fetchTexture(ResourceLoader.TextureType.DefaultTexture);
+    public string name = "Structure";
 
     public List<Tile> occupiedTiles = new List<Tile>();
 
@@ -21,10 +23,11 @@ public class Structure : Transformable
 
     public Dictionary<Item.Type, List<Item>> coststs;
 
-    public Structure(Texture texture, Vector2i size, Dictionary<Item.Type, int> cost)
+    public Structure(string structName, Texture structTexture, Vector2i size, Dictionary<Item.Type, int> cost)
     {
         this.size = size;
-        this.texture = texture;
+        texture = structTexture;
+        name = structName;
 
         sprite = new Sprite(texture);
 
