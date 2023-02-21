@@ -12,10 +12,12 @@ public class ResourceMenu : Menu
     {
         Vector2f menuOffset = new Vector2f(Map.tileSize*1.2f, Map.tileSize*1.2f);
         Position += menuOffset;
+        
+        Pathfinding pathfinding = new Pathfinding();
 
         addItem(new TextButton(
             "Mine",
-            () => Log.Message("Began mining!")
+            () => pathfinding.getPathTiles(Map.Instance.tiles[10, 10], Map.Instance.getTileAt(resource.position))
         ));
 
         Margin = 45;

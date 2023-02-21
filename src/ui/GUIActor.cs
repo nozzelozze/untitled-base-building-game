@@ -12,6 +12,8 @@ public class GUIActor : Transformable
     public static int outlineThickness = 2;
     public static Color outlineColor = GUIColor.darkColor;
 
+    public bool isTransparent;
+
     public enum characterSize
     {
         Info,
@@ -43,6 +45,7 @@ public class GUIActor : Transformable
             baseRect.OutlineThickness = outlineThickness;
             baseRect.OutlineColor = outlineColor;
         }
+        this.isTransparent = isTransparent;
     }
 
     public Vector2f getSize()

@@ -14,7 +14,7 @@ public class DefaultInterface
     {
         this.player = player;
         buildButton = new IconButton(
-            ResourceLoader.fetchTexture(ResourceLoader.TextureType.Copper), 
+            ResourceLoader.fetchTexture(ResourceLoader.TextureType.BuildButton), 
             onBuildButtonClick,
             new Vector2f(100, 100),
             "Build"
@@ -24,7 +24,7 @@ public class DefaultInterface
     public void onBuildButtonClick()
     {
         player.enterNewState(PlayerState.BuildState.BuildInstance);
-        PlayerState.BuildState.BuildInstance.enterBuild(new Chest());
+        PlayerState.BuildState.BuildInstance.enterBuild(new Miner());
     }
 
     public void update()

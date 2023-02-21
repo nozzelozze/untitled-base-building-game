@@ -7,11 +7,17 @@ using SFML.System;
 public class Item
 {
 
-    string name;
-
-    public Item(string name)
+    public enum Type
     {
-        this.name = name;
+        Iron
     }
 
+    string name;
+    Type type;
+
+    public Item(string name, Type type)
+    {
+        this.name = name;
+        this.type = type;
+    }
 }

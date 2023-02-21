@@ -31,7 +31,7 @@ class Game
         {
             for (int y = 0; y < 64; y++)
             {
-                if (new Random().Next(4) == 0) new Resource(Resource.ResourceType.Iron, Map.Instance.tiles[x, y]);
+                if (new Random().Next(7) == 0) new Resource(Resource.ResourceType.Iron, Map.Instance.tiles[x, y]);
             }
         }
         while (window.IsOpen)

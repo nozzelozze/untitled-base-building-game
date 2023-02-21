@@ -20,7 +20,7 @@ class Map
         {
             for (int y = 0; y < mapHeight; y++)
             {
-                tiles[x,y] = new Tile(new Texture(new Random().Next(2) == 0 ? "assets/imgs/stoneTile.png" : "assets/imgs/grassTile.png"));
+                tiles[x,y] = new Tile(Tile.Type.Dirt);
             }
         }
     }

@@ -8,10 +8,10 @@ public class GUIText : GUIActor
 {
 
     Text text;
-    object ? tickVar;
+    Func<object> ? tickVar;
     string displayString;
 
-    public GUIText(string text, characterSize charSize = characterSize.HeadingSmall, object ? tickVar = null)
+    public GUIText(string text, characterSize charSize = characterSize.HeadingSmall, Func<object> ? tickVar = null)
     : base(new Vector2f(), hasOutline: false, isTransparent: true)
     {
         displayString = text;
@@ -36,7 +36,7 @@ public class GUIText : GUIActor
         text.Position = Position;
         if (tickVar != null)
         {
-            text.DisplayedString = displayString.Replace("%v", tickVar.ToString());
+            text.DisplayedString = displayString.Replace("%v", tickVar().ToString());
         }
         RenderQueue.queueGUI(text);
     }

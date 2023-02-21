@@ -69,10 +69,10 @@ public class PlayerState
             wantedStructure.Position = structurePosition;
             if (wantedStructure.isCurrentlyValid())
             {
-                wantedStructure.sprite.Color = Color.Green;
+                wantedStructure.sprite.Color = GUIColor.validGreenColor;
             } else
             {
-                wantedStructure.sprite.Color = Color.Red;
+                wantedStructure.sprite.Color = GUIColor.invalidRedColor;
             }
             RenderQueue.queue(wantedStructure.sprite);
         }

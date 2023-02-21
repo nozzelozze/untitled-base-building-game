@@ -14,7 +14,11 @@ public class Button : GUIActor
     public const int baseButtonSizeX = 100;
     public const int baseButtonSizeY = 50;
 
-    public Button(string title, Action onClick, Vector2f ? position = null, bool isTransparent=false, int sizeX = baseButtonSizeX, int sizeY = baseButtonSizeY)
+    public Func<Vector2f> textCenter;
+
+    public Button(string title, Action onClick, Vector2f ? position = null, 
+    bool isTransparent=false, int sizeX = baseButtonSizeX, 
+    int sizeY = baseButtonSizeY)
         : base(
         new Vector2f(sizeX, sizeY), 
         position, 
@@ -27,22 +31,26 @@ public class Button : GUIActor
 
         titleText = new Text(title, ResourceLoader.fetchFont("default"));
         titleText.FillColor = GUIColor.textColor;
-        centerText(titleText, new Vector2f(Position.X+this.baseRect.Size.X/2, Position.Y+this.baseRect.Size.Y/2));
+        textCenter = () => new Vector2f(Position.X+this.baseRect.Size.X/2, Position.Y+this.baseRect.Size.Y/2);
     }
 
     public override void render()
     {
         base.render();
-        centerText(titleText, new Vector2f(Position.X+this.baseRect.Size.X/2, Position.Y+this.baseRect.Size.Y/2));
+        centerText(titleText, textCenter());
         RenderQueue.queueGUI(titleText);
-        if (Input.events.Contains(Mouse.Button.Left) && Player.currentState == PlayerState.IdleState.IdleInstance)
+        Vector2i mousePosition = PlayerMouse.getPosition();
+        if (collisionRect.Contains(mousePosition.X, mousePosition.Y))
         {
-            Vector2i mousePosition = PlayerMouse.getPosition();
-            if (collisionRect.Contains(mousePosition.X, mousePosition.Y))
+            if (!isTransparent) baseRect.FillColor = GUIColor.greyColor + new Color(15, 15, 15);
+            if (Input.events.Contains(Mouse.Button.Left) && Player.currentState == PlayerState.IdleState.IdleInstance)
             {
                 buttonClicked.Invoke();
                 Input.events.Remove(Mouse.Button.Left);
             }
+        } else
+        {
+            if (!isTransparent) baseRect.FillColor = GUIColor.greyColor;
         }
     }
 

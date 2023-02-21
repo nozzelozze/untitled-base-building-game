@@ -19,6 +19,8 @@ public class IconButton : Button
         )
     {
         iconSprite = new Sprite(iconTexture);
+
+        textCenter = () => new Vector2f(Position.X+this.baseRect.Size.X/2, Position.Y+this.baseRect.Size.Y+20);
     }
 
     public override void render()

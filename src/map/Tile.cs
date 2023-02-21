@@ -8,7 +8,6 @@ public class Tile
 
     public enum Type
     {
-        Grass,
         Dirt,
         Ore
     }
@@ -18,9 +17,32 @@ public class Tile
     public bool occupied = false;
     public Resource ? resource = null;
 
+    public Tile(Type tileType)
+    {
+        if (tileType == Type.Dirt)
+        {
+            texture = new Random().Next(5) == 1 ? ResourceLoader.fetchTexture(ResourceLoader.TextureType.DirtOne) : ResourceLoader.fetchTexture(ResourceLoader.TextureType.DirtTwo);
+        }
+        this.sprite = new Sprite(texture);
+    }
+
     public bool isOccupied()
     {
         return occupied;
+    }
+
+    public override string ToString()
+    {
+        return $"{Map.Instance.getTilePosition(this)}";
+    }
+
+    public bool isWalkable()
+    {
+        if (resource == null && occupied != false)
+        {
+            return true;
+        }
+        return false;
     }
 
     public void giveResource(Resource newResource)
@@ -39,12 +61,6 @@ public class Tile
     {
         resource = null;
         //occupied = stillOccupied ? true : false;
-    }
-
-    public Tile(Texture texture)
-    {
-        this.texture = texture;
-        this.sprite = new Sprite(texture);
     }
 
     public void render(Vector2f position)

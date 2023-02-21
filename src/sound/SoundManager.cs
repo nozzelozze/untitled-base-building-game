@@ -9,14 +9,14 @@ public class SoundManager
 {
     public enum SoundType
     {
-        Colonist
+        Build
     }
 
     private static Func<string, Sound> getSound = (soundName) => new Sound(new SoundBuffer("assets/sound/" + soundName + ".wav"));
 
     private static Dictionary<SoundType, Sound> loadedSounds = new Dictionary<SoundType, Sound>
     {
-        {SoundType.Colonist, getSound("colonist")}
+        {SoundType.Build, getSound("build1")}
     };
 
 

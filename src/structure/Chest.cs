@@ -9,7 +9,7 @@ public class Chest : Structure
     StorageComponent storageComponent;
 
     public Chest()
-    : base(ResourceLoader.fetchTexture(ResourceLoader.TextureType.Chest), new Vector2i(2, 1))
+    : base(ResourceLoader.fetchTexture(ResourceLoader.TextureType.Chest), new Vector2i(2, 1), new Dictionary<Item.Type, int>())
     {
         storageComponent = new StorageComponent(500);
     }
@@ -17,9 +17,10 @@ public class Chest : Structure
     public override void highlight()
     {
         base.highlight();
-        if (infoMenu != null)
+        infoMenu.changeTitle("Chest");
+        if (wantMenu())
         {
-            infoMenu.changeTitle("Chest");
+
         }
     }
 

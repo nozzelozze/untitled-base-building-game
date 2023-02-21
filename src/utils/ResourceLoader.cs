@@ -13,8 +13,8 @@ public class ResourceLoader
     public enum TextureType
     {
         DefaultTexture,
-        Stone,
-        Grass,
+        DirtOne,
+        DirtTwo,
         Bed,
         Crosshair,
         Icon,
@@ -22,7 +22,8 @@ public class ResourceLoader
         Copper,
         Iron,
         Colonist,
-        Chest
+        Chest,
+        BuildButton
     }
     
     private static Dictionary<TextureType, Texture> loadedTextures = new Dictionary<TextureType, Texture>();
@@ -32,8 +33,8 @@ public class ResourceLoader
     public ResourceLoader()
     {
         // textures
-        loadedTextures.Add(TextureType.Stone, new Texture(texturesPath + "stoneTile.png"));
-        loadedTextures.Add(TextureType.Grass, new Texture(texturesPath + "grassTile.png"));
+        loadedTextures.Add(TextureType.DirtOne, new Texture(texturesPath + "dirt1.png"));
+        loadedTextures.Add(TextureType.DirtTwo, new Texture(texturesPath + "dirt2.png"));
         loadedTextures.Add(TextureType.Bed, new Texture(texturesPath + "bed.png"));
         loadedTextures.Add(TextureType.Crosshair, new Texture(texturesPath + "crosshair.png"));
         loadedTextures.Add(TextureType.Icon, new Texture(getTexturePath("icon")));
@@ -43,6 +44,7 @@ public class ResourceLoader
         loadedTextures.Add(TextureType.Colonist, new Texture(getTexturePath("colonist")));
         loadedTextures.Add(TextureType.DefaultTexture, new Texture(getTexturePath("defaultTexture")));
         loadedTextures.Add(TextureType.Chest, new Texture(getTexturePath("chest")));
+        loadedTextures.Add(TextureType.BuildButton, new Texture(getTexturePath("buildButton")));
         
 
         // fonts

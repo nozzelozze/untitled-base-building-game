@@ -15,22 +15,37 @@ public class Structure : Transformable
 
     public Vector2f structureInfoMenuPosition = new Vector2f(1500, 550);
 
-    public Structure(Texture texture, Vector2i size)
+    public bool built = false;
+
+    public Dictionary<Item.Type, int> cost;
+
+    public Dictionary<Item.Type, List<Item>> coststs;
+
+    public Structure(Texture texture, Vector2i size, Dictionary<Item.Type, int> cost)
     {
         this.size = size;
         this.texture = texture;
 
         sprite = new Sprite(texture);
 
+        this.cost = cost;
     }
 
-    public virtual void placeStructure(Tile tile)
+    public virtual void placeStructure(Tile tile, bool instaBuild = false)
     {
         Position = Map.Instance.getTilePosition(tile);
-        sprite.Position = (Vector2f)Position;
-        sprite.Color = Color.White;
-        Map.Instance.structures.Add(this);
+        sprite.Position = Position;
         Map.Instance.occupyTilesFromStructure(tile, this);
+        sprite.Color = new Color(200, 200, 200, 205);
+        Map.Instance.structures.Add(this);
+        if (instaBuild) build();
+    }
+
+    public void build()
+    {
+        built = true;
+        sprite.Color = Color.White;
+        SoundManager.playSFX(SoundManager.SoundType.Build, Position);
     }
 
     public virtual bool isTileValid(Tile tile)
@@ -55,14 +70,35 @@ public class Structure : Transformable
         return true;
     }
 
+    public bool wantMenu()
+    {
+        return infoMenu != null && built;
+    }
+
+    public void cancelBuild()
+    {
+        Player.playerHighlight.unhightlight();
+        foreach(Tile tile in occupiedTiles)
+        {
+            tile.occupied = false;
+        }
+        Map.Instance.structures.Remove(this);
+    }
+
     public virtual void highlight()
     {
         infoMenu = new Menu("Structure", structureInfoMenuPosition);
+        if (!built)
+        {
+            infoMenu.addItem(new GUIText("Needs resources:"));
+
+            infoMenu.addItem(new TextButton("Cancel Build", () => cancelBuild()));
+        }
         infoMenu.closeButton.buttonClicked += Player.playerHighlight.unhightlight;
     }
 
     public void renderHighlight()
-    {
+    {   
         infoMenu?.render();
     }
 
@@ -74,5 +110,16 @@ public class Structure : Transformable
     public virtual void update()
     {
         render();
+    }
+
+    public void tick()
+    {
+        if (built)
+        {
+            update();
+        } else
+        {
+            render();
+        }
     }
 }

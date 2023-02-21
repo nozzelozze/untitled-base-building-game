@@ -13,12 +13,12 @@ public class Miner : Structure
     private StorageComponent storageComponent;
 
     public Miner()
-    : base(ResourceLoader.fetchTexture(ResourceLoader.TextureType.Bed), new Vector2i(2, 1))
+    : base(ResourceLoader.fetchTexture(ResourceLoader.TextureType.Bed), new Vector2i(2, 1), new Dictionary<Item.Type, int>())
     {
         storageComponent = new StorageComponent(100);
     }
 
-    public override void placeStructure(Tile tile)
+    public override void placeStructure(Tile tile, bool instaBuild = false)
     {
         base.placeStructure(tile);
         if (tile.resource != null) resourceType = tile.resource.type;
@@ -27,11 +27,11 @@ public class Miner : Structure
     public override void highlight()
     {
         base.highlight();
-        if (infoMenu != null)
+        infoMenu.changeTitle("Miner");
+        if (wantMenu())
         {
-            infoMenu.changeTitle("Miner");
             infoMenu.addItem(new GUIText($"Harvesting {resourceType}"));
-            infoMenu.addItem(new GUIText($"Ore Count: %v", tickVar: storageComponent.count));
+            infoMenu.addItem(new GUIText($"Ore Count: %v", tickVar: () => storageComponent.count));
         }
     }
 
@@ -39,7 +39,7 @@ public class Miner : Structure
     {
         base.update();
         if (!storageComponent.isFull()) 
-            storageComponent.addItem(new Item("iron"));
+            if (new Random().Next(10) == 5) storageComponent.addItem(new Item("iron", Item.Type.Iron));
         else
             {}
     }
