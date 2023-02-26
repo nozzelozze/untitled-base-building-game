@@ -8,8 +8,8 @@ using System.Numerics;
 public class Job
 {
 
-    Tile jobTile;
-    Colonist colonist;
+    public Tile jobTile;
+    public Colonist colonist;
 
     public Job(Tile tile, Colonist colonist)
     {
@@ -30,11 +30,13 @@ public class Job
     {
         if (canWork())
         {
-            Log.Message("jobbing!");
-        } else
-        {
-            Log.Message("cant work!");
+            
         }
+    }
+
+    public virtual void beginJob()
+    {
+        colonist.walk.beginWalk(jobTile);
     }
 
 }

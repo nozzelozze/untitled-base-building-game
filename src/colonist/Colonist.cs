@@ -23,8 +23,8 @@ public class Colonist : Transformable
     Texture texture;
     Sprite sprite;
 
-    StorageComponent storageComponent = new StorageComponent(50);
-    ColonistWalk walk;
+    public StorageComponent storageComponent = new StorageComponent(50);
+    public ColonistWalk walk;
     Job currentJob;
 
     public Colonist(int id)
@@ -54,7 +54,7 @@ public class Colonist : Transformable
     {
         Tile tile = Map.Instance.getTileAt(resource.position);
         currentJob = new Job(tile, this);
-        walk.beginWalk(tile);
+        currentJob.beginJob();
     }
 
     public void walkDone()

@@ -6,7 +6,7 @@ using SFML.System;
 
 /* THIS IS EXTREMELY BAD AND NOT GOOD CODE */
 
-class ColonistWalk
+public class ColonistWalk
 {
     private List<Tile> currentPath = new List<Tile>();
     private int currentPathIndex = 0;

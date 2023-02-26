@@ -33,7 +33,7 @@ public class StorageComponent
         this.maximumStorage = maximumStorage;
     }
 
-    public void swapItem(StorageComponent from, StorageComponent to, Item item)
+    public static void swapItem(StorageComponent from, StorageComponent to, Item item)
     {
         from.removeItem(item);
         to.addItem(item);
@@ -51,7 +51,7 @@ public class StorageComponent
 
     public void addItem(Item newItem)
     {
-        if (items.Count < maximumStorage) 
+        if (count < maximumStorage) 
             if (items.ContainsKey(newItem.type))
                 items[newItem.type] ++;
             else

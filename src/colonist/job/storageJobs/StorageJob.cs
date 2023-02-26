@@ -17,6 +17,13 @@ public class StorageJob : Job
     public override void doJob()
     {
         base.doJob();
-        storage.
+        
+        do
+        {
+            foreach (Item item in storage.getItems())
+            {
+                StorageComponent.swapItem(storage, colonist.storageComponent, item);
+            }
+        } while (!colonist.storageComponent.isFull());
     }
 }
