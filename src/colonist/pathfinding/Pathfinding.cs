@@ -27,17 +27,20 @@ public class Pathfinding
 
             foreach (var neighborTile in GetNeighborTiles(currentTile))
             {
-                var tentativeGScore = gScore[currentTile] + DistanceCost(currentTile, neighborTile);
-
-                if (!gScore.ContainsKey(neighborTile) || tentativeGScore < gScore[neighborTile])
+                if (currentTile.isWalkable())
                 {
-                    cameFrom[neighborTile] = currentTile;
-                    gScore[neighborTile] = tentativeGScore;
-                    fScore[neighborTile] = tentativeGScore + Heuristic(neighborTile, endTile);
+                    var tentativeGScore = gScore[currentTile] + DistanceCost(currentTile, neighborTile);
 
-                    if (!openSet.Contains(neighborTile))
+                    if (!gScore.ContainsKey(neighborTile) || tentativeGScore < gScore[neighborTile])
                     {
-                        openSet.Add(neighborTile);
+                        cameFrom[neighborTile] = currentTile;
+                        gScore[neighborTile] = tentativeGScore;
+                        fScore[neighborTile] = tentativeGScore + Heuristic(neighborTile, endTile);
+
+                        if (!openSet.Contains(neighborTile))
+                        {
+                            openSet.Add(neighborTile);
+                        }
                     }
                 }
             }
@@ -45,21 +48,32 @@ public class Pathfinding
         return new List<Tile>();
     }
 
-    private List<Tile> GetNeighborTiles(Tile startTile)
+    private List<Tile> GetNeighborTiles(Tile startTile) // partly chatgpt
     {
         List<Tile> neighborTiles = new List<Tile>();
         Tuple<int, int> tileIndex = Map.Instance.getTileIndex(startTile);
-        for (int x = tileIndex.Item1 - 1; x <= tileIndex.Item1 + 1; x++)
+        
+        // Check for neighboring tiles in the four cardinal directions only (not diagonals)
+        int[,] directions = {
+            {0, -1}, // North
+            {0, 1},  // South
+            {-1, 0}, // West
+            {1, 0}   // East
+        };
+
+        for (int i = 0; i < directions.GetLength(0); i++)
         {
-            for (int y = tileIndex.Item2 - 1; y <= tileIndex.Item2 + 1; y++)
+            int x = tileIndex.Item1 + directions[i, 0];
+            int y = tileIndex.Item2 + directions[i, 1];
+
+            if (x < 0 || x >= Map.Instance.tiles.GetLength(0) || y < 0 || y >= Map.Instance.tiles.GetLength(1))
             {
-                if (x < 0 || x >= Map.Instance.tiles.GetLength(0) || y < 0 || y >= Map.Instance.tiles.GetLength(1))
-                {
-                    continue;
-                }
-                if (Map.Instance.tiles[x, y] != startTile) neighborTiles.Add(Map.Instance.tiles[x, y]);
+                continue;
             }
+
+            if (Map.Instance.tiles[x, y] != startTile) neighborTiles.Add(Map.Instance.tiles[x, y]);
         }
+
         return neighborTiles;
     }
 

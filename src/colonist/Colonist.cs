@@ -8,14 +8,39 @@ using System.Numerics;
 class Colonist : Transformable
 {
 
+    private static Dictionary<int, Colonist> colonists = new Dictionary<int, Colonist>();
+
+    public static Colonist pullColonist(int colonistId)
+    {
+        if (!colonists.ContainsKey(colonistId))
+        {
+            Log.Error($"Colonist with the id {colonistId} doesn't exist.");
+            return null;
+        }
+        return colonists[colonistId];
+    }
+
     Texture texture;
     Sprite sprite;
 
-    public Colonist()
+    StorageComponent storageComponent = new StorageComponent(50);
+    ColonistWalk walk;
+
+    public Colonist(int id)
     {
+        colonists.Add(id, this);
+        walk = new ColonistWalk(this);
+
         texture = ResourceLoader.fetchTexture(ResourceLoader.TextureType.Colonist);
         sprite = new Sprite(texture);
-        Position = new Vector2f(500f, 500f);
+        Random random = new Random();
+        int x, y;
+        do
+        {
+            x = random.Next(0, 750);
+            y = random.Next(0, 750);
+            Position = new Vector2f(x, y);
+        } while (!Map.Instance.getTileAt(Position).isWalkable());
     }
 
     public void render()
@@ -24,10 +49,15 @@ class Colonist : Transformable
         RenderQueue.queue(sprite);
     }
 
+    public void beginWalk(Tile endTile)
+    {
+        walk.beginWalk(endTile);
+    }
+
     public void update()
     {
         render();
-        //Position = new Vector2f(Position.X+1, Position.Y);
+        walk.update();
     }
 
 }

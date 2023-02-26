@@ -21,12 +21,6 @@ class Game
         View uiView = new View(window.GetView());
         Input input = new Input();
         Player player = new Player(camera);
-
-        Colonist colonist = new Colonist();
-
-        window.SetVerticalSyncEnabled(true);
-        window.Closed += (sender, args) => window.Close();
-        window.MouseWheelScrolled += camera.scroll;
         for (int x = 0; x < 64; x++)
         {
             for (int y = 0; y < 64; y++)
@@ -34,6 +28,11 @@ class Game
                 if (new Random().Next(7) == 0) new Resource(Resource.ResourceType.Iron, Map.Instance.tiles[x, y]);
             }
         }
+        Colonist colonist = new Colonist(1);
+
+        window.SetVerticalSyncEnabled(true);
+        window.Closed += (sender, args) => window.Close();
+        window.MouseWheelScrolled += camera.scroll;
         while (window.IsOpen)
         {
             window.DispatchEvents();

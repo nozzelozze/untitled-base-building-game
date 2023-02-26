@@ -13,7 +13,7 @@ public class Tile
     }
 
     private Texture texture;
-    private Sprite sprite;
+    public Sprite sprite;
     public bool occupied = false;
     public Resource ? resource = null;
 
@@ -38,7 +38,7 @@ public class Tile
 
     public bool isWalkable()
     {
-        if (resource == null && occupied != false)
+        if (resource == null && occupied == false)
         {
             return true;
         }
