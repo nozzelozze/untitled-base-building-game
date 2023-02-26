@@ -15,7 +15,7 @@ public class ResourceMenu : Menu
 
         addItem(new TextButton(
             "Mine",
-            () => Colonist.pullColonist(1).beginWalk(Map.Instance.getTileAt(resource.position))
+            () => Colonist.pullColonist(1).mineResource(resource)
         ));
 
         Margin = 45;

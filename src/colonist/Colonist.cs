@@ -5,7 +5,7 @@ using SFML.System;
 using SFML.Audio;
 using System.Numerics;
 
-class Colonist : Transformable
+public class Colonist : Transformable
 {
 
     private static Dictionary<int, Colonist> colonists = new Dictionary<int, Colonist>();
@@ -25,6 +25,7 @@ class Colonist : Transformable
 
     StorageComponent storageComponent = new StorageComponent(50);
     ColonistWalk walk;
+    Job currentJob;
 
     public Colonist(int id)
     {
@@ -49,15 +50,27 @@ class Colonist : Transformable
         RenderQueue.queue(sprite);
     }
 
-    public void beginWalk(Tile endTile)
+    public void mineResource(Resource resource)
     {
-        walk.beginWalk(endTile);
+        Tile tile = Map.Instance.getTileAt(resource.position);
+        currentJob = new Job(tile, this);
+        walk.beginWalk(tile);
+    }
+
+    public void walkDone()
+    {
+        currentJob.doJob();
     }
 
     public void update()
     {
         render();
         walk.update();
+        if (Input.events.Contains(Keyboard.Key.Space))
+        {
+            currentJob = new Job(Map.Instance.tiles[0, 0], this);
+            currentJob.doJob();
+        }
     }
 
 }

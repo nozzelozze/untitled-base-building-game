@@ -7,8 +7,8 @@ public class StorageComponent
 {
 
     private Dictionary<Item.Type, int> items;
-    bool storageFull;
-    int maximumStorage;
+    private bool storageFull;
+    private int maximumStorage;
     public int count
     {
         get
@@ -33,6 +33,12 @@ public class StorageComponent
         this.maximumStorage = maximumStorage;
     }
 
+    public void swapItem(StorageComponent from, StorageComponent to, Item item)
+    {
+        from.removeItem(item);
+        to.addItem(item);
+    }
+
     public bool isFull()
     {
         return storageFull;
@@ -47,11 +53,16 @@ public class StorageComponent
     {
         if (items.Count < maximumStorage) 
             if (items.ContainsKey(newItem.type))
-                items[newItem.type] += 1;
+                items[newItem.type] ++;
             else
                 items.Add(newItem.type, 1);
         else
             storageFull = true;
+    }
+
+    public void removeItem(Item item)
+    {
+        items[item.type] --;
     }
 
 }

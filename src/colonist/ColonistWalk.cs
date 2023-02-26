@@ -70,6 +70,7 @@ class ColonistWalk
             {
                 currentPath.Clear();
                 isWalking = false;
+                colonist.walkDone();
                 return;
             }
 

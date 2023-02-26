@@ -48,7 +48,7 @@ public class Pathfinding
         return new List<Tile>();
     }
 
-    private List<Tile> GetNeighborTiles(Tile startTile) // partly chatgpt
+    public static List<Tile> GetNeighborTiles(Tile startTile) // partly chatgpt
     {
         List<Tile> neighborTiles = new List<Tile>();
         Tuple<int, int> tileIndex = Map.Instance.getTileIndex(startTile);
