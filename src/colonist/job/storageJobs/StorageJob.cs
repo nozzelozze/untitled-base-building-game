@@ -18,12 +18,12 @@ public class StorageJob : Job
     {
         base.doJob();
         
-        do
-        {
-            foreach (Item item in storage.getItems())
-            {
-                StorageComponent.swapItem(storage, colonist.storageComponent, item);
-            }
-        } while (!colonist.storageComponent.isFull());
+        //do
+        //{
+        //    foreach (Item item in storage.getItems())
+        //    {
+        //        StorageComponent.swapItem(storage, colonist.storageComponent, item);
+        //    }
+        //} while (!colonist.storageComponent.isFull());
     }
 }

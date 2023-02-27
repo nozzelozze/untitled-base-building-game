@@ -31,7 +31,7 @@ public class Miner : Structure
         if (wantMenu())
         {
             infoMenu.addItem(new GUIText($"Harvesting {resourceType}"));
-            infoMenu.addItem(new GUIText($"Ore Count: %v", tickVar: () => storageComponent.count));
+            infoMenu.addItem(new GUIText($"Ore Count: %v", tickVar: () => storageComponent.getCount()));
         }
     }
 
