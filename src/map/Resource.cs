@@ -20,6 +20,7 @@ public class Resource
     public Sprite sprite;
     public ResourceType type;
     public Vector2f position;
+    public Tile tile;
 
     public ResourceMenu ?  clickMenu;
 
@@ -30,6 +31,7 @@ public class Resource
         sprite.Position = Map.Instance.getTilePosition(tile);
         position = sprite.Position;
         tile.giveResource(this);
+        this.tile = tile;
     }
 
     public void highlight()

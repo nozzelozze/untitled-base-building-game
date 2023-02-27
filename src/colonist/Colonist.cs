@@ -53,7 +53,7 @@ public class Colonist : Transformable
     public void mineResource(Resource resource)
     {
         Tile tile = Map.Instance.getTileAt(resource.position);
-        currentJob = new Job(tile, this);
+        currentJob = new StorageJob(tile, this);
         currentJob.beginJob();
     }
 

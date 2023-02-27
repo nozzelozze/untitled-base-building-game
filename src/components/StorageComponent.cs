@@ -17,11 +17,11 @@ public class StorageComponent
         this.maximumStorage = maximumStorage;
     }
 
-    public static void swapItem(StorageComponent from, StorageComponent to, Item item)
+    public void swapItem(StorageComponent to, Item item)
     {
         if (!to.isFull())
         {
-            from.removeItem(item);
+            removeItem(item);
             to.addItem(item);
         }       
     }
