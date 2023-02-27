@@ -21,7 +21,7 @@ public class Tile
     {
         if (tileType == Type.Dirt)
         {
-            texture = new Random().Next(5) == 1 ? ResourceLoader.fetchTexture(ResourceLoader.TextureType.DirtOne) : ResourceLoader.fetchTexture(ResourceLoader.TextureType.DirtTwo);
+            texture = new Random().Next(5) == 1 ? ResourceLoader.fetchTexture(ResourceLoader.TextureType.DirtTwo) : ResourceLoader.fetchTexture(ResourceLoader.TextureType.DirtOne);
         }
         this.sprite = new Sprite(texture);
     }
