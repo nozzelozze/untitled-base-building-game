@@ -6,7 +6,7 @@ using SFML.System;
 public class StorageComponent
 {
 
-    private List<Item> items;
+    public List<Item> items;
     private bool storageFull;
     private int maximumStorage;
 
@@ -23,7 +23,7 @@ public class StorageComponent
         {
             removeItem(item);
             to.addItem(item);
-        }       
+        }
     }
 
     public bool isFull()

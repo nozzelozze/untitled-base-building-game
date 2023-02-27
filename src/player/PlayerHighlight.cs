@@ -55,5 +55,4 @@ public class PlayerHighlight
         if (updateHighlight != null) updateHighlight();
         if (playerIsHighlighting) RenderQueue.queue(outlineRectangle);
     }
-
 }

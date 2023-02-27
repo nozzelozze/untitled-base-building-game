@@ -39,7 +39,7 @@ public class Miner : Structure
     {
         base.update();
         if (!storageComponent.isFull()) 
-            if (new Random().Next(10) == 5) storageComponent.addItem(new Item("iron", Item.Type.Iron));
+            if (new Random().Next(10) == 5) storageComponent.addItem(new Item(Item.Type.Iron));
         else
             {}
     }

@@ -24,7 +24,7 @@ public class StorageJob : Job
             {
                 //StorageComponent.swapItem(storage, colonist.storageComponent, item);
             }
-        } while (false)//(!colonist.storageComponent.isFull());
+        } while (false);//(!colonist.storageComponent.isFull());
 
         Log.Message("Job done!");
     }

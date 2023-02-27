@@ -10,6 +10,8 @@ public class Menu : Container
     Text titleText;
     public IconButton closeButton;
 
+    public static Vector2f infoMenuPosition = new Vector2f(1500, 550);
+
     public const float barRectSizeY = 32;
 
     public Menu(string title, Vector2f position, List<GUIActor> ? items = null, AlignType alignType = AlignType.Center) : base(position, alignType)

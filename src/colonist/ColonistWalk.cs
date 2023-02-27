@@ -73,8 +73,7 @@ public class ColonistWalk
                 colonist.walkDone();
                 return;
             }
-
-            direction = Map.Instance.getTilePosition(currentPath[currentPathIndex+1 < currentPath.Count ? currentPathIndex+1 : currentPath.Count-1]) - Map.Instance.getTilePosition(currentPath[currentPathIndex]);
+            direction = Map.Instance.getTilePosition(currentPath[currentPathIndex < currentPath.Count ? currentPathIndex : currentPath.Count-1]) - Map.Instance.getTilePosition(currentPath[currentPathIndex-1]);
             direction = Normalize(direction);
         }
     }

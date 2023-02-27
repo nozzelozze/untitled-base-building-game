@@ -11,10 +11,16 @@ public class Resource
         Copper,
     }
 
-    Dictionary<ResourceType, Texture> resourceTextures = new Dictionary<ResourceType, Texture>
+    private static Dictionary<ResourceType, Texture> resourceTextures = new Dictionary<ResourceType, Texture>
     {
         {ResourceType.Iron, ResourceLoader.fetchTexture(ResourceLoader.TextureType.Iron)},
         {ResourceType.Copper, ResourceLoader.fetchTexture(ResourceLoader.TextureType.Copper)}
+    };
+
+    public static Dictionary<ResourceType, Item.Type> itemTypes = new Dictionary<ResourceType, Item.Type>
+    {
+        {ResourceType.Iron, Item.Type.Iron},
+        {ResourceType.Copper, Item.Type.Iron}
     };
 
     public Sprite sprite;

@@ -19,9 +19,9 @@ public class Item
     string name;
     public Type type;
 
-    public Item(string name, Type type)
+    public Item(Type type)
     {
-        this.name = name;
         this.type = type;
+        this.name = itemNames[type];
     }
 }

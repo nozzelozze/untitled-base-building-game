@@ -20,12 +20,15 @@ public class Colonist : Transformable
         return colonists[colonistId];
     }
 
+    FloatRect collisionRect;
     Texture texture;
     Sprite sprite;
 
     public StorageComponent storageComponent = new StorageComponent(50);
     public ColonistWalk walk;
     Job currentJob;
+
+    Menu ?  infoMenu;
 
     public Colonist(int id)
     {
@@ -34,6 +37,8 @@ public class Colonist : Transformable
 
         texture = ResourceLoader.fetchTexture(ResourceLoader.TextureType.Colonist);
         sprite = new Sprite(texture);
+        collisionRect.Width = texture.Size.X;
+        collisionRect.Height = texture.Size.Y;
         Random random = new Random();
         int x, y;
         do
@@ -53,13 +58,20 @@ public class Colonist : Transformable
     public void mineResource(Resource resource)
     {
         Tile tile = Map.Instance.getTileAt(resource.position);
-        currentJob = new StorageJob(tile, this);
+        currentJob = new MineJob(resource, this);
         currentJob.beginJob();
     }
 
     public void walkDone()
     {
         currentJob.doJob();
+    }
+
+    public void highlight()
+    {
+        infoMenu = new Menu("Peter xDDD", Menu.infoMenuPosition);
+        infoMenu.addItem(new GUIText("Inventory: %v", tickVar: () => storageComponent.items.Count((item) => item.type == Item.Type.Iron)));
+        infoMenu.closeButton.buttonClicked += Player.playerHighlight.unhightlight;
     }
 
     public void update()
@@ -71,6 +83,23 @@ public class Colonist : Transformable
             currentJob = new Job(Map.Instance.tiles[0, 0], this);
             currentJob.doJob();
         }
+        Vector2i mousePosition = PlayerMouse.getPosition();
+        Vector2f collisionPosition = Camera.camPositionToWin(Position);
+        collisionRect.Top = collisionPosition.Y;
+        collisionRect.Left = collisionPosition.X;
+        if (collisionRect.Contains(mousePosition.X, mousePosition.Y))
+        {
+            if (Input.events.Contains(Mouse.Button.Left) && Player.currentState == PlayerState.IdleState.IdleInstance)
+            {
+                Input.events.Remove(Mouse.Button.Left);
+                Player.playerHighlight.highlight(
+                    highlight,
+                    () => {},
+                    Position,
+                    (Vector2f)sprite.Texture.Size,
+                    () => infoMenu.render()
+                );
+            }
+        } 
     }
-
 }

@@ -15,8 +15,6 @@ public class Structure : Transformable
 
     public Menu ? infoMenu;
 
-    public Vector2f structureInfoMenuPosition = new Vector2f(1500, 550);
-
     public bool built = false;
 
     public Dictionary<Item.Type, int> cost;
@@ -91,7 +89,7 @@ public class Structure : Transformable
 
     public virtual void highlight()
     {
-        infoMenu = new Menu("Structure", structureInfoMenuPosition);
+        infoMenu = new Menu("Structure", Menu.infoMenuPosition);
         if (!built)
         {
             infoMenu.addItem(new GUIText("Needs resources:"));

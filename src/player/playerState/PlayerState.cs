@@ -34,7 +34,7 @@ public class PlayerState
                     clickedStructure.Position, 
                     new Vector2f(clickedStructure.size.X*Map.tileSize, clickedStructure.size.Y*Map.tileSize), 
                     clickedStructure.renderHighlight
-                    );
+                );
             }
             Tile clickedTile = Map.Instance.getTileAt(Camera.winPositionToCam((Vector2f)PlayerMouse.getPosition()));
             if (clickedTile.isOccupied() == false && clickedTile.hasResource())
