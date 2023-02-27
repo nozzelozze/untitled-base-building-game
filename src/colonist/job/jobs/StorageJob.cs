@@ -22,9 +22,9 @@ public class StorageJob : Job
         {
             foreach (Item item in storage.getItems())
             {
-                //StorageComponent.swapItem(storage, colonist.storageComponent, item);
+                colonist.storageComponent.swapItem(storage, item);
             }
-        } while (false);//(!colonist.storageComponent.isFull());
+        } while (colonist.storageComponent.getCount() != 0 || !storage.isFull());
 
         Log.Message("Job done!");
     }
