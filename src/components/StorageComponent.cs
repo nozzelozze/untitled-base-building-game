@@ -36,6 +36,22 @@ public class StorageComponent
         return items.Count;
     }
 
+    public Dictionary<Item.Type, int> itemCount()
+    {
+        Dictionary<Item.Type, int> count = new Dictionary<Item.Type, int>();
+        foreach (Item item in getItems())
+        {
+            if (!count.ContainsKey(item.type))
+            {
+                count.Add(item.type, 1);
+            } else
+            {
+                count[item.type] ++;
+            }
+        }
+        return count;
+    }
+
     public List<Item> getItems()
     {
         return items;
