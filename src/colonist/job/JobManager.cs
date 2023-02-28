@@ -15,10 +15,16 @@ public class JobManager
 
     }
 
-    public Job getJob()
+    public static void addToQueue(Job newJob)
     {
-    	return jobQueue[jobQueue.Count-1];
-    	jobQueue.RemoveAt(jobQueue.Count-1);
+        jobQueue.Add(newJob);
+    }
+
+    public static Job getJob()
+    {
+    	Job job = jobQueue[0];
+    	jobQueue.Remove(job);
+        return job;
     }
 
 }

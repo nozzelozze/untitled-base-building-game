@@ -16,7 +16,7 @@ public class MineJob : Job
 		this.resource = resource;
 	}
 
-	public override void doJob(Colonist colonist)
+	public override void doJob()
 	{
 		base.doJob();
         Log.Message("in joggg");
@@ -24,7 +24,7 @@ public class MineJob : Job
 		{
 			colonist.storageComponent.addItem(new Item(Resource.itemTypes[resource.type]));
 		}
-
+		isDone = true;
 	}
 
 }

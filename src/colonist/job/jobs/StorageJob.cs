@@ -14,9 +14,9 @@ public class StorageJob : Job
         this.storage = storage;
     }
 
-    public override void doJob(Colonist colonist)
+    public override void doJob()
     {
-        base.doJob(colonist);
+        base.doJob();
         
         do
         {

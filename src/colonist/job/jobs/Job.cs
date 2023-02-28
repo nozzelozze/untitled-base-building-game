@@ -8,8 +8,10 @@ using System.Numerics;
 public class Job
 {
 
-    public Tile jobTile;
-    public Colonist colonist;
+    private Tile jobTile;
+    private protected Colonist colonist;
+
+    private protected bool isDone = false;
 
     public Job(Tile tile)
     {
@@ -25,18 +27,28 @@ public class Job
         return false;
     }
 
-    public virtual void doJob(Colonist colonist)
+    public virtual void doJob()
     {
-        this.colonist = colonist;
         if (canWork())
         {
             
         }
     }
 
-    public virtual void beginJob()
+    public virtual void beginJob(Colonist colonist)
     {
-        colonist.walk.beginWalk(jobTile);
+        this.colonist = colonist;
+        this.colonist.walk.beginWalk(jobTile);
+    }
+
+    public virtual void updateJob()
+    {
+
+        if (isDone)
+        {
+            colonist.jobDone();
+        }
+
     }
 
 }

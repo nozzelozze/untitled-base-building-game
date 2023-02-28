@@ -9,9 +9,6 @@ public class Colonist : Transformable
 {
 
     private static Dictionary<int, Colonist> colonists = new Dictionary<int, Colonist>();
-
-    private List<Job> personalJobQueue = new List<Job>();
-
     public static Colonist pullColonist(int colonistId)
     {
         if (!colonists.ContainsKey(colonistId))
@@ -27,8 +24,11 @@ public class Colonist : Transformable
     Sprite sprite;
 
     public StorageComponent storageComponent = new StorageComponent(50);
+
     public ColonistWalk walk;
-    Job currentJob;
+
+    Job ? currentJob;
+    private List<Job> personalJobQueue = new List<Job>();
 
     Menu ?  infoMenu;
 
@@ -57,9 +57,14 @@ public class Colonist : Transformable
         RenderQueue.queue(sprite);
     }
 
+    public void jobDone()
+    {
+        currentJob = null;
+    }
+
     public void walkDone()
     {
-        currentJob.doJob();
+        currentJob?.doJob();
     }
 
     public void highlight()
@@ -73,11 +78,6 @@ public class Colonist : Transformable
     {
         render();
         walk.update();
-        if (Input.events.Contains(Keyboard.Key.Space))
-        {
-            currentJob = new Job(Map.Instance.tiles[0, 0], this);
-            currentJob.doJob();
-        }
         Vector2i mousePosition = PlayerMouse.getPosition();
         Vector2f collisionPosition = Camera.camPositionToWin(Position);
         collisionRect.Top = collisionPosition.Y;
@@ -95,6 +95,26 @@ public class Colonist : Transformable
                     () => infoMenu.render()
                 );
             }
-        } 
+        }
+
+        if (currentJob == null)
+        {
+            if (personalJobQueue.Count == 0)
+            {
+                if (JobManager.jobQueue.Count != 0)
+                {
+                    personalJobQueue.Add(JobManager.getJob());
+                }
+            } else
+            {
+                currentJob = personalJobQueue[0];
+                currentJob.beginJob(this);
+                personalJobQueue.Remove(currentJob);
+            }
+        } else
+        {
+            currentJob.updateJob();
+        }
+
     }
 }

@@ -28,6 +28,7 @@ class Game
                 if (new Random().Next(7) == 0) new Resource(Resource.ResourceType.Iron, Map.Instance.tiles[x, y]);
             }
         }
+        JobManager jobManager = new JobManager();
         Colonist colonist = new Colonist(1);
 
         window.SetVerticalSyncEnabled(true);
