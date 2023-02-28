@@ -10,6 +10,8 @@ public class Colonist : Transformable
 
     private static Dictionary<int, Colonist> colonists = new Dictionary<int, Colonist>();
 
+    private List<Job> personalJobQueue = new List<Job>();
+
     public static Colonist pullColonist(int colonistId)
     {
         if (!colonists.ContainsKey(colonistId))
@@ -53,13 +55,6 @@ public class Colonist : Transformable
     {
         sprite.Position = Position;
         RenderQueue.queue(sprite);
-    }
-
-    public void mineResource(Resource resource)
-    {
-        Tile tile = Map.Instance.getTileAt(resource.position);
-        currentJob = new MineJob(resource, this);
-        currentJob.beginJob();
     }
 
     public void walkDone()

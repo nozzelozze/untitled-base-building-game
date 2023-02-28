@@ -10,13 +10,13 @@ public class MineJob : Job
 
 	Resource resource;
 
-	public MineJob(Resource resource, Colonist colonist)
-	: base(resource.tile, colonist)
+	public MineJob(Resource resource)
+	: base(resource.tile)
 	{
 		this.resource = resource;
 	}
 
-	public override void doJob()
+	public override void doJob(Colonist colonist)
 	{
 		base.doJob();
         Log.Message("in joggg");

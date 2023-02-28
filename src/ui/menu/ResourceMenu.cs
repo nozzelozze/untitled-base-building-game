@@ -15,7 +15,7 @@ public class ResourceMenu : Menu
 
         addItem(new TextButton(
             "Mine",
-            () => Colonist.pullColonist(1).mineResource(resource)
+            () => JobManager.addToQueue(new MineJob(resource))
         ));
 
         Margin = 45;

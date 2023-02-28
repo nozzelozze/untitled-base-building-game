@@ -9,14 +9,14 @@ public class StorageJob : Job
 {
     StorageComponent storage;
 
-    public StorageJob(StorageComponent storage, Tile jobTile, Colonist colonist) : base(jobTile, colonist)
+    public StorageJob(StorageComponent storage, Tile jobTile) : base(jobTile)
     {
         this.storage = storage;
     }
 
-    public override void doJob()
+    public override void doJob(Colonist colonist)
     {
-        base.doJob();
+        base.doJob(colonist);
         
         do
         {

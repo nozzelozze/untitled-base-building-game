@@ -11,10 +11,9 @@ public class Job
     public Tile jobTile;
     public Colonist colonist;
 
-    public Job(Tile tile, Colonist colonist)
+    public Job(Tile tile)
     {
         jobTile = tile;
-        this.colonist = colonist;
     }
 
     private bool canWork()
@@ -26,8 +25,9 @@ public class Job
         return false;
     }
 
-    public virtual void doJob()
+    public virtual void doJob(Colonist colonist)
     {
+        this.colonist = colonist;
         if (canWork())
         {
             
