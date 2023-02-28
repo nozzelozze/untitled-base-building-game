@@ -31,11 +31,6 @@ public class Tile
         return occupied;
     }
 
-    public override string ToString()
-    {
-        return $"{Map.Instance.getTilePosition(this)}";
-    }
-
     public bool isWalkable()
     {
         if (resource == null && occupied == false)

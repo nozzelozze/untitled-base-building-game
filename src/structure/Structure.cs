@@ -8,6 +8,8 @@ public class Structure : Transformable
     public Sprite sprite;
     public Vector2i size;
 
+    public Tile startTile;
+
     public Texture texture = ResourceLoader.fetchTexture(ResourceLoader.TextureType.DefaultTexture);
     public string name = "Structure";
 
@@ -41,6 +43,7 @@ public class Structure : Transformable
         Map.Instance.structures.Add(this);
         if (instaBuild) build();
         Player.playerHighlight.unhightlight();
+        startTile = tile;
     }
 
     public void build()

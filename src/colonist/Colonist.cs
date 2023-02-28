@@ -27,6 +27,8 @@ public class Colonist : Transformable
 
     public ColonistWalk walk;
 
+    public bool added = false;
+
     Job ? currentJob;
     private List<Job> personalJobQueue = new List<Job>();
 
@@ -95,6 +97,14 @@ public class Colonist : Transformable
                     () => infoMenu.render()
                 );
             }
+        }
+
+        if (storageComponent.isFull() && !added)
+        {
+            Log.Message("addedede");
+            Chest firstChest = Map.Instance.structures.FirstOrDefault(s => s is Chest) as Chest;
+            JobManager.addToQueue(new StorageJob(firstChest.storageComponent, firstChest.startTile));
+            added = true;
         }
 
         if (currentJob == null)

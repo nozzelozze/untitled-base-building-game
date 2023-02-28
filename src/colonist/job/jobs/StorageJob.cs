@@ -18,14 +18,19 @@ public class StorageJob : Job
     {
         base.doJob();
         
-        do
-        {
-            foreach (Item item in storage.getItems())
+        //do
+        //{
+            foreach (Item item in colonist.storageComponent.getItems().ToList())
             {
                 colonist.storageComponent.swapItem(storage, item);
             }
-        } while (colonist.storageComponent.getCount() != 0 || !storage.isFull());
+            //for (int i = 0; i < colonist.storageComponent.getItems().Count; i++)
+            //{
+            //    colonist.storageComponent.swapItem(storage, colonist.storageComponen t.getItems()[i]);
+            //}
+        //} while (colonist.storageComponent.getCount() != 0 || !storage.isFull());
 
         Log.Message("Job done!");
+        isDone = true;
     }
 }
