@@ -13,8 +13,6 @@ public class ColonistWalk
     private Pathfinding pathfinding = new Pathfinding();
     private Vector2f direction = new Vector2f();
     private Colonist colonist;
-    private bool isWalking = false;
-
     public ColonistWalk(Colonist colonist)
     {
         this.colonist = colonist;
@@ -37,44 +35,30 @@ public class ColonistWalk
     {
         currentPathIndex = 0;
         currentPath = pathfinding.findPath(Map.Instance.getTileAt(colonist.Position), endTile);
-        currentPath.RemoveAt(currentPath.Count-1);
+        colonist.Position = Map.Instance.getTilePosition(currentPath[0]);
         foreach (Tile s in currentPath)
         {
             s.sprite.Color = GUIColor.validGreenColor;
         }
-
-        if (currentPath.Count > 1)
-        {
-            colonist.Position = Map.Instance.getTilePosition(currentPath[0]);
-            direction = Map.Instance.getTilePosition(currentPath[1]) - Map.Instance.getTilePosition(currentPath[0]);
-            direction = Normalize(direction);
-            isWalking = true;
-        }
+        direction = Map.Instance.getTilePosition(currentPath[currentPathIndex+1]) - Map.Instance.getTilePosition(currentPath[currentPathIndex]);
+        direction = Normalize(direction);
     }
 
     public void update()
     {
-        if (!isWalking)
-        {
-            return;
-        }
 
-        Tile currentTile = Map.Instance.getTileAt(colonist.Position);
-        colonist.Position += direction;
-        Map.Instance.getTileAt(colonist.Position).sprite.Color = GUIColor.invalidRedColor;
-        if (currentTile != Map.Instance.getTileAt(colonist.Position))
+        if (currentPath.Count != 0)
         {
-            currentPathIndex++;
-
-            if (currentPathIndex >= currentPath.Count-1)
+            Tile beforeTile = Map.Instance.getTileAt(colonist.Position);
+            colonist.Position += direction;
+            Tile afterTile = Map.Instance.getTileAt(colonist.Position);
+            if (beforeTile != afterTile)
             {
-                currentPath.Clear();
-                isWalking = false;
-                colonist.walkDone();
-                return;
+                Log.Message("entered");
+                currentPathIndex ++;
+                direction = Map.Instance.getTilePosition(currentPath[currentPathIndex+1]) - Map.Instance.getTilePosition(currentPath[currentPathIndex]);
+                direction = Normalize(direction);
             }
-            direction = Map.Instance.getTilePosition(currentPath[currentPathIndex+1 < currentPath.Count ? currentPathIndex+1 : currentPath.Count-1]) - Map.Instance.getTilePosition(currentPath[currentPathIndex-1]);
-            direction = Normalize(direction);
         }
     }
 }
