@@ -21,7 +21,7 @@ public class Colonist : Transformable
 
     FloatRect collisionRect;
     Texture texture;
-    Sprite sprite;
+    public Sprite sprite;
 
     public StorageComponent storageComponent = new StorageComponent(50);
 
