@@ -27,8 +27,6 @@ public class Colonist : Transformable
 
     public ColonistWalk walk;
 
-    public bool added = false;
-
     Job ? currentJob;
     private List<Job> personalJobQueue = new List<Job>();
 
@@ -72,14 +70,40 @@ public class Colonist : Transformable
     public void highlight()
     {
         infoMenu = new Menu("Peter xDDD", Menu.infoMenuPosition);
-        infoMenu.addItem(new GUIText("Inventory: %v", tickVar: () => storageComponent.items.Count((item) => item.type == Item.Type.Iron)));
-        infoMenu.closeButton.buttonClicked += Player.playerHighlight.unhightlight;
+        infoMenu.addItem(new GUIText("Inventory: %v", tickVar: () => storageComponent.getItems().Count((item) => item.type == Item.Type.Iron)));
+        infoMenu.closeButton.buttonClicked += Player.playerHighlight.unhighlight;
+    }
+
+    public void addToPersonalJobQueue(Job newJob)
+    {
+        personalJobQueue.Add(newJob);
+    }
+
+    public void pushBackCurrentJob()
+    {
+        personalJobQueue.Insert(0, currentJob);
+        currentJob = personalJobQueue[1];
+        personalJobQueue.RemoveAt(1);
+        currentJob.beginJob(this);
+    }
+
+    public void emptyStorage()
+    {
+        foreach (Job job in personalJobQueue)
+        {
+            if (job is StorageJob) return;
+        }   
+        if (currentJob is StorageJob) return;
+        //Chest firstChest = Map.Instance.structures.FirstOrDefault(s => s is Chest) as Chest;
+        Chest firstChest = Structure.getNearestStructure<Chest>();
+        if (firstChest != null) JobManager.addToQueue(new StorageJob(firstChest.storageComponent, firstChest.startTile));
     }
 
     public void update()
     {
         render();
         walk.update();
+        //Console.WriteLine(currentJob);
         Vector2i mousePosition = PlayerMouse.getPosition();
         Vector2f collisionPosition = Camera.camPositionToWin(Position);
         collisionRect.Top = collisionPosition.Y;
@@ -92,19 +116,16 @@ public class Colonist : Transformable
                 Player.playerHighlight.highlight(
                     highlight,
                     () => {},
-                    Position,
+                    () => Position,
                     (Vector2f)sprite.Texture.Size,
                     () => infoMenu.render()
                 );
             }
         }
 
-        if (storageComponent.isFull() && !added)
+        if (storageComponent.isFull())
         {
-            Log.Message("addedede");
-            Chest firstChest = Map.Instance.structures.FirstOrDefault(s => s is Chest) as Chest;
-            JobManager.addToQueue(new StorageJob(firstChest.storageComponent, firstChest.startTile));
-            added = true;
+            emptyStorage();
         }
 
         if (currentJob == null)

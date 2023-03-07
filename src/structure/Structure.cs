@@ -20,8 +20,7 @@ public class Structure : Transformable
     public bool built = false;
 
     public Dictionary<Item.Type, int> cost;
-
-    public Dictionary<Item.Type, List<Item>> coststs;
+    public Dictionary<Item.Type, int> deposit;
 
     public Structure(string structName, Texture structTexture, Vector2i size, Dictionary<Item.Type, int> cost)
     {
@@ -32,18 +31,41 @@ public class Structure : Transformable
         sprite = new Sprite(texture);
 
         this.cost = cost;
+
+        deposit = cost.Keys.ToDictionary(key => key, key => 0);
     }
 
-    public virtual void placeStructure(Tile tile, bool instaBuild = true)
+    public static T ? getNearestStructure<T>() where T : Structure
+    {
+        foreach (Structure structure in Map.Instance.structures)
+        {
+            if (structure.built)
+            {
+                if (structure is T)
+                {
+                    return (T)structure;
+                }
+            }
+        }
+        return null;
+    }
+
+    public virtual void placeStructure(Tile tile, bool instaBuild = false)
     {
         Position = Map.Instance.getTilePosition(tile);
         sprite.Position = Position;
         Map.Instance.occupyTilesFromStructure(tile, this);
         sprite.Color = new Color(200, 200, 200, 205);
         Map.Instance.structures.Add(this);
-        if (instaBuild) build();
-        Player.playerHighlight.unhightlight();
+        Player.playerHighlight.unhighlight();
         startTile = tile;
+        if (instaBuild)
+        {
+            build();
+        } else
+        {
+            JobManager.addToQueue(new BuildJob(this));
+        }
     }
 
     public void build()
@@ -82,7 +104,7 @@ public class Structure : Transformable
 
     public void cancelBuild()
     {
-        Player.playerHighlight.unhightlight();
+        Player.playerHighlight.unhighlight();
         foreach(Tile tile in occupiedTiles)
         {
             tile.occupied = false;
@@ -97,9 +119,14 @@ public class Structure : Transformable
         {
             infoMenu.addItem(new GUIText("Needs resources:"));
 
+            foreach (KeyValuePair<Item.Type, int> costPair in cost)
+            {
+                infoMenu.addItem(new GUIText($"{Item.itemNames[costPair.Key]}: {costPair.Value}"));
+            }
+
             infoMenu.addItem(new TextButton("Cancel Build", () => cancelBuild()));
         }
-        infoMenu.closeButton.buttonClicked += Player.playerHighlight.unhightlight;
+        infoMenu.closeButton.buttonClicked += Player.playerHighlight.unhighlight;
     }
 
     public void renderHighlight()
@@ -115,6 +142,10 @@ public class Structure : Transformable
     public virtual void update()
     {
         render();
+        if (cost.OrderBy(x => x.Key).SequenceEqual(deposit.OrderBy(x => x.Key)))
+        {
+            build();
+        }
     }
 
     public void tick()

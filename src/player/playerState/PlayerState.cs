@@ -24,14 +24,14 @@ public class PlayerState
         {
             base.onPlayerClick(player);
             if (PlayerMouse.onUI) return;
-            Player.playerHighlight.unhightlight();
+            Player.playerHighlight.unhighlight();
             Structure? clickedStructure = Map.Instance.getStructureFromTile(Map.Instance.getTileAt(Camera.winPositionToCam((Vector2f)PlayerMouse.getPosition())));
             if (clickedStructure != null)
             {
                 Player.playerHighlight.highlight(
                     clickedStructure.highlight, 
                     () => {}, 
-                    clickedStructure.Position, 
+                    () => clickedStructure.Position, 
                     new Vector2f(clickedStructure.size.X*Map.tileSize, clickedStructure.size.Y*Map.tileSize), 
                     clickedStructure.renderHighlight
                 );
@@ -42,7 +42,7 @@ public class PlayerState
                 Player.playerHighlight.highlight(
                     clickedTile.resource.highlight,
                     () => {},
-                    Map.Instance.getTilePosition(clickedTile),
+                    () => Map.Instance.getTilePosition(clickedTile),
                     new Vector2f(Map.tileSize, Map.tileSize),
                     () => clickedTile.resource.clickMenu.render()
                 );

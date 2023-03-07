@@ -9,7 +9,11 @@ public class Chest : Structure
     public StorageComponent storageComponent;
 
     public Chest()
-    : base("Chest", ResourceLoader.fetchTexture(ResourceLoader.TextureType.Chest), new Vector2i(2, 1), new Dictionary<Item.Type, int>())
+    : base("Chest", ResourceLoader.fetchTexture(ResourceLoader.TextureType.Chest), new Vector2i(2, 1), new Dictionary<Item.Type, int>
+    {
+        {Item.Type.Iron, 10}
+    }
+    )
     {
         storageComponent = new StorageComponent(500);
     }

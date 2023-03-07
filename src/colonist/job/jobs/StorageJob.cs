@@ -30,7 +30,7 @@ public class StorageJob : Job
             //}
         //} while (colonist.storageComponent.getCount() != 0 || !storage.isFull());
 
-        Log.Message("Job done!");
+        //Log.Message("Job done!");
         isDone = true;
     }
 }

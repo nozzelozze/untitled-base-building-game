@@ -15,6 +15,7 @@ public class PlayerHighlight
     public bool playerIsHighlighting;
 
     public RectangleShape outlineRectangle;
+    public Func<Vector2f> ? getPosition;
 
     private int outlineThickness = 3;
 
@@ -36,23 +37,26 @@ public class PlayerHighlight
         playerIsHighlighting = true;
     }
 
-    public void highlight(Action newMaximize, Action newMinimize, Vector2f rectPosition, Vector2f rectSize, Action ?  newUpdateHighlight = null)
+    public void highlight(Action newMaximize, Action newMinimize, Func<Vector2f> rectPosition, Vector2f rectSize, Action ?  newUpdateHighlight = null)
     {
         highlight(newMaximize, newMinimize, newUpdateHighlight);
         outlineRectangle.Size = rectSize;
-        outlineRectangle.Position = rectPosition;
+        outlineRectangle.Position = rectPosition();
+        getPosition = rectPosition;
     }
 
-    public void unhightlight()
+    public void unhighlight()
     {
         if (minimize != null) minimize();
         updateHighlight = null;
         playerIsHighlighting = false;
+        getPosition = null;
     }
 
     public void update()
     {
         if (updateHighlight != null) updateHighlight();
+        if (getPosition != null) outlineRectangle.Position = getPosition();
         if (playerIsHighlighting) RenderQueue.queue(outlineRectangle);
     }
 }

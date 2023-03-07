@@ -6,20 +6,22 @@ using SFML.System;
 public class StorageComponent
 {
 
-    public List<Item> items;
+    private List<Item> items;
+    private List<Item.Type> acceptedItems;
     private bool storageFull;
     private int maximumStorage;
 
-    public StorageComponent(int maximumStorage)
+    public StorageComponent(int maximumStorage, List<Item.Type> ? acceptedItems = null)
     {
         items = new List<Item>();
         storageFull = false;
         this.maximumStorage = maximumStorage;
+        if (acceptedItems == null) this.acceptedItems = new List<Item.Type>();
     }
 
     public void swapItem(StorageComponent to, Item item)
     {
-        if (!to.isFull())
+        if (!to.isFull() && to.acceptedItems.Contains(item.type))
         {
             removeItem(item);
             to.addItem(item);
@@ -59,12 +61,15 @@ public class StorageComponent
 
     public void addItem(Item newItem)
     {
-        if (!storageFull)
+        if (acceptedItems.Contains(newItem.type))
         {
-            items.Add(newItem);
-            if (items.Count == maximumStorage)
+            if (!storageFull)
             {
-                storageFull = true;
+                items.Add(newItem);
+                if (items.Count == maximumStorage)
+                {
+                    storageFull = true;
+                }
             }
         }
     }
@@ -79,10 +84,12 @@ public class StorageComponent
                 break;
             }
         }
+        storageFull = false;
     }
 
     public void removeItem(Item item)
     {
         if (items.Contains(item)) items.Remove(item);
+        storageFull = false;
     }
 }

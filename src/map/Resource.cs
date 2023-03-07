@@ -44,7 +44,7 @@ public class Resource
     {
         clickMenu = new ResourceMenu("Iron", this);
         clickMenu.Position = Camera.camPositionToWin(position);
-        clickMenu.closeButton.buttonClicked += Player.playerHighlight.unhightlight;
+        clickMenu.closeButton.buttonClicked += Player.playerHighlight.unhighlight;
     }
 
     public void render()
