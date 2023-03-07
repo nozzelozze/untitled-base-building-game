@@ -30,48 +30,50 @@ public class ColonistWalk
 
         return vector;
     }
-
-    public void beginWalk(Tile endTile)
+public Vector2f getColonistCenter()
+    {
+        Vector2f position = new Vector2f
+        (
+            colonist.Position.X+colonist.sprite.Texture.Size.X/2,
+            colonist.Position.Y+colonist.sprite.Texture.Size.Y/2
+        );
+        return position;
+    }
+public void beginWalk(Tile endTile)
     {
         currentPathIndex = 0;
         currentPath = pathfinding.findPath(Map.Instance.getTileAt(colonist.Position), endTile);
-        colonist.Position = Map.Instance.getTilePosition(currentPath[0]);
-        foreach (Tile s in currentPath)
+        if (!endTile.isWalkable())
         {
-            s.sprite.Color = GUIColor.validGreenColor;
+            currentPath.Remove(endTile);
         }
-        direction = Map.Instance.getTilePosition(currentPath[currentPathIndex+1]) - Map.Instance.getTilePosition(currentPath[currentPathIndex]);
+        colonist.Position = Map.Instance.getTilePosition(currentPath[0]);
+        direction = Map.Instance.getTileCenter(currentPath[currentPathIndex]) - getColonistCenter();
         direction = Normalize(direction);
-    }
-                //Vector2f a = nextTilePos - afterTilePos;
-                //float distanceToNextTile = new Vector2(a.X, a.Y).Length();
-public void update()
-{
-    if (currentPath.Count != 0)
+    }  public void update()
     {
-        Vector2f currentPosition = colonist.Position;
-        Vector2f nextPosition = currentPosition + direction;
-        Tile currentTile = Map.Instance.getTileAt(currentPosition);
-        Tile nextTile = Map.Instance.getTileAt(nextPosition);
-        
-        if (currentTile != nextTile)
+        if (currentPathIndex > currentPath.Count-1)
         {
-            colonist.Position = Map.Instance.getTilePosition(nextTile);
-            currentPathIndex++;
-
-            if (currentPathIndex < currentPath.Count - 1)
+            return;
+        }
+        if (currentPath.Count != 0)
+        {
+            Tile beforeTile = Map.Instance.getTileAt(getColonistCenter());
+            colonist.Position += direction * 2.5f;
+            Tile afterTile = Map.Instance.getTileAt(getColonistCenter());
+            Vector2f tilePosition = Map.Instance.getTilePosition(currentPath[currentPathIndex]);
+            Vector2f distance = new Vector2f(tilePosition.X+Map.tileSize/2, tilePosition.Y+Map.tileSize/2) - getColonistCenter();
+            if (Math.Abs(new Vector2(distance.X, distance.Y).Length()) < 2.5f)
             {
-                direction = Map.Instance.getTilePosition(currentPath[currentPathIndex + 1]) - colonist.Position;
+                currentPathIndex ++;
+                if (currentPathIndex > currentPath.Count-1)
+                {
+                    colonist.walkDone();
+                    return;
+                }
+                direction = Map.Instance.getTileCenter(currentPath[currentPathIndex]) - getColonistCenter();
                 direction = Normalize(direction);
             }
-            else
-            {
-                currentPath.Clear();
-                return;
-            }
         }
-
-        colonist.Position += direction;
     }
-}
 }
