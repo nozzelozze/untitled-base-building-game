@@ -119,9 +119,9 @@ public class Structure : Transformable
         {
             infoMenu.addItem(new GUIText("Needs resources:"));
 
-            foreach (KeyValuePair<Item.Type, int> costPair in cost)
+            foreach (KeyValuePair<Item.Type, int> costPair in deposit)
             {
-                infoMenu.addItem(new GUIText($"{Item.itemNames[costPair.Key]}: {costPair.Value}"));
+                infoMenu.addItem(new GUIText($"{Item.itemNames[costPair.Key]}: {costPair.Value} / {cost[costPair.Key]}"));
             }
 
             infoMenu.addItem(new TextButton("Cancel Build", () => cancelBuild()));

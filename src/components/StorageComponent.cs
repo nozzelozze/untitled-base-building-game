@@ -7,7 +7,7 @@ public class StorageComponent
 {
 
     private List<Item> items;
-    private List<Item.Type> acceptedItems;
+    private List<Item.Type> ? acceptedItems;
     private bool storageFull;
     private int maximumStorage;
 
@@ -16,12 +16,11 @@ public class StorageComponent
         items = new List<Item>();
         storageFull = false;
         this.maximumStorage = maximumStorage;
-        if (acceptedItems == null) this.acceptedItems = new List<Item.Type>();
     }
 
     public void swapItem(StorageComponent to, Item item)
     {
-        if (!to.isFull() && to.acceptedItems.Contains(item.type))
+        if (!to.isFull() && to.acceptedItems.Contains(item.type) || !to.isFull() && to.acceptedItems == null)
         {
             removeItem(item);
             to.addItem(item);
@@ -61,15 +60,19 @@ public class StorageComponent
 
     public void addItem(Item newItem)
     {
-        if (acceptedItems.Contains(newItem.type))
+        if (acceptedItems != null)
         {
-            if (!storageFull)
+            if (!acceptedItems.Contains(newItem.type)) 
             {
-                items.Add(newItem);
-                if (items.Count == maximumStorage)
-                {
-                    storageFull = true;
-                }
+                return;
+            }
+        }
+        if (!storageFull)
+        {
+            items.Add(newItem);
+            if (items.Count == maximumStorage)
+            {
+                storageFull = true;
             }
         }
     }

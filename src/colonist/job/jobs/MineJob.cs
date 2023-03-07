@@ -19,7 +19,6 @@ public class MineJob : Job
 	public override void doJob()
 	{
 		base.doJob();
-        Log.Message("in adaadadasssssssssssssssssssss");
 		for (int i = 0; i < 50; i++)
 		{
 			colonist.storageComponent.addItem(new Item(Resource.itemTypes[resource.type]));

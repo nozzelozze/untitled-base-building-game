@@ -22,6 +22,7 @@ public class BuildJob : Job
     public override void doJob()
     {
         base.doJob();
+        Log.Message("Biuld");
         foreach (KeyValuePair<Item.Type, int> itemPair in structure.cost)
         {
             if (colonist.storageComponent.getItems().Any(item => item.type == itemPair.Key))
@@ -49,6 +50,5 @@ public class BuildJob : Job
                 colonist.pushBackCurrentJob();
             }
         }
-        isDone = true;
     }
 }
