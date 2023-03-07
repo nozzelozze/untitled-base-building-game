@@ -104,6 +104,17 @@ class Map
         return position;
     }
 
+    public Vector2f getTileCenter(Tile tile)
+    {
+        Vector2f tilePosition = getTilePosition(tile);
+        Vector2f center = new Vector2f
+        (
+            tilePosition.X+tileSize/2,
+            tilePosition.Y+tileSize/2
+        );
+        return center;
+    }
+
     public Tile getTileAt(Vector2f getPosition)
     {
         Func<int, int, int> nearestMultiple = (numToRound, multiple) => numToRound > 0 ? numToRound - (numToRound % multiple) : 0;
