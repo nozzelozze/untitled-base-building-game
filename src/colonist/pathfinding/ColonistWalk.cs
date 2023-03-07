@@ -43,22 +43,35 @@ public class ColonistWalk
         direction = Map.Instance.getTilePosition(currentPath[currentPathIndex+1]) - Map.Instance.getTilePosition(currentPath[currentPathIndex]);
         direction = Normalize(direction);
     }
-
-    public void update()
+                //Vector2f a = nextTilePos - afterTilePos;
+                //float distanceToNextTile = new Vector2(a.X, a.Y).Length();
+public void update()
+{
+    if (currentPath.Count != 0)
     {
-
-        if (currentPath.Count != 0)
+        Vector2f currentPosition = colonist.Position;
+        Vector2f nextPosition = currentPosition + direction;
+        Tile currentTile = Map.Instance.getTileAt(currentPosition);
+        Tile nextTile = Map.Instance.getTileAt(nextPosition);
+        
+        if (currentTile != nextTile)
         {
-            Tile beforeTile = Map.Instance.getTileAt(colonist.Position);
-            colonist.Position += direction;
-            Tile afterTile = Map.Instance.getTileAt(colonist.Position);
-            if (beforeTile != afterTile)
+            colonist.Position = Map.Instance.getTilePosition(nextTile);
+            currentPathIndex++;
+
+            if (currentPathIndex < currentPath.Count - 1)
             {
-                Log.Message("entered");
-                currentPathIndex ++;
-                direction = Map.Instance.getTilePosition(currentPath[currentPathIndex+1]) - Map.Instance.getTilePosition(currentPath[currentPathIndex]);
+                direction = Map.Instance.getTilePosition(currentPath[currentPathIndex + 1]) - colonist.Position;
                 direction = Normalize(direction);
             }
+            else
+            {
+                currentPath.Clear();
+                return;
+            }
         }
+
+        colonist.Position += direction;
     }
+}
 }

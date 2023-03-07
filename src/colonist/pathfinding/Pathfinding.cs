@@ -77,7 +77,7 @@ public class Pathfinding
         return neighborTiles;
     }
 
-    private float DistanceCost(Tile firstTile, Tile secondTile)
+    public static float DistanceCost(Tile firstTile, Tile secondTile)
     {
         Vector2 distance;
         Tuple<int, int> firstTileIndex = Map.Instance.getTileIndex(firstTile);
