@@ -46,7 +46,7 @@ public class Job
 
         if (isDone)
         {
-            colonist.jobDone();
+            colonist.personalJobManager.jobDone();
         }
 
     }

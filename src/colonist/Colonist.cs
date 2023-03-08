@@ -21,11 +21,8 @@ public class Colonist : Transformable
     public Sprite sprite;
 
     public StorageComponent storageComponent = new StorageComponent(50);
-
+    public ColonistJobManager personalJobManager;
     public ColonistWalk walk;
-
-    Job ? currentJob;
-    private List<Job> personalJobQueue = new List<Job>();
 
     Menu ?  infoMenu;
 
@@ -33,6 +30,7 @@ public class Colonist : Transformable
     {
         colonists.Add(id, this);
         walk = new ColonistWalk(this);
+        personalJobManager = new ColonistJobManager(this);
 
         texture = ResourceLoader.fetchTexture(ResourceLoader.TextureType.Colonist);
         sprite = new Sprite(texture);
@@ -54,14 +52,9 @@ public class Colonist : Transformable
         RenderQueue.queue(sprite);
     }
 
-    public void jobDone()
-    {
-        currentJob = null;
-    }
-
     public void walkDone()
     {
-        currentJob?.doJob();
+        personalJobManager.workCurrentJob();
     }
 
     public void highlight()
@@ -69,31 +62,6 @@ public class Colonist : Transformable
         infoMenu = new Menu("Peter xDDD", Menu.infoMenuPosition);
         infoMenu.addItem(new GUIText("Inventory: %v", tickVar: () => storageComponent.getItems().Count((item) => item.type == Item.Type.Iron)));
         infoMenu.closeButton.buttonClicked += Player.playerHighlight.unhighlight;
-    }
-
-    public void addToPersonalJobQueue(Job newJob)
-    {
-        personalJobQueue.Add(newJob);
-    }
-
-    public void pushBackCurrentJob()
-    {
-        personalJobQueue.Insert(0, currentJob);
-        currentJob = personalJobQueue[1];
-        personalJobQueue.RemoveAt(1);
-        currentJob.beginJob(this);
-    }
-
-    public void emptyStorage()
-    {
-        foreach (Job job in personalJobQueue)
-        {
-            if (job is StorageJob) return;
-        }   
-        if (currentJob is StorageJob) return;
-        //Chest firstChest = Map.Instance.structures.FirstOrDefault(s => s is Chest) as Chest;
-        Chest firstChest = Structure.getNearestStructure<Chest>();
-        if (firstChest != null) JobManager.addToQueue(new StorageJob(firstChest.storageComponent, firstChest.startTile));
     }
 
     public void update()
@@ -122,27 +90,10 @@ public class Colonist : Transformable
 
         if (storageComponent.isFull())
         {
-            emptyStorage();
+            personalJobManager.emptyStorage();
         }
 
-        if (currentJob == null)
-        {
-            if (personalJobQueue.Count == 0)
-            {
-                if (JobManager.jobQueue.Count != 0)
-                {
-                    personalJobQueue.Add(JobManager.getJob());
-                }
-            } else
-            {
-                currentJob = personalJobQueue[0];
-                currentJob.beginJob(this);
-                personalJobQueue.Remove(currentJob);
-            }
-        } else
-        {
-            currentJob.updateJob();
-        }
+        personalJobManager.update();
 
     }
 }

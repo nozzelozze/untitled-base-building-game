@@ -60,8 +60,8 @@ public class BuildJob : Job
                     }
                 }
                 a:
-                colonist.addToPersonalJobQueue(new MineJob(firstTileWithResource.resource));
-                colonist.pushBackCurrentJob();
+                colonist.personalJobManager.queueJob(new MineJob(firstTileWithResource.resource));
+                colonist.personalJobManager.pushBackCurrentJob();
             }
         }
     }
