@@ -20,10 +20,20 @@ public class StorageComponent
 
     public void swapItem(StorageComponent to, Item item)
     {
-        if (!to.isFull() && to.acceptedItems.Contains(item.type) || !to.isFull() && to.acceptedItems == null)
+        if (!to.isFull())
         {
-            removeItem(item);
-            to.addItem(item);
+            if (to.acceptedItems == null)
+            {
+                removeItem(item);
+                to.addItem(item);
+            } else
+            {
+                if (to.acceptedItems.Contains(item.type))
+                {
+                    removeItem(item);
+                    to.addItem(item);
+                }
+            }
         }
     }
 
