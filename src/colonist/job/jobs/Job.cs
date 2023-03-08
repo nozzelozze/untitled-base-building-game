@@ -11,7 +11,7 @@ public class Job
     private Tile jobTile;
     private protected Colonist colonist;
 
-    private protected bool isDone = false;
+    public bool isDone = false;
 
     public Job(Tile tile)
     {

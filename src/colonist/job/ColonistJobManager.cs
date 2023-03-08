@@ -4,8 +4,10 @@ public class ColonistJobManager
 {
 
     private Colonist colonist;
-    private Job ? currentJob;
+    public Job ? currentJob;
     private List<Job> personalJobQueue = new List<Job>();
+    
+    public static List<Job> currentJobs = new List<Job>();
 
     public ColonistJobManager(Colonist colonist)
     {
@@ -19,6 +21,7 @@ public class ColonistJobManager
 
     public void jobDone()
     {
+        currentJobs.Remove(currentJob);
         currentJob = null;
     }
 
@@ -29,11 +32,16 @@ public class ColonistJobManager
 
     public void emptyStorage()
     {
-        foreach (Job job in personalJobQueue)
+        List<StorageJob> storageJobs = JobManager.jobQueue.OfType<StorageJob>().ToList();
+        foreach (StorageJob job in storageJobs)
         {
-            if (job is StorageJob) return;
-        }   
-        if (currentJob is StorageJob) return;
+            if (job.reverse) return;
+        }
+        if (currentJob is StorageJob)
+        {
+            StorageJob storageJob = (StorageJob)currentJob;
+            if (storageJob.reverse) return;
+        }
         Chest firstChest = Structure.getNearestStructure<Chest>();
         if (firstChest != null) queueJob(new StorageJob(firstChest.storageComponent, firstChest.startTile));
     }
@@ -44,6 +52,7 @@ public class ColonistJobManager
         {
             personalJobQueue.Insert(0, currentJob);
             currentJob = personalJobQueue[1];
+            currentJobs.Add(currentJob);
             personalJobQueue.RemoveAt(1);
             currentJob.beginJob(colonist);
         }
@@ -62,6 +71,7 @@ public class ColonistJobManager
             } else
             {
                 currentJob = personalJobQueue[0];
+                currentJobs.Add(currentJob);
                 currentJob.beginJob(colonist);
                 personalJobQueue.Remove(currentJob);
             }
