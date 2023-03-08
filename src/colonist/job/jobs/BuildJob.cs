@@ -23,13 +23,27 @@ public class BuildJob : Job
     {
         base.doJob();
         Log.Message("Biuld");
+        /*foreach (Item item in colonist.storageComponent.getItems())
+        {
+            if (structure.cost.Keys.Contains(item.type) && !structure.isPaidFor())
+            {
+                colonist.storageComponent.removeItem(item);
+                if (structure.deposit[item.type] < structure.cost[item.type]) structure.deposit[item.type] ++;
+            }
+        }*/
         foreach (KeyValuePair<Item.Type, int> itemPair in structure.cost)
         {
             if (colonist.storageComponent.getItems().Any(item => item.type == itemPair.Key))
             {
-                Log.Message("DADAD");
-                colonist.storageComponent.removeItem(itemPair.Key);
-                if (structure.deposit[itemPair.Key] < structure.cost[itemPair.Key]) structure.deposit[itemPair.Key] ++;
+                for (int i = 0; i < colonist.storageComponent.itemCount()[itemPair.Key]; i++)
+                {
+                    colonist.storageComponent.removeItem(itemPair.Key);
+                    if (structure.deposit[itemPair.Key] < structure.cost[itemPair.Key]) structure.deposit[itemPair.Key] ++;
+                    if (structure.isPaidFor())
+                    {
+                        break;
+                    }
+                }
             } else
             {
                 Tile firstTileWithResource = null;
@@ -49,6 +63,15 @@ public class BuildJob : Job
                 colonist.addToPersonalJobQueue(new MineJob(firstTileWithResource.resource));
                 colonist.pushBackCurrentJob();
             }
+        }
+    }
+
+    public override void updateJob()
+    {
+        base.updateJob();
+        if (structure.isPaidFor())
+        {
+            isDone = true;
         }
     }
 }

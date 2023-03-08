@@ -1,6 +1,4 @@
-using System;
 using SFML.Graphics;
-using SFML.Window;
 using SFML.System;
 
 public class Structure : Transformable
@@ -102,6 +100,11 @@ public class Structure : Transformable
         return infoMenu != null && built;
     }
 
+    public bool isPaidFor()
+    {
+        return  cost.OrderBy(x => x.Key).SequenceEqual(deposit.OrderBy(x => x.Key)) || built;
+    }
+
     public void cancelBuild()
     {
         Player.playerHighlight.unhighlight();
@@ -142,7 +145,7 @@ public class Structure : Transformable
     public virtual void update()
     {
         render();
-        if (cost.OrderBy(x => x.Key).SequenceEqual(deposit.OrderBy(x => x.Key)))
+        if (isPaidFor() && !built)
         {
             build();
         }
