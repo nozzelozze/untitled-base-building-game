@@ -30,17 +30,21 @@ public class ColonistJobManager
         personalJobQueue.Add(newJob);
     }
 
+    public List<Job> seeJobs()
+    {
+        List<Job> jobs = new List<Job>();
+        jobs.AddRange(personalJobQueue);
+        jobs.AddRange(JobManager.jobQueue);
+        if (currentJob != null) jobs.Add(currentJob);
+        return jobs;
+    }
+
     public void emptyStorage()
     {
-        List<StorageJob> storageJobs = JobManager.jobQueue.OfType<StorageJob>().ToList();
+        List<StorageJob> storageJobs = seeJobs().OfType<StorageJob>().ToList();
         foreach (StorageJob job in storageJobs)
         {
-            if (job.reverse) return;
-        }
-        if (currentJob is StorageJob)
-        {
-            StorageJob storageJob = (StorageJob)currentJob;
-            if (storageJob.reverse) return;
+            if (!job.reverse) return;
         }
         Chest firstChest = Structure.getNearestStructure<Chest>();
         if (firstChest != null) queueJob(new StorageJob(firstChest.storageComponent, firstChest.startTile));
@@ -66,7 +70,7 @@ public class ColonistJobManager
             {
                 if (JobManager.jobQueue.Count != 0)
                 {
-                    personalJobQueue.Add(JobManager.getJob());
+                    queueJob(JobManager.getJob());
                 }
             } else
             {

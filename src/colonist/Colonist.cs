@@ -67,7 +67,7 @@ public class Colonist : Transformable
     public void update()
     {
         render();
-        if (personalJobManager.currentJob != null) if (!personalJobManager.currentJob.isDone) walk.update();
+        walk.update();
         Vector2i mousePosition = PlayerMouse.getPosition();
         Vector2f collisionPosition = Camera.camPositionToWin(Position);
         collisionRect.Top = collisionPosition.Y;

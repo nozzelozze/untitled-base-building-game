@@ -14,7 +14,6 @@ public class StorageJob : Job
     public override void doJob()
     {
         base.doJob();
-    
         foreach (Item item in colonist.storageComponent.getItems().ToList())
         {
             colonist.storageComponent.swapItem(storage, item);
