@@ -8,7 +8,7 @@ using System.Numerics;
 public class BuildJob : Job
 {
 
-    private Structure structure;
+    public Structure structure;
 
     public BuildJob(Structure unBuiltStructure)
     : base(unBuiltStructure.startTile)
@@ -22,7 +22,6 @@ public class BuildJob : Job
     public override void doJob()
     {
         base.doJob();
-        Log.Message("Biuld");
         /*foreach (Item item in colonist.storageComponent.getItems())
         {
             if (structure.cost.Keys.Contains(item.type) && !structure.isPaidFor())

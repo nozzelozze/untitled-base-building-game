@@ -38,10 +38,20 @@ public class Miner : Structure
     public override void update()
     {
         base.update();
-        if (!storageComponent.isFull()) 
-            if (new Random().Next(10) == 5) storageComponent.addItem(new Item(Item.Type.Iron));
+        if (storageComponent.isFull())
+        {
+            List<StorageJob> storageJobs = JobManager.jobQueue.OfType<StorageJob>().ToList();
+            List<StorageJob> currentJobs = ColonistJobManager.currentJobs.OfType<StorageJob>().ToList();
+            if (!storageJobs.Any(job => job.storage == storageComponent) && !currentJobs.Any(job => job.storage == storageComponent))
+            {
+                Log.Message("DADA");
+                JobManager.addToQueue(new StorageJob(storageComponent, startTile, true));
+            }
+        }
         else
-            {}
+        {
+            if (new Random().Next(30) == 5) storageComponent.addItem(new Item(Item.Type.Iron));
+        }
     }
 
     public override bool isTileValid(Tile tile)
