@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Numerics;
-using SFML.Graphics;
 using SFML.System;
-
-/* THIS IS EXTREMELY BAD AND NOT GOOD CODE */
 
 public class ColonistWalk
 {
@@ -30,7 +26,8 @@ public class ColonistWalk
 
         return vector;
     }
-public Vector2f getColonistCenter()
+    
+    public Vector2f getColonistCenter()
     {
         Vector2f position = new Vector2f
         (
@@ -39,7 +36,8 @@ public Vector2f getColonistCenter()
         );
         return position;
     }
-public void beginWalk(Tile endTile)
+
+    public void beginWalk(Tile endTile)
     {
         currentPathIndex = 0;
         currentPath = pathfinding.findPath(Map.Instance.getTileAt(colonist.Position), endTile);
@@ -50,7 +48,9 @@ public void beginWalk(Tile endTile)
         colonist.Position = Map.Instance.getTilePosition(currentPath[0]);
         direction = Map.Instance.getTileCenter(currentPath[currentPathIndex]) - getColonistCenter();
         direction = Normalize(direction);
-    }  public void update()
+    }  
+
+    public void update()
     {
         if (currentPathIndex > currentPath.Count-1)
         {

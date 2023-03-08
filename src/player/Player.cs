@@ -1,8 +1,6 @@
 using System;
-using System.Numerics;
 using SFML.Graphics;
 using SFML.Window;
-using SFML.System;
 
 public class Player
 {

@@ -1,8 +1,4 @@
 using System;
-using System.Linq;
-using SFML.Graphics;
-using SFML.Window;
-using SFML.System;
 
 public class Item
 {

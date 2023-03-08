@@ -1,7 +1,4 @@
 using System;
-using System.Linq;
-using SFML.Graphics;
-using SFML.Window;
 using SFML.System;
 
 class Map
@@ -52,7 +49,7 @@ class Map
                if (structureTile == tile) return structure;
             }
         }
-        //Log.Warning("Structure is not found from tile. (getStructureFromTile)");
+        Log.Warning("Structure is not found from tile. (getStructureFromTile)");
         return null;
     }
 

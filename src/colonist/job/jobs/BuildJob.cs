@@ -1,9 +1,4 @@
 using System;
-using SFML.Graphics;
-using SFML.Window;
-using SFML.System;
-using SFML.Audio;
-using System.Numerics;
 
 public class BuildJob : Job
 {
@@ -22,14 +17,6 @@ public class BuildJob : Job
     public override void doJob()
     {
         base.doJob();
-        /*foreach (Item item in colonist.storageComponent.getItems())
-        {
-            if (structure.cost.Keys.Contains(item.type) && !structure.isPaidFor())
-            {
-                colonist.storageComponent.removeItem(item);
-                if (structure.deposit[item.type] < structure.cost[item.type]) structure.deposit[item.type] ++;
-            }
-        }*/
         foreach (KeyValuePair<Item.Type, int> itemPair in structure.cost)
         {
             if (colonist.storageComponent.getItems().Any(item => item.type == itemPair.Key))
@@ -45,7 +32,7 @@ public class BuildJob : Job
                 }
             } else
             {
-                Tile firstTileWithResource = null;
+                Tile ? firstTileWithResource = null;
 
                 for (int i = 0; i < Map.Instance.tiles.GetLength(0); i++)
                 {
