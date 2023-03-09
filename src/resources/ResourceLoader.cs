@@ -14,7 +14,6 @@ public class ResourceLoader
         DirtTwo,
         Bed,
         Crosshair,
-        Icon,
         CloseIcon,
         Copper,
         Iron,
@@ -30,25 +29,22 @@ public class ResourceLoader
     public ResourceLoader()
     {
         // textures
-        loadedTextures.Add(TextureType.DirtOne, new Texture(texturesPath + "dirt1.png"));
-        loadedTextures.Add(TextureType.DirtTwo, new Texture(texturesPath + "dirt2.png"));
-        loadedTextures.Add(TextureType.Bed, new Texture(texturesPath + "bed.png"));
-        loadedTextures.Add(TextureType.Crosshair, new Texture(texturesPath + "crosshair.png"));
-        loadedTextures.Add(TextureType.Icon, new Texture(getTexturePath("icon")));
-        loadedTextures.Add(TextureType.CloseIcon, new Texture(getTexturePath("closeWindowIcon")));
-        loadedTextures.Add(TextureType.Copper, new Texture(getTexturePath("copper")));
-        loadedTextures.Add(TextureType.Iron, new Texture(getTexturePath("iron")));
-        loadedTextures.Add(TextureType.Colonist, new Texture(getTexturePath("colonist")));
-        loadedTextures.Add(TextureType.DefaultTexture, new Texture(getTexturePath("defaultTexture")));
-        loadedTextures.Add(TextureType.Chest, new Texture(getTexturePath("chest")));
-        loadedTextures.Add(TextureType.BuildButton, new Texture(getTexturePath("buildButton")));
+        loadedTextures.Add(TextureType.DirtOne, new Texture(texturesPath + "tiles/dirt1.png"));
+        loadedTextures.Add(TextureType.DirtTwo, new Texture(texturesPath + "tiles/dirt2.png"));
+        loadedTextures.Add(TextureType.Bed, new Texture(texturesPath + "structures/bed.png"));
+        loadedTextures.Add(TextureType.Crosshair, new Texture(texturesPath + "ui/crosshair.png"));
+        loadedTextures.Add(TextureType.CloseIcon, new Texture(texturesPath + "ui/closeWindowIcon.png"));
+        loadedTextures.Add(TextureType.Copper, new Texture(texturesPath + "tiles/copper.png"));
+        loadedTextures.Add(TextureType.Iron, new Texture(texturesPath + "tiles/iron.png"));
+        loadedTextures.Add(TextureType.Colonist, new Texture(texturesPath + "colonists/colonist.png"));
+        loadedTextures.Add(TextureType.DefaultTexture, new Texture(texturesPath + "defaultTexture.png"));
+        loadedTextures.Add(TextureType.Chest, new Texture(texturesPath + "structures/chest.png"));
+        loadedTextures.Add(TextureType.BuildButton, new Texture(texturesPath + "ui/buildButton.png"));
         
 
         // fonts
         fonts.Add("default", new Font(fontsPath + "default.ttf"));
     }
-
-    public Func<string, string> getTexturePath = (name) => texturesPath + name + ".png";
 
     public static Font fetchFont(string fontName)
     {

@@ -1,10 +1,5 @@
 
-# Todo polish
-
-> * Make mine a button
-* Lower build button + change icon
-![](https://www.casual-ben.com/wp-content/uploads/2022/01/manual-strip-mining-rimworld-s02e03-you-can-replant-trees_screenshot_14.jpg)
-> Icons should be in bottom left like in the picture
+# Polish
 
 ## Update Textures
 
@@ -24,9 +19,14 @@
 * Walk sound
 * Mine sound
 * Build sound
-* GUI sounds
+* GUI sounds    
 
 ## Other
 
 * Add some kind of rock / mountain
 > * Drag mechanic when selecting mine?
+
+> * Make mine a button
+* Lower build button + change icon
+![](https://www.casual-ben.com/wp-content/uploads/2022/01/manual-strip-mining-rimworld-s02e03-you-can-replant-trees_screenshot_14.jpg)
+> Icons should be in bottom left like in the picture
