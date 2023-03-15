@@ -4,62 +4,62 @@ using SFML.System;
 
 public class Menu : Container
 {
-    RectangleShape barRect;
-    Text titleText;
-    public IconButton closeButton;
+    RectangleShape BarRect;
+    Text TitleText;
+    public IconButton CloseButton;
 
-    public static Vector2f infoMenuPosition = new Vector2f(1500, 550);
+    public static Vector2f InfoMenuPosition = new Vector2f(1500, 550);
 
-    public const float barRectSizeY = 32;
+    public const float BarRectSizeY = 32;
 
-    public Menu(string title, Vector2f position, List<GUIActor> ? items = null, AlignType alignType = AlignType.Center) : base(position, alignType)
+    public Menu(string title, Vector2f position, List<GUIActor>? items = null, AlignType alignType = AlignType.Center) : base(position, alignType)
     {
         if (items != null)
         {
             foreach(GUIActor item in items)
             {
-                addRow(new List<GUIActor>{item});
+                AddRow(new List<GUIActor>{item});
             }
         }
-        barRect = new RectangleShape(new Vector2f(defaultSizeX, barRectSizeY));
-        barRect.OutlineThickness = GUIActor.outlineThickness;
-        barRect.OutlineColor = GUIActor.outlineColor;
-        barRect.FillColor = GUIColor.blueColor;
-        barRect.Position = Position;
-        titleText = new Text(title, ResourceLoader.fetchFont("default"));
-        titleText.CharacterSize = GUIActor.getCharacterSize(GUIActor.characterSize.HeadingSmall);
-        titleText.Position = Position + new Vector2f(5, 0);
-        closeButton = new IconButton(
-            ResourceLoader.fetchTexture(ResourceLoader.TextureType.CloseIcon), 
-            closeWindow,
-            new Vector2f(Position.X+(float)defaultSizeX-barRectSizeY, Position.Y)
+        BarRect = new RectangleShape(new Vector2f(DefaultSizeX, BarRectSizeY));
+        BarRect.OutlineThickness = GUIActor.OutlineThickness;
+        BarRect.OutlineColor = GUIActor.OutlineColor;
+        BarRect.FillColor = GUIColor.BlueColor;
+        BarRect.Position = Position;
+        TitleText = new Text(title, ResourceLoader.FetchFont("default"));
+        TitleText.CharacterSize = GUIActor.GetCharacterSize(GUIActor.CharacterSize.HeadingSmall);
+        TitleText.Position = Position + new Vector2f(5, 0);
+        CloseButton = new IconButton(
+            ResourceLoader.FetchTexture(ResourceLoader.TextureType.CloseIcon), 
+            CloseWindow,
+            new Vector2f(Position.X+(float)DefaultSizeX-BarRectSizeY, Position.Y)
         );
     }
 
-    public void closeWindow()
+    public void CloseWindow()
     {
 
     }
 
-    public void changeTitle(string newTitle)
+    public void ChangeTitle(string newTitle)
     {
-        titleText.DisplayedString = newTitle;
+        TitleText.DisplayedString = newTitle;
     }
 
-    public void addItem(GUIActor item)
+    public void AddItem(GUIActor item)
     {
-        addRow(new List<GUIActor>{item});
+        AddRow(new List<GUIActor>{item});
     }
 
-    public override void render()
+    public override void Render()
     {
-        base.render();
-        barRect.Position = Position;
-        titleText.Position = Position + new Vector2f(5, 0);
-        closeButton.Position = new Vector2f(Position.X+(float)getSize().X-32f, Position.Y);
-        barRect.Size = new Vector2f(baseRect.Size.X, barRectSizeY);
-        RenderQueue.queueGUI(barRect);
-        RenderQueue.queueGUI(titleText);
-        closeButton.render(); 
+        base.Render();
+        BarRect.Position = Position;
+        TitleText.Position = Position + new Vector2f(5, 0);
+        CloseButton.Position = new Vector2f(Position.X+(float)GetSize().X-32f, Position.Y);
+        BarRect.Size = new Vector2f(BaseRect.Size.X, BarRectSizeY);
+        RenderQueue.QueueGUI(BarRect);
+        RenderQueue.QueueGUI(TitleText);
+        CloseButton.Render(); 
     }
 }

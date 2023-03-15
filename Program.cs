@@ -25,7 +25,7 @@ class Game
         {
             for (int y = 0; y < 64; y++)
             {
-                if (new Random().Next(7) == 0) new Resource(Resource.ResourceType.Iron, Map.Instance.tiles[x, y]);
+                if (new Random().Next(7) == 0) new Resource(Resource.ResourceType.Iron, Map.Instance.Tiles[x, y]);
             }
         }
         JobManager jobManager = new JobManager();
@@ -33,20 +33,20 @@ class Game
 
         window.SetVerticalSyncEnabled(true);
         window.Closed += (sender, args) => window.Close();
-        window.MouseWheelScrolled += camera.scroll;
+        window.MouseWheelScrolled += camera.Scroll;
         while (window.IsOpen)
         {
             window.DispatchEvents();
             window.Clear(Color.Black);
-            input.getEvents();
+            input.GetEvents();
 
-            camera.updateCamera(window);
-            Map.Instance.render();
+            camera.UpdateCamera(window);
+            Map.Instance.Render();
 
-            colonist.update();
+            colonist.Update();
 
-            player.updatePlayer(window);
-            RenderQueue.render(window, uiView);
+            player.UpdatePlayer(window);
+            RenderQueue.Render(window, uiView);
             window.Display();
         }
     }

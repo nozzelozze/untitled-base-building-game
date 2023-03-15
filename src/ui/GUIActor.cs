@@ -4,67 +4,67 @@ using SFML.System;
 
 public class GUIActor : Transformable
 {
-    public FloatRect collisionRect;
-    public RectangleShape baseRect = new RectangleShape();
+    public FloatRect CollisionRect;
+    public RectangleShape BaseRect = new RectangleShape();
 
-    public static int outlineThickness = 2;
-    public static Color outlineColor = GUIColor.darkColor;
+    public static int OutlineThickness = 2;
+    public static Color OutlineColor = GUIColor.DarkColor;
 
-    public bool isTransparent;
+    public bool IsTransparent;
 
-    public enum characterSize
+    public enum CharacterSize
     {
         Info,
         HeadingSmall,
         HeadingLarge
     }
 
-    public static Dictionary<characterSize, uint> characterSizes = new Dictionary<characterSize, uint>
+    public static Dictionary<CharacterSize, uint> CharacterSizes = new Dictionary<CharacterSize, uint>
     {
-        {characterSize.Info, 15},
-        {characterSize.HeadingSmall, 20},
-        {characterSize.HeadingLarge, 50}
+        {CharacterSize.Info, 15},
+        {CharacterSize.HeadingSmall, 20},
+        {CharacterSize.HeadingLarge, 50}
     };
 
-    public static uint getCharacterSize(characterSize size)
+    public static uint GetCharacterSize(CharacterSize size)
     {
-        return characterSizes[size];
+        return CharacterSizes[size];
     }
 
-    public GUIActor(Vector2f size, Vector2f ? position = null, bool isTransparent = false, bool hasOutline = true)
+    public GUIActor(Vector2f size, Vector2f? position = null, bool isTransparent = false, bool hasOutline = true)
     {
-        collisionRect.Width = size.X;
-        collisionRect.Height = size.Y;
-        baseRect.Size = size;
+        CollisionRect.Width = size.X;
+        CollisionRect.Height = size.Y;
+        BaseRect.Size = size;
         Position = position ?? new Vector2f(0, 0);
-        baseRect.FillColor = !isTransparent ? GUIColor.greyColor : Color.Transparent;
+        BaseRect.FillColor = !isTransparent ? GUIColor.GreyColor : Color.Transparent;
         if (hasOutline)
         {
-            baseRect.OutlineThickness = outlineThickness;
-            baseRect.OutlineColor = outlineColor;
+            BaseRect.OutlineThickness = OutlineThickness;
+            BaseRect.OutlineColor = OutlineColor;
         }
-        this.isTransparent = isTransparent;
+        IsTransparent = isTransparent;
     }
 
-    public Vector2f getSize()
+    public Vector2f GetSize()
     {
-        return baseRect.Size;
+        return BaseRect.Size;
     }
 
-    public virtual void render()
+    public virtual void Render()
     {
-        baseRect.Position = Position;
-        collisionRect.Top = Position.Y;
-        collisionRect.Left = Position.X;
-        collisionRect.Width = baseRect.Size.X;
-        collisionRect.Height = baseRect.Size.Y;
-        Vector2i mousePosition = PlayerMouse.getPosition();
-        if (collisionRect.Contains(mousePosition.X, mousePosition.Y))
-            PlayerMouse.onUI = true;
-        RenderQueue.queueGUI(baseRect);
+        BaseRect.Position = Position;
+        CollisionRect.Top = Position.Y;
+        CollisionRect.Left = Position.X;
+        CollisionRect.Width = BaseRect.Size.X;
+        CollisionRect.Height = BaseRect.Size.Y;
+        Vector2i mousePosition = PlayerMouse.GetPosition();
+        if (CollisionRect.Contains(mousePosition.X, mousePosition.Y))
+            PlayerMouse.OnUI = true;
+        RenderQueue.QueueGUI(BaseRect);
     }
 
-    public void centerText(Text textToCenter, Vector2f centerPosition)
+    public void CenterText(Text textToCenter, Vector2f centerPosition)
     {
         FloatRect textRect = textToCenter.GetLocalBounds();
         textToCenter.Origin = new Vector2f(

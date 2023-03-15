@@ -5,10 +5,10 @@ using SFML.System;
 public class IconButton : Button
 {
 
-    Sprite iconSprite;
+    Sprite IconSprite;
 
-    public IconButton(Texture iconTexture, Action onClick, Vector2f ? position = null, string ? title = null) : base(
-        title==null ? "" : title, 
+    public IconButton(Texture iconTexture, Action onClick, Vector2f? position = null, string? title = null) : base(
+        title == null ? "" : title,
         onClick,
         position,
         true,
@@ -16,15 +16,15 @@ public class IconButton : Button
         (int)iconTexture.Size.Y
         )
     {
-        iconSprite = new Sprite(iconTexture);
+        IconSprite = new Sprite(iconTexture);
 
-        textCenter = () => new Vector2f(Position.X+this.baseRect.Size.X/2, Position.Y+this.baseRect.Size.Y+20);
+        TextCenter = () => new Vector2f(Position.X + this.BaseRect.Size.X / 2, Position.Y + this.BaseRect.Size.Y + 20);
     }
 
-    public override void render()
+    public override void Render()
     {
-        iconSprite.Position = Position;
-        RenderQueue.queueGUI(iconSprite);
-        base.render();
+        IconSprite.Position = Position;
+        RenderQueue.QueueGUI(IconSprite);
+        base.Render();
     }
 }

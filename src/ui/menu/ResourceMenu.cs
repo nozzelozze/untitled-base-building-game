@@ -5,18 +5,18 @@ public class ResourceMenu : Menu
 {
 
     public ResourceMenu(string title, Resource resource) 
-    : base(title, Camera.camPositionToWin(resource.position))
+    : base(title, Camera.CamPositionToWin(resource.Position))
     {
-        Vector2f menuOffset = new Vector2f(Map.tileSize*1.2f, Map.tileSize*1.2f);
+        Vector2f menuOffset = new Vector2f(Map.TileSize*1.2f, Map.TileSize*1.2f);
         Position += menuOffset;
 
-        addItem(new TextButton(
+        AddItem(new TextButton(
             "Mine",
-            () => JobManager.addToQueue(new MineJob(resource))
+            () => JobManager.AddToQueue(new MineJob(resource))
         ));
 
         Margin = 45;
-        marginOffsetY = barRectSizeY/2;
+        MarginOffsetY = BarRectSizeY/2;
     }
 
 }

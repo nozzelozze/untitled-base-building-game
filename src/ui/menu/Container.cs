@@ -4,22 +4,21 @@ using SFML.System;
 public class Container : GUIActor
 {
 
-    List<List<GUIActor>> items;
-    private int margin;
-    public int Margin
+    List<List<GUIActor>> Items;
+    public int Margin;
+    public int EdgeMargin
     {
         get
         {
-            return this.margin;
+            return this.Margin;
         }
         set
         {
-            this.margin = value;
+            this.Margin = value;
         }
     }
-    public float marginOffsetX;
-    public float marginOffsetY;
-    public int edgeMargin;
+    public float MarginOffsetX;
+    public float MarginOffsetY;
 
     public enum AlignType
     {
@@ -30,89 +29,88 @@ public class Container : GUIActor
 
     AlignType alignType;
 
-    public const int defaultSizeX = 350;
-    public const int defaultSizeY = 450;
+    public const int DefaultSizeX = 350;
+    public const int DefaultSizeY = 450;
 
-    public bool hasStaticSize = false;
-    
-    public Container(Vector2f position, AlignType alignType, bool isTransparent = false, 
-    List<List<GUIActor>> ? containerItems = null, int containerMargin = 65, Vector2f ? staticSize = null, 
+    public bool HasStaticSize = false;
+
+    public Container(Vector2f position, AlignType alignType, bool isTransparent = false,
+    List<List<GUIActor>>? containerItems = null, int containerMargin = 65, Vector2f? staticSize = null,
     float marginOffsetX = 0, float marginOffsetY = 0
-    ) : 
-    base(new Vector2f(defaultSizeX, defaultSizeY), position, isTransparent)
+    ) :
+    base(new Vector2f(DefaultSizeX, DefaultSizeY), position, isTransparent)
     {
         if (containerItems == null)
-            items = new List<List<GUIActor>>();
+            Items = new List<List<GUIActor>>();
         else
-            items = containerItems;
-        
-        margin = containerMargin;
-        edgeMargin = containerMargin;
+            Items = containerItems;
+
+        Margin = containerMargin;
+        EdgeMargin = containerMargin;
 
         if (staticSize != null)
         {
-            baseRect.Size = staticSize.Value;
-            hasStaticSize = true;
+            BaseRect.Size = staticSize.Value;
+            HasStaticSize = true;
         }
 
-        this.marginOffsetX = marginOffsetX;
-        this.marginOffsetY = marginOffsetY;
+        MarginOffsetX = marginOffsetX;
+        MarginOffsetY = marginOffsetY;
 
         this.alignType = alignType;
     }
 
-    public void addRow(List<GUIActor> newRow)
+    public void AddRow(List<GUIActor> newRow)
     {
-        items.Add(newRow);
+        Items.Add(newRow);
     }
 
-    public void addToRow(int rowIndex, GUIActor newItem)
+    public void AddToRow(int rowIndex, GUIActor newItem)
     {
-        items[rowIndex].Add(newItem);
+        Items[rowIndex].Add(newItem);
     }
 
-    public void setStaticSize(Vector2f newSize)
+    public void SetStaticSize(Vector2f newSize)
     {
-        hasStaticSize = true;
-        baseRect.Size = newSize;
+        HasStaticSize = true;
+        BaseRect.Size = newSize;
     }
 
-    private Vector2f alignTypeOffset(AlignType alignType, Vector2f position)
+    private Vector2f AlignTypeOffset(AlignType alignType, Vector2f position)
     {
-        Vector2f newPosition = 
-        alignType == AlignType.Center ? Position + new Vector2f(baseRect.Size.X/2, edgeMargin) : 
-        alignType == AlignType.Left ? Position + new Vector2f(baseRect.Size.X/4, edgeMargin) : 
-        alignType == AlignType.Right ? Position + new Vector2f(baseRect.Size.X/(4/3), edgeMargin) : Position;
+        Vector2f newPosition =
+        alignType == AlignType.Center ? Position + new Vector2f(BaseRect.Size.X / 2, EdgeMargin) :
+        alignType == AlignType.Left ? Position + new Vector2f(BaseRect.Size.X / 4, EdgeMargin) :
+        alignType == AlignType.Right ? Position + new Vector2f(BaseRect.Size.X / (4 / 3), EdgeMargin) : Position;
         return newPosition;
     }
 
-    public override void render()
+    public override void Render()
     {
-        Vector2f currentItemPosition = alignTypeOffset(alignType, Position);
-        currentItemPosition += new Vector2f(marginOffsetX, marginOffsetY);
-        base.render();
+        Vector2f currentItemPosition = AlignTypeOffset(AlignType, Position);
+        currentItemPosition += new Vector2f(MarginOffsetX, MarginOffsetY);
+        base.Render();
         int rowCount = 0;
         int itemCount = 0;
-        foreach (List<GUIActor> row in items)
+        foreach (List<GUIActor> row in Items)
         {
-            rowCount ++;
+            rowCount++;
             foreach (GUIActor item in row)
             {
-                item.Position = new Vector2f(currentItemPosition.X-item.getSize().X/2, currentItemPosition.Y);
-                item.render();
-                currentItemPosition.X += margin + item.getSize().X;
-                itemCount ++;
+                item.Position = new Vector2f(currentItemPosition.X - item.GetSize().X / 2, currentItemPosition.Y);
+                item.Render();
+                currentItemPosition.X += Margin + item.GetSize().X;
+                itemCount++;
             }
-            currentItemPosition.Y += margin;
-            currentItemPosition.X = alignTypeOffset(alignType, Position).X;
+            currentItemPosition.Y += Margin;
+            currentItemPosition.X = AlignTypeOffset(AlignType, Position).X;
         }
-        if (!hasStaticSize)
+        if (!HasStaticSize)
         {
-            baseRect.Size = new Vector2f(
-                itemCount*edgeMargin + edgeMargin*2,
-                rowCount*edgeMargin + edgeMargin*2
+            BaseRect.Size = new Vector2f(
+                itemCount * EdgeMargin + EdgeMargin * 2,
+                rowCount * EdgeMargin + EdgeMargin * 2
             );
         }
     }
-
 }

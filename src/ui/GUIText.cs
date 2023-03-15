@@ -5,37 +5,37 @@ using SFML.System;
 public class GUIText : GUIActor
 {
 
-    Text text;
-    Func<object> ? tickVar;
-    string displayString;
+    Text Text;
+    Func<object>? TickVar;
+    string DisplayString;
 
-    public GUIText(string text, characterSize charSize = characterSize.HeadingSmall, Func<object> ? tickVar = null)
+    public GUIText(string text, CharacterSize charSize = CharacterSize.HeadingSmall, Func<object>? tickVar = null)
     : base(new Vector2f(), hasOutline: false, isTransparent: true)
     {
-        displayString = text;
-        this.text = new Text(text, ResourceLoader.fetchFont("default"));
-        this.text.CharacterSize = getCharacterSize(charSize);
-        this.tickVar = tickVar;
+        DisplayString = text;
+        Text = new Text(text, ResourceLoader.FetchFont("default"));
+        Text.CharacterSize = GetCharacterSize(charSize);
+        TickVar = tickVar;
         if (!text.Contains("%v") && tickVar != null)
         {
             Log.Error($"'{text}' does not include '%v' but a tickVariable is given.");
         }
 
-        FloatRect globalBounds = this.text.GetGlobalBounds();
-        baseRect.Size = new Vector2f(
+        FloatRect globalBounds = Text.GetGlobalBounds();
+        BaseRect.Size = new Vector2f(
             globalBounds.Width,
             globalBounds.Height
         );
     }
 
-    public override void render()
+    public override void Render()
     {
-        base.render();
-        text.Position = Position;
-        if (tickVar != null)
+        base.Render();
+        Text.Position = Position;
+        if (TickVar != null)
         {
-            text.DisplayedString = displayString.Replace("%v", tickVar().ToString());
+            Text.DisplayedString = DisplayString.Replace("%v", TickVar().ToString());
         }
-        RenderQueue.queueGUI(text);
+        RenderQueue.QueueGUI(Text);
     }
 }
