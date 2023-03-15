@@ -60,7 +60,7 @@ public class Colonist : Transformable
     public void Highlight()
     {
         InfoMenu = new Menu("Peter xDDD", Menu.InfoMenuPosition);
-        InfoMenu.AddItem(new GUIText("Inventory: %v", tickVar: () => StorageComponent.GetItems().Count((item) => item.type == Item.Type.Iron)));
+        InfoMenu.AddItem(new GUIText("Inventory: %v", tickVar: () => StorageComponent.GetItems().Count((item) => item.ItemType == Item.Type.Iron)));
         InfoMenu.CloseButton.ButtonClicked += Player.PlayerHighlight.Unhighlight;
     }
 
