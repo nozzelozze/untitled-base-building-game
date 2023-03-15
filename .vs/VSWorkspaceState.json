@@ -9,8 +9,9 @@
     "\\src\\structure\\buildings",
     "\\src\\structure\\buildings\\otherBuildings",
     "\\src\\ui",
-    "\\src\\ui\\button"
+    "\\src\\ui\\button",
+    "\\src\\ui\\menu"
   ],
-  "SelectedNode": "\\src\\ui\\button\\Button.cs",
+  "SelectedNode": "\\.gitignore",
   "PreviewInSolutionExplorer": false
 }
