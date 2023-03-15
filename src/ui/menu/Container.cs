@@ -87,7 +87,7 @@ public class Container : GUIActor
 
     public override void Render()
     {
-        Vector2f currentItemPosition = AlignTypeOffset(AlignType, Position);
+        Vector2f currentItemPosition = AlignTypeOffset(alignType, Position);
         currentItemPosition += new Vector2f(MarginOffsetX, MarginOffsetY);
         base.Render();
         int rowCount = 0;
@@ -103,7 +103,7 @@ public class Container : GUIActor
                 itemCount++;
             }
             currentItemPosition.Y += Margin;
-            currentItemPosition.X = AlignTypeOffset(AlignType, Position).X;
+            currentItemPosition.X = AlignTypeOffset(alignType, Position).X;
         }
         if (!HasStaticSize)
         {
