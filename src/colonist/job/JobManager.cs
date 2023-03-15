@@ -3,22 +3,22 @@ using System;
 public class JobManager
 {
     
-    public static List<Job> jobQueue = new List<Job>();
+    public static List<Job> JobQueue = new List<Job>();
 
     public JobManager()
     {
 
     }
 
-    public static void addToQueue(Job newJob)
+    public static void AddToQueue(Job newJob)
     {
-        jobQueue.Add(newJob);
+        JobQueue.Add(newJob);
     }
 
-    public static Job getJob()
+    public static Job GetJob()
     {
-    	Job job = jobQueue[0];
-    	jobQueue.Remove(job);
+    	Job job = JobQueue[0];
+    	JobQueue.Remove(job);
         return job;
     }
 

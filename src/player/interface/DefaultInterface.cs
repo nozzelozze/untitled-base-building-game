@@ -4,36 +4,34 @@ using SFML.System;
 public class DefaultInterface
 {
     
-    IconButton buildButton;
-    BuildMenu ? buildMenu;
+    IconButton BuildButton;
+    BuildMenu? BuildMenu;
 
-
-    Player player;
+    Player Player;
 
     public DefaultInterface(Player player)
     {
-        this.player = player;
-        buildButton = new IconButton(
-            ResourceLoader.fetchTexture(ResourceLoader.TextureType.BuildButton), 
-            onBuildButtonClick,
+        this.Player = player;
+        BuildButton = new IconButton(
+            ResourceLoader.FetchTexture(ResourceLoader.TextureType.BuildButton), 
+            OnBuildButtonClick,
             new Vector2f(50, 50),
             "Build"
         );
     }
 
-    public void onBuildButtonClick()
+    public void OnBuildButtonClick()
     {
-        buildMenu = new BuildMenu(
-            buildButton.Position + new Vector2f(75, 0),
-            player,
-            () => buildMenu = null
+        BuildMenu = new BuildMenu(
+            BuildButton.Position + new Vector2f(75, 0),
+            Player,
+            () => BuildMenu = null
         );
     }
 
-    public void update()
+    public void Update()
     {
-        buildButton.render();
-        if (buildMenu != null) buildMenu.render();
+        BuildButton.Render();
+        if (BuildMenu != null) BuildMenu.Render();
     }
-
 }

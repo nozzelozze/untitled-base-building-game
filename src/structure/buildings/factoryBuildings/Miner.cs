@@ -1,60 +1,61 @@
 using System;
 using SFML.System;
+using System.Collections.Generic;
+using System.Linq;
 
 public class Miner : Structure
 {
 
-    public int oreCount = 1;
+    public int OreCount = 1;
     
-    public Resource.ResourceType resourceType;
+    public Resource.ResourceType ResourceType;
 
-    private StorageComponent storageComponent;
+    private StorageComponent StorageComponent;
 
     public Miner()
-    : base("Miner", ResourceLoader.fetchTexture(ResourceLoader.TextureType.Bed), new Vector2i(2, 1), new Dictionary<Item.Type, int>())
+    : base("Miner", ResourceLoader.FetchTexture(ResourceLoader.TextureType.Bed), new Vector2i(2, 1), new Dictionary<Item.Type, int>())
     {
-        storageComponent = new StorageComponent(100);
+        StorageComponent = new StorageComponent(100);
     }
 
-    public override void placeStructure(Tile tile, bool instaBuild = false)
+    public override void PlaceStructure(Tile tile, bool instaBuild = false)
     {
-        base.placeStructure(tile);
-        if (tile.resource != null) resourceType = tile.resource.type;
+        base.PlaceStructure(tile);
+        if (tile.Resource != null) ResourceType = tile.Resource.Type;
     }
 
-    public override void highlight()
+    public override void Highlight()
     {
-        base.highlight();
-        infoMenu.changeTitle("Miner");
-        if (wantMenu())
+        base.Highlight();
+        if (WantMenu())
         {
-            infoMenu.addItem(new GUIText($"Harvesting {resourceType}"));
-            infoMenu.addItem(new GUIText($"Ore Count: %v", tickVar: () => storageComponent.getCount()));
+            InfoMenu.AddItem(new GUIText($"Harvesting {ResourceType}"));
+            InfoMenu.AddItem(new GUIText($"Ore Count: %v", tickVar: () => StorageComponent.GetCount()));
         }
     }
 
-    public override void update()
+    public override void Update()
     {
-        base.update();
-        if (storageComponent.isFull())
+        base.Update();
+        if (StorageComponent.IsFull())
         {
-            List<StorageJob> storageJobs = JobManager.jobQueue.OfType<StorageJob>().ToList();
-            List<StorageJob> currentJobs = ColonistJobManager.currentJobs.OfType<StorageJob>().ToList();
-            if (!storageJobs.Any(job => job.storage == storageComponent) && !currentJobs.Any(job => job.storage == storageComponent))
+            List<StorageJob> storageJobs = JobManager.JobQueue.OfType<StorageJob>().ToList();
+            List<StorageJob> currentJobs = ColonistJobManager.CurrentJobs.OfType<StorageJob>().ToList();
+            if (!storageJobs.Any(job => job.Storage == StorageComponent) && !currentJobs.Any(job => job.Storage == StorageComponent))
             {
                 Log.Message("DADA");
-                JobManager.addToQueue(new StorageJob(storageComponent, startTile, true));
+                JobManager.AddToQueue(new StorageJob(StorageComponent, StartTile, true));
             }
         }
         else
         {
-            if (new Random().Next(30) == 5) storageComponent.addItem(new Item(Item.Type.Iron));
+            if (new Random().Next(30) == 5) StorageComponent.AddItem(new Item(Item.Type.Iron));
         }
     }
 
-    public override bool isTileValid(Tile tile)
+    public override bool IsTileValid(Tile tile)
     {
-        if (tile.hasResource() && !tile.isOccupied())
+        if (tile.HasResource() && !tile.IsOccupied())
         {
             return true;
         }

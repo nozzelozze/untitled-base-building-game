@@ -3,29 +3,29 @@ using System;
 public class BuildJob : Job
 {
 
-    public Structure structure;
+    public Structure Structure;
 
     public BuildJob(Structure unBuiltStructure)
-    : base(unBuiltStructure.startTile)
+    : base(unBuiltStructure.StartTile)
     {
-        if (unBuiltStructure.built == true)
+        if (unBuiltStructure.Built == true)
             Log.Warning("Already built structure as argument in BuildJob constructor.");
 
-        structure = unBuiltStructure;
+        Structure = unBuiltStructure;
     }
 
-    public override void doJob()
+    public override void DoJob()
     {
-        base.doJob();
-        foreach (KeyValuePair<Item.Type, int> itemPair in structure.cost)
+        base.DoJob();
+        foreach (KeyValuePair<Item.Type, int> itemPair in Structure.Cost)
         {
-            if (colonist.storageComponent.getItems().Any(item => item.type == itemPair.Key))
+            if (Colonist.StorageComponent.GetItems().Any(item => item.ItemType == itemPair.Key))
             {
-                for (int i = 0; i < colonist.storageComponent.itemCount()[itemPair.Key]; i++)
+                for (int i = 0; i < Colonist.StorageComponent.ItemCount()[itemPair.Key]; i++)
                 {
-                    colonist.storageComponent.removeItem(itemPair.Key);
-                    if (structure.deposit[itemPair.Key] < structure.cost[itemPair.Key]) structure.deposit[itemPair.Key] ++;
-                    if (structure.isPaidFor())
+                    Colonist.StorageComponent.RemoveItem(itemPair.Key);
+                    if (Structure.Deposit[itemPair.Key] < Structure.Cost[itemPair.Key]) Structure.Deposit[itemPair.Key] ++;
+                    if (Structure.IsPaidFor())
                     {
                         break;
                     }
@@ -34,30 +34,30 @@ public class BuildJob : Job
             {
                 Tile ? firstTileWithResource = null;
 
-                for (int i = 0; i < Map.Instance.tiles.GetLength(0); i++)
+                for (int i = 0; i < Map.Instance.Tiles.GetLength(0); i++)
                 {
-                    for (int j = 0; j < Map.Instance.tiles.GetLength(1); j++)
+                    for (int j = 0; j < Map.Instance.Tiles.GetLength(1); j++)
                     {
-                        if (Map.Instance.tiles[i, j].hasResource())
+                        if (Map.Instance.Tiles[i, j].HasResource())
                         {
-                            firstTileWithResource = Map.Instance.tiles[i, j];
+                            firstTileWithResource = Map.Instance.Tiles[i, j];
                             goto a;
                         }
                     }
                 }
                 a:
-                colonist.personalJobManager.queueJob(new MineJob(firstTileWithResource.resource));
-                colonist.personalJobManager.pushBackCurrentJob();
+                Colonist.PersonalJobManager.QueueJob(new MineJob(firstTileWithResource.Resource));
+                Colonist.PersonalJobManager.PushBackCurrentJob();
             }
         }
     }
 
-    public override void updateJob()
+    public override void UpdateJob()
     {
-        base.updateJob();
-        if (structure.isPaidFor())
+        base.UpdateJob();
+        if (Structure.IsPaidFor())
         {
-            isDone = true;
+            IsDone = true;
         }
     }
 }

@@ -3,22 +3,22 @@ using System;
 public class MineJob : Job
 {
 
-	Resource resource;
+	Resource Resource;
 
 	public MineJob(Resource resource)
-	: base(resource.tile)
+	: base(resource.Tile)
 	{
-		this.resource = resource;
+		this.Resource = resource;
 	}
 
-	public override void doJob()
+	public override void DoJob()
 	{
-		base.doJob();
+		base.DoJob();
 		for (int i = 0; i < 25; i++)
 		{
-			colonist.storageComponent.addItem(new Item(Resource.itemTypes[resource.type]));
+			Colonist.StorageComponent.AddItem(new Item(Resource.ItemTypes[Resource.Type]));
 		}
-		isDone = true;
+		IsDone = true;
 	}
 
 }

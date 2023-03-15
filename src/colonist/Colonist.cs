@@ -5,37 +5,37 @@ using SFML.System;
 public class Colonist : Transformable
 {
 
-    private static Dictionary<int, Colonist> colonists = new Dictionary<int, Colonist>();
-    public static Colonist pullColonist(int colonistId)
+    private static Dictionary<int, Colonist> Colonists = new Dictionary<int, Colonist>();
+    public static Colonist PullColonist(int colonistId)
     {
-        if (!colonists.ContainsKey(colonistId))
+        if (!Colonists.ContainsKey(colonistId))
         {
             Log.Error($"Colonist with the id {colonistId} doesn't exist.");
             return null;
         }
-        return colonists[colonistId];
+        return Colonists[colonistId];
     }
 
-    FloatRect collisionRect;
-    Texture texture;
-    public Sprite sprite;
+    FloatRect CollisionRect;
+    Texture Texture;
+    public Sprite Sprite;
 
-    public StorageComponent storageComponent = new StorageComponent(50);
-    public ColonistJobManager personalJobManager;
-    public ColonistWalk walk;
+    public StorageComponent StorageComponent = new StorageComponent(50);
+    public ColonistJobManager PersonalJobManager;
+    public ColonistWalk Walk;
 
-    Menu ?  infoMenu;
+    Menu? InfoMenu;
 
     public Colonist(int id)
     {
-        colonists.Add(id, this);
-        walk = new ColonistWalk(this);
-        personalJobManager = new ColonistJobManager(this);
+        Colonists.Add(id, this);
+        Walk = new ColonistWalk(this);
+        PersonalJobManager = new ColonistJobManager(this);
 
-        texture = ResourceLoader.fetchTexture(ResourceLoader.TextureType.Colonist);
-        sprite = new Sprite(texture);
-        collisionRect.Width = texture.Size.X;
-        collisionRect.Height = texture.Size.Y;
+        Texture = ResourceLoader.FetchTexture(ResourceLoader.TextureType.Colonist);
+        Sprite = new Sprite(Texture);
+        CollisionRect.Width = Texture.Size.X;
+        CollisionRect.Height = Texture.Size.Y;
         Random random = new Random();
         int x, y;
         do
@@ -43,56 +43,55 @@ public class Colonist : Transformable
             x = random.Next(0, 750);
             y = random.Next(0, 750);
             Position = new Vector2f(x, y);
-        } while (!Map.Instance.getTileAt(Position).isWalkable());
+        } while (!Map.Instance.GetTileAt(Position).IsWalkable());
     }
 
-    public void render()
+    public void Render()
     {
-        sprite.Position = Position;
-        RenderQueue.queue(sprite);
+        Sprite.Position = Position;
+        RenderQueue.Queue(Sprite);
     }
 
-    public void walkDone()
+    public void WalkDone()
     {
-        personalJobManager.workCurrentJob();
+        PersonalJobManager.WorkCurrentJob();
     }
 
-    public void highlight()
+    public void Highlight()
     {
-        infoMenu = new Menu("Peter xDDD", Menu.infoMenuPosition);
-        infoMenu.addItem(new GUIText("Inventory: %v", tickVar: () => storageComponent.getItems().Count((item) => item.type == Item.Type.Iron)));
-        infoMenu.closeButton.buttonClicked += Player.playerHighlight.unhighlight;
+        InfoMenu = new Menu("Peter xDDD", Menu.InfoMenuPosition);
+        InfoMenu.AddItem(new GUIText("Inventory: %v", tickVar: () => StorageComponent.GetItems().Count((item) => item.type == Item.Type.Iron)));
+        InfoMenu.CloseButton.ButtonClicked += Player.PlayerHighlight.Unhighlight;
     }
 
-    public void update()
+    public void Update()
     {
-        render();
-        walk.update();
-        Vector2i mousePosition = PlayerMouse.getPosition();
-        Vector2f collisionPosition = Camera.camPositionToWin(Position);
-        collisionRect.Top = collisionPosition.Y;
-        collisionRect.Left = collisionPosition.X;
-        if (collisionRect.Contains(mousePosition.X, mousePosition.Y))
+        Render();
+        Walk.Update();
+        Vector2i mousePosition = PlayerMouse.GetPosition();
+        Vector2f collisionPosition = Camera.CamPositionToWin(Position);
+        CollisionRect.Top = collisionPosition.Y;
+        CollisionRect.Left = collisionPosition.X;
+        if (CollisionRect.Contains(mousePosition.X, mousePosition.Y))
         {
-            if (Input.events.Contains(Mouse.Button.Left) && Player.currentState == PlayerState.IdleState.IdleInstance)
+            if (Input.Events.Contains(Mouse.Button.Left) && Player.CurrentState == PlayerState.IdleState.IdleInstance)
             {
-                Input.events.Remove(Mouse.Button.Left);
-                Player.playerHighlight.highlight(
-                    highlight,
-                    () => {},
+                Input.Events.Remove(Mouse.Button.Left);
+                Player.PlayerHighlight.Highlight(
+                    Highlight,
+                    () => { },
                     () => Position,
-                    (Vector2f)sprite.Texture.Size,
-                    () => infoMenu.render()
+                    (Vector2f)Sprite.Texture.Size,
+                    () => InfoMenu.Render()
                 );
             }
         }
 
-        if (storageComponent.isFull())
+        if (StorageComponent.IsFull())
         {
-            personalJobManager.emptyStorage();
+            PersonalJobManager.EmptyStorage();
         }
 
-        personalJobManager.update();
-        
+        PersonalJobManager.Update();
     }
 }

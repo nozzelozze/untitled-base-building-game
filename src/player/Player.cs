@@ -5,35 +5,35 @@ using SFML.Window;
 public class Player
 {
 
-    public PlayerMouse mouse = new PlayerMouse();
-    public static PlayerState currentState = PlayerState.IdleState.IdleInstance;
+    public PlayerMouse PlayerMouse = new PlayerMouse();
+    public static PlayerState CurrentState = PlayerState.IdleState.IdleInstance;
     Camera camera;
 
-    public static PlayerHighlight playerHighlight = new PlayerHighlight();
+    public static PlayerHighlight PlayerHighlight = new PlayerHighlight();
 
-    public DefaultInterface defaultInterface;
+    public DefaultInterface DefaultInterface;
 
     public Player(Camera camera)
     {
         this.camera = camera;
-        defaultInterface = new DefaultInterface(this);
+        DefaultInterface = new DefaultInterface(this);
     }
 
-    public void enterNewState(PlayerState newState)
+    public void EnterNewState(PlayerState newState)
     {
-        currentState.leave();
-        currentState = newState;
+        CurrentState.Leave();
+        CurrentState = newState;
     }
 
-    public void updatePlayer(RenderWindow renderWindow)
+    public void UpdatePlayer(RenderWindow renderWindow)
     {
-        mouse.renderCrosshair(renderWindow);
-        defaultInterface.update();
-        currentState.update(this);
-        playerHighlight.update();
-        if (Input.events.Contains(Mouse.Button.Left))
+        PlayerMouse.RenderCrosshair(renderWindow);
+        DefaultInterface.Update();
+        CurrentState.Update(this);
+        PlayerHighlight.Update();
+        if (Input.Events.Contains(Mouse.Button.Left))
         {
-            currentState.onPlayerClick(this);
+            CurrentState.OnPlayerClick(this);
         }
     }
 }

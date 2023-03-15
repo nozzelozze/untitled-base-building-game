@@ -5,61 +5,61 @@ class Map
 {
     public static Map Instance = new Map();
 
-    public static int tileSize = 64;
-    const int mapWidth = 64;
-    const int mapHeight = 64;
-    public Tile[ , ] tiles = new Tile[mapWidth,mapHeight];
-    public List<Structure> structures = new List<Structure>();
+    public static int TileSize = 64;
+    const int MapWidth = 64;
+    const int MapHeight = 64;
+    public Tile[,] Tiles = new Tile[MapWidth,MapHeight];
+    public List<Structure> Structures = new List<Structure>();
 
     private Map()
     {
-        for (int x = 0; x < mapWidth; x++)
+        for (int x = 0; x < MapWidth; x++)
         {
-            for (int y = 0; y < mapHeight; y++)
+            for (int y = 0; y < MapHeight; y++)
             {
-                tiles[x,y] = new Tile(Tile.Type.Dirt);
+                Tiles[x,y] = new Tile(Tile.Type.Dirt);
             }
         }
     }
 
-    public void occupyTile(Tile tile)
+    public void OccupyTile(Tile tile)
     {
-        tile.occupied = true;
+        tile.Occupied = true;
     }
 
-    public void occupyTilesFromStructure(Tile tile, Structure structure)
+    public void OccupyTilesFromStructure(Tile tile, Structure structure)
     {
-        Tuple<int, int> tileIndex = getTileIndex(tile);
-        for (int i = tileIndex.Item1; i < structure.size.X+tileIndex.Item1; i++)
+        Tuple<int, int> tileIndex = GetTileIndex(tile);
+        for (int i = tileIndex.Item1; i < structure.Size.X + tileIndex.Item1; i++)
         {
-            for (int j = tileIndex.Item2; j < structure.size.Y+tileIndex.Item2; j++)
+            for (int j = tileIndex.Item2; j < structure.Size.Y + tileIndex.Item2; j++)
             {
-                occupyTile(tiles[i, j]);
-                structure.occupiedTiles.Add(tiles[i, j]);
+                OccupyTile(Tiles[i, j]);
+                structure.OccupiedTiles.Add(Tiles[i, j]);
             }
         }
     }
 
-    public Structure ? getStructureFromTile(Tile tile)
+    public Structure? GetStructureFromTile(Tile tile)
     {
-        foreach (Structure structure in structures)
+        foreach (Structure structure in Structures)
         {
-            foreach (Tile structureTile in structure.occupiedTiles)
+            foreach (Tile structureTile in structure.OccupiedTiles)
             {
                if (structureTile == tile) return structure;
             }
         }
-        Log.Warning("Structure is not found from tile. (getStructureFromTile)");
+        Log.Warning("Structure is not found from tile. (GetStructureFromTile)");
         return null;
     }
 
-    public Tuple<int, int> getTileIndex(Tile tile)
+    public Tuple<int, int> GetTileIndex(Tile tile)
     {
-        for (int i = 0; i < tiles.GetLength(0); i++)
+        for (int i = 0; i < Tiles.GetLength(0); i++)
         {
-            for (int j = 0; j < tiles.GetLength(1); j++)
+            for (int j = 0; j < Tiles.GetLength(1); j++)
             {
-                if (tiles[i, j] == tile)
+                if (Tiles[i, j] == tile)
                 {
                     return new Tuple<int, int>(i, j);
                 }
@@ -69,54 +69,54 @@ class Map
         return new Tuple<int, int>(0, 0);
     }
 
-    public void render()
+    public void Render()
     {
-        for (int x = 0; x < mapWidth; x++)
+        for (int x = 0; x < MapWidth; x++)
         {
-            for (int y = 0; y < mapHeight; y++)
+            for (int y = 0; y < MapHeight; y++)
             {
-                Vector2f tilePosition = new Vector2f((float)x*tileSize, (float)y*tileSize);
-                if (!tiles[x, y].isOccupied() && !tiles[x, y].hasResource())
+                Vector2f tilePosition = new Vector2f((float)x*TileSize, (float)y*TileSize);
+                if (!Tiles[x, y].IsOccupied() && !Tiles[x, y].HasResource())
                 {
-                    tiles[x,y].render(tilePosition);
+                    Tiles[x,y].Render(tilePosition);
                 }
-                if (tiles[x, y].hasResource())
+                if (Tiles[x, y].HasResource())
                 {
-                    tiles[x, y].resource?.render();
+                    Tiles[x, y].Resource?.Render();
                 }
             }
         }
-        foreach (Structure structure in structures)
+        foreach (Structure structure in Structures)
         {
-            structure.update();
+            structure.Update();
         }
     }
     
-    public Vector2f getTilePosition(Tile tile)
+    public Vector2f GetTilePosition(Tile tile)
     {
         Vector2f position = new Vector2f();
-        Tuple<int, int> tileIndex = getTileIndex(tile);
-        position.X = tileIndex.Item1*tileSize;
-        position.Y = tileIndex.Item2*tileSize;
+        Tuple<int, int> tileIndex = GetTileIndex(tile);
+        position.X = tileIndex.Item1 * TileSize;
+        position.Y = tileIndex.Item2 * TileSize;
         return position;
     }
 
-    public Vector2f getTileCenter(Tile tile)
+    public Vector2f GetTileCenter(Tile tile)
     {
-        Vector2f tilePosition = getTilePosition(tile);
+        Vector2f tilePosition = GetTilePosition(tile);
         Vector2f center = new Vector2f
         (
-            tilePosition.X+tileSize/2,
-            tilePosition.Y+tileSize/2
+            tilePosition.X + TileSize / 2,
+            tilePosition.Y + TileSize / 2
         );
         return center;
     }
 
-    public Tile getTileAt(Vector2f getPosition)
+    public Tile GetTileAt(Vector2f getPosition)
     {
         Func<int, int, int> nearestMultiple = (numToRound, multiple) => numToRound > 0 ? numToRound - (numToRound % multiple) : 0;
-        int nearestRowTile = nearestMultiple((int)getPosition.X, tileSize);
-        int nearestColumnTile = nearestMultiple((int)getPosition.Y, tileSize);
-        return tiles[(int)nearestRowTile/mapWidth, (int)nearestColumnTile/mapHeight];
+        int nearestRowTile = nearestMultiple((int)getPosition.X, TileSize);
+        int nearestColumnTile = nearestMultiple((int)getPosition.Y, TileSize);
+        return Tiles[(int)nearestRowTile/MapWidth, (int)nearestColumnTile/MapHeight];
     }
 }

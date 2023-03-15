@@ -11,56 +11,55 @@ public class Tile
         Ore
     }
 
-    private Texture texture;
-    public Sprite sprite;
-    public bool occupied = false;
-    public Resource ? resource = null;
+    private Texture Texture;
+    public Sprite Sprite;
+    public bool Occupied = false;
+    public Resource? Resource = null;
 
     public Tile(Type tileType)
     {
         if (tileType == Type.Dirt)
         {
-            texture = new Random().Next(5) == 1 ? ResourceLoader.fetchTexture(ResourceLoader.TextureType.DirtTwo) : ResourceLoader.fetchTexture(ResourceLoader.TextureType.DirtOne);
+            Texture = new Random().Next(5) == 1 ? ResourceLoader.FetchTexture(ResourceLoader.TextureType.DirtTwo) : ResourceLoader.FetchTexture(ResourceLoader.TextureType.DirtOne);
         }
-        this.sprite = new Sprite(texture);
+        this.Sprite = new Sprite(Texture);
     }
 
-    public bool isOccupied()
+    public bool IsOccupied()
     {
-        return occupied;
+        return Occupied;
     }
 
-    public bool isWalkable()
+    public bool IsWalkable()
     {
-        if (resource == null && occupied == false)
+        if (Resource == null && Occupied == false)
         {
             return true;
         }
         return false;
     }
 
-    public void giveResource(Resource newResource)
+    public void GiveResource(Resource newResource)
     {
-        resource = newResource;
-        //occupied = true;
+        Resource = newResource;
+        //Occupied = true;
     }
 
-    public bool hasResource()
+    public bool HasResource()
     {
-        if (resource != null) return true;
+        if (Resource != null) return true;
         return false;
     }
 
-    public void freeFromResource(bool stillOccupied = false)
+    public void FreeFromResource(bool stillOccupied = false)
     {
-        resource = null;
-        //occupied = stillOccupied ? true : false;
+        Resource = null;
+        //Occupied = stillOccupied ? true : false;
     }
 
-    public void render(Vector2f position)
+    public void Render(Vector2f position)
     {
-        sprite.Position = position;
-        RenderQueue.queue(sprite);
+        Sprite.Position = position;
+        RenderQueue.Queue(Sprite);
     }
-
 }

@@ -3,103 +3,106 @@ using System;
 public class StorageComponent
 {
 
-    private List<Item> items;
-    private List<Item.Type> ? acceptedItems;
-    private bool storageFull;
-    private int maximumStorage;
+    private List<Item> Items;
+    private List<Item.Type>? AcceptedItems;
+    private bool StorageFull;
+    private int MaximumStorage;
 
-    public StorageComponent(int maximumStorage, List<Item.Type> ? acceptedItems = null)
+    public StorageComponent(int maximumStorage, List<Item.Type>? acceptedItems = null)
     {
-        items = new List<Item>();
-        storageFull = false;
-        this.maximumStorage = maximumStorage;
+        Items = new List<Item>();
+        StorageFull = false;
+        MaximumStorage = maximumStorage;
+        AcceptedItems = acceptedItems;
     }
 
-    public void swapItem(StorageComponent to, Item item)
+    public void SwapItem(StorageComponent to, Item item)
     {
-        if (!to.isFull())
+        if (!to.IsFull())
         {
-            if (to.acceptedItems == null)
+            if (to.AcceptedItems == null)
             {
-                removeItem(item);
-                to.addItem(item);
-            } else
+                RemoveItem(item);
+                to.AddItem(item);
+            }
+            else
             {
-                if (to.acceptedItems.Contains(item.type))
+                if (to.AcceptedItems.Contains(item.ItemType))
                 {
-                    removeItem(item);
-                    to.addItem(item);
+                    RemoveItem(item);
+                    to.AddItem(item);
                 }
             }
         }
     }
 
-    public bool isFull()
+    public bool IsFull()
     {
-        return storageFull;
+        return StorageFull;
     }
 
-    public int getCount()
+    public int GetCount()
     {
-        return items.Count;
+        return Items.Count;
     }
 
-    public Dictionary<Item.Type, int> itemCount()
+    public Dictionary<Item.Type, int> ItemCount()
     {
-        Dictionary<Item.Type, int> count = new Dictionary<Item.Type, int>();
-        foreach (Item item in getItems())
+        Dictionary<Item.Type, int> Count = new Dictionary<Item.Type, int>();
+        foreach (Item item in GetItems())
         {
-            if (!count.ContainsKey(item.type))
+            if (!Count.ContainsKey(item.ItemType))
             {
-                count.Add(item.type, 1);
-            } else
+                Count.Add(item.ItemType, 1);
+            }
+            else
             {
-                count[item.type] ++;
+                Count[item.ItemType]++;
             }
         }
-        return count;
+        return Count;
     }
 
-    public List<Item> getItems()
+    public List<Item> GetItems()
     {
-        return items;
+        return Items;
     }
 
-    public void addItem(Item newItem)
+    public void AddItem(Item newItem)
     {
-        if (acceptedItems != null)
+        if (AcceptedItems != null)
         {
-            if (!acceptedItems.Contains(newItem.type)) 
+            if (!AcceptedItems.Contains(newItem.ItemType))
             {
                 return;
             }
         }
-        if (!storageFull)
+        if (!StorageFull)
         {
-            items.Add(newItem);
-            if (items.Count == maximumStorage)
+            Items.Add(newItem);
+            if (Items.Count == MaximumStorage)
             {
-                storageFull = true;
+                StorageFull = true;
             }
         }
     }
 
-    public void removeItem(Item.Type itemType)
+    public void RemoveItem(Item.Type itemType)
     {
-        foreach (Item item in items)
+        foreach (Item item in Items)
         {
-            if (item.type == itemType)
+            if (item.ItemType == itemType)
             {
-                items.Remove(item);
+                Items.Remove(item);
                 break;
             }
         }
-        storageFull = false;
+        StorageFull = false;
     }
 
-    public void removeItem(Item item)
+    public void RemoveItem(Item item)
     {
-        if (items.Contains(item)) items.Remove(item);
-        storageFull = false;
+        if (Items.Contains(item)) Items.Remove(item);
+        StorageFull = false;
     }
 }

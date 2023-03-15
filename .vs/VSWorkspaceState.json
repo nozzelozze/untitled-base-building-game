@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\colonist",
+    "\\src\\colonist\\job",
+    "\\src\\colonist\\job\\jobs",
+    "\\src\\structure",
+    "\\src\\structure\\buildings",
+    "\\src\\structure\\buildings\\otherBuildings",
+    "\\src\\ui",
+    "\\src\\ui\\button"
+  ],
+  "SelectedNode": "\\src\\ui\\button\\Button.cs",
+  "PreviewInSolutionExplorer": false
+}

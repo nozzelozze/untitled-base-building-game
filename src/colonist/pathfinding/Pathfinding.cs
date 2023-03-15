@@ -2,7 +2,7 @@ using System.Numerics;
 
 public class Pathfinding
 {
-    public List<Tile> findPath(Tile startTile, Tile endTile)
+    public List<Tile> FindPath(Tile startTile, Tile endTile)
     {
         var openSet = new List<Tile>() { startTile };
         var cameFrom = new Dictionary<Tile, Tile>();
@@ -22,7 +22,7 @@ public class Pathfinding
 
             foreach (var neighborTile in GetNeighborTiles(currentTile))
             {
-                if (currentTile.isWalkable())
+                if (currentTile.IsWalkable())
                 {
                     var tentativeGScore = gScore[currentTile] + DistanceCost(currentTile, neighborTile);
 
@@ -43,10 +43,10 @@ public class Pathfinding
         return new List<Tile>();
     }
 
-    public static List<Tile> GetNeighborTiles(Tile startTile) // partly chatgpt
+    public static List<Tile> GetNeighborTiles(Tile startTile)
     {
         List<Tile> neighborTiles = new List<Tile>();
-        Tuple<int, int> tileIndex = Map.Instance.getTileIndex(startTile);
+        Tuple<int, int> tileIndex = Map.Instance.GetTileIndex(startTile);
         
         // Check for neighboring tiles in the four cardinal directions only (not diagonals)
         int[,] directions = {
@@ -61,12 +61,12 @@ public class Pathfinding
             int x = tileIndex.Item1 + directions[i, 0];
             int y = tileIndex.Item2 + directions[i, 1];
 
-            if (x < 0 || x >= Map.Instance.tiles.GetLength(0) || y < 0 || y >= Map.Instance.tiles.GetLength(1))
+            if (x < 0 || x >= Map.Instance.Tiles.GetLength(0) || y < 0 || y >= Map.Instance.Tiles.GetLength(1))
             {
                 continue;
             }
 
-            if (Map.Instance.tiles[x, y] != startTile) neighborTiles.Add(Map.Instance.tiles[x, y]);
+            if (Map.Instance.Tiles[x, y] != startTile) neighborTiles.Add(Map.Instance.Tiles[x, y]);
         }
 
         return neighborTiles;
@@ -75,8 +75,8 @@ public class Pathfinding
     public static float DistanceCost(Tile firstTile, Tile secondTile)
     {
         Vector2 distance;
-        Tuple<int, int> firstTileIndex = Map.Instance.getTileIndex(firstTile);
-        Tuple<int, int> secondTileIndex = Map.Instance.getTileIndex(secondTile);
+        Tuple<int, int> firstTileIndex = Map.Instance.GetTileIndex(firstTile);
+        Tuple<int, int> secondTileIndex = Map.Instance.GetTileIndex(secondTile);
         distance = new Vector2(
             firstTileIndex.Item1,
             firstTileIndex.Item2)
@@ -100,6 +100,6 @@ public class Pathfinding
             currentTile = cameFrom[currentTile];
             totalPath.Insert(0, currentTile);
         }
-        return totalPath;
+    return totalPath;
     }
 }

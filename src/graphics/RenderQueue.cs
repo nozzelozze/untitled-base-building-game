@@ -4,31 +4,31 @@ using SFML.Graphics;
 public static class RenderQueue
 {
     
-    public static List<Drawable> renderList = new List<Drawable>();
-    public static List<Drawable> renderGUIList = new List<Drawable>();
+    public static List<Drawable> RenderList = new List<Drawable>();
+    public static List<Drawable> RenderGUIList = new List<Drawable>();
 
-    public static void queue(Drawable drawableToQueue)
+    public static void Queue(Drawable drawableToQueue)
     {
-        renderList.Add(drawableToQueue);
+        RenderList.Add(drawableToQueue);
     }
-    public static void queueGUI(Drawable drawableToQueue)
+    public static void QueueGUI(Drawable drawableToQueue)
     {
-        renderGUIList.Add(drawableToQueue);
+        RenderGUIList.Add(drawableToQueue);
     }
 
-    public static void render(RenderWindow renderWindow, View uiView)
+    public static void Render(RenderWindow renderWindow, View uiView)
     {
-        foreach (Drawable drawable in renderList)
+        foreach (Drawable drawable in RenderList)
         {
             renderWindow.Draw(drawable);
         }
-        renderList.Clear();
+        RenderList.Clear();
         renderWindow.SetView(uiView);
-        foreach (Drawable GUIdrawable in renderGUIList)
+        foreach (Drawable GUIdrawable in RenderGUIList)
         {
             renderWindow.Draw(GUIdrawable);
         }
-        renderGUIList.Clear();
+        RenderGUIList.Clear();
     }
 
 }

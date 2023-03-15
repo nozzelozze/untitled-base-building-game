@@ -3,85 +3,85 @@ using System;
 public class ColonistJobManager
 {
 
-    private Colonist colonist;
-    public Job ? currentJob;
-    private List<Job> personalJobQueue = new List<Job>();
+    private Colonist Colonist;
+    public Job ? CurrentJob;
+    private List<Job> PersonalJobQueue = new List<Job>();
     
-    public static List<Job> currentJobs = new List<Job>();
+    public static List<Job> CurrentJobs = new List<Job>();
 
     public ColonistJobManager(Colonist colonist)
     {
-        this.colonist = colonist;
+        this.Colonist = colonist;
     }
 
-    public void workCurrentJob()
+    public void WorkCurrentJob()
     {
-        currentJob?.doJob();
+        CurrentJob?.DoJob();
     }
 
-    public void jobDone()
+    public void JobDone()
     {
-        currentJobs.Remove(currentJob);
-        currentJob = null;
+        CurrentJobs.Remove(CurrentJob);
+        CurrentJob = null;
     }
 
-    public void queueJob(Job newJob)
+    public void QueueJob(Job newJob)
     {
-        personalJobQueue.Add(newJob);
+        PersonalJobQueue.Add(newJob);
     }
 
-    public List<Job> seeJobs()
+    public List<Job> SeeJobs()
     {
-        List<Job> jobs = new List<Job>();
-        jobs.AddRange(personalJobQueue);
-        jobs.AddRange(JobManager.jobQueue);
-        if (currentJob != null) jobs.Add(currentJob);
-        return jobs;
+        List<Job> Jobs = new List<Job>();
+        Jobs.AddRange(PersonalJobQueue);
+        Jobs.AddRange(JobManager.JobQueue);
+        if (CurrentJob != null) Jobs.Add(CurrentJob);
+        return Jobs;
     }
 
-    public void emptyStorage()
+    public void EmptyStorage()
     {
-        List<StorageJob> storageJobs = seeJobs().OfType<StorageJob>().ToList();
-        foreach (StorageJob job in storageJobs)
+        List<StorageJob> StorageJobs = SeeJobs().OfType<StorageJob>().ToList();
+        foreach (StorageJob job in StorageJobs)
         {
-            if (!job.reverse) return;
+            if (!job.Reverse) return;
         }
-        Chest firstChest = Structure.getNearestStructure<Chest>();
-        if (firstChest != null) queueJob(new StorageJob(firstChest.storageComponent, firstChest.startTile));
+        Chest FirstChest = Structure.GetNearestStructure<Chest>();
+        if (FirstChest != null) QueueJob(new StorageJob(FirstChest.StorageComponent, FirstChest.StartTile));
     }
 
-    public void pushBackCurrentJob()
+    public void PushBackCurrentJob()
     {
-        if (currentJob != null)
+        if (CurrentJob != null)
         {
-            personalJobQueue.Insert(0, currentJob);
-            currentJob = personalJobQueue[1];
-            currentJobs.Add(currentJob);
-            personalJobQueue.RemoveAt(1);
-            currentJob.beginJob(colonist);
+            PersonalJobQueue.Insert(0, CurrentJob);
+            CurrentJob = PersonalJobQueue[1];
+            CurrentJobs.Add(CurrentJob);
+            PersonalJobQueue.RemoveAt(1);
+            CurrentJob.BeginJob(Colonist);
         }
     }
 
-    public void update()
+    public void Update()
     {
-        if (currentJob == null)
+        if (CurrentJob == null)
         {
-            if (personalJobQueue.Count == 0)
+            if (PersonalJobQueue.Count == 0)
             {
-                if (JobManager.jobQueue.Count != 0)
+                if (JobManager.JobQueue.Count != 0)
                 {
-                    queueJob(JobManager.getJob());
+                    QueueJob(JobManager.GetJob());
                 }
             } else
             {
-                currentJob = personalJobQueue[0];
-                currentJobs.Add(currentJob);
-                currentJob.beginJob(colonist);
-                personalJobQueue.Remove(currentJob);
+                CurrentJob = PersonalJobQueue[0];
+                CurrentJobs.Add(CurrentJob);
+                CurrentJob.BeginJob(Colonist);
+                PersonalJobQueue.Remove(CurrentJob);
             }
         } else
         {
-            currentJob.updateJob();
+            CurrentJob.UpdateJob();
         }
     }
 

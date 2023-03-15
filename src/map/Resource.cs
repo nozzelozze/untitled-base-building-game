@@ -10,45 +10,44 @@ public class Resource
         Copper,
     }
 
-    private static Dictionary<ResourceType, Texture> resourceTextures = new Dictionary<ResourceType, Texture>
+    private static Dictionary<ResourceType, Texture> ResourceTextures = new Dictionary<ResourceType, Texture>
     {
-        {ResourceType.Iron, ResourceLoader.fetchTexture(ResourceLoader.TextureType.Iron)},
-        {ResourceType.Copper, ResourceLoader.fetchTexture(ResourceLoader.TextureType.Copper)}
+        {ResourceType.Iron, ResourceLoader.FetchTexture(ResourceLoader.TextureType.Iron)},
+        {ResourceType.Copper, ResourceLoader.FetchTexture(ResourceLoader.TextureType.Copper)}
     };
 
-    public static Dictionary<ResourceType, Item.Type> itemTypes = new Dictionary<ResourceType, Item.Type>
+    public static Dictionary<ResourceType, Item.Type> ItemTypes = new Dictionary<ResourceType, Item.Type>
     {
         {ResourceType.Iron, Item.Type.Iron},
         {ResourceType.Copper, Item.Type.Iron}
     };
 
-    public Sprite sprite;
-    public ResourceType type;
-    public Vector2f position;
-    public Tile tile;
+    public Sprite Sprite;
+    public ResourceType Type;
+    public Vector2f Position;
+    public Tile Tile;
 
-    public ResourceMenu ?  clickMenu;
+    public ResourceMenu? ClickMenu;
 
     public Resource(ResourceType resourceType, Tile tile)
     {
-        type = resourceType;
-        sprite = new Sprite(resourceTextures[resourceType]);
-        sprite.Position = Map.Instance.getTilePosition(tile);
-        position = sprite.Position;
-        tile.giveResource(this);
-        this.tile = tile;
+        Type = resourceType;
+        Sprite = new Sprite(ResourceTextures[resourceType]);
+        Sprite.Position = Map.Instance.GetTilePosition(tile);
+        Position = Sprite.Position;
+        tile.GiveResource(this);
+        this.Tile = tile;
     }
 
-    public void highlight()
+    public void Highlight()
     {
-        clickMenu = new ResourceMenu("Iron", this);
-        clickMenu.Position = Camera.camPositionToWin(position);
-        clickMenu.closeButton.buttonClicked += Player.playerHighlight.unhighlight;
+        ClickMenu = new ResourceMenu("Iron", this);
+        ClickMenu.Position = Camera.CamPositionToWin(Position);
+        ClickMenu.CloseButton.ButtonClicked += Player.PlayerHighlight.Unhighlight;
     }
 
-    public void render()
+    public void Render()
     {
-        RenderQueue.queue(sprite);
+        RenderQueue.Queue(Sprite);
     }
-
 }

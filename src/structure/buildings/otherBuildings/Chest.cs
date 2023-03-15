@@ -1,31 +1,31 @@
 using System;
 using SFML.System;
+using System.Collections.Generic;
 
 public class Chest : Structure
 {
 
-    public StorageComponent storageComponent;
+    public StorageComponent StorageComponent;
 
     public Chest()
-    : base("Chest", ResourceLoader.fetchTexture(ResourceLoader.TextureType.Chest), new Vector2i(2, 1), new Dictionary<Item.Type, int>
+    : base("Chest", ResourceLoader.FetchTexture(ResourceLoader.TextureType.Chest), new Vector2i(2, 1), new Dictionary<Item.Type, int>
     {
         {Item.Type.Iron, 10}
     }
     )
     {
-        storageComponent = new StorageComponent(500);
+        StorageComponent = new StorageComponent(500);
     }
 
-    public override void highlight()
+    public override void Highlight()
     {
-        base.highlight();
-        infoMenu.changeTitle("Chest");
-        if (wantMenu())
+        base.Highlight();
+        if (WantMenu())
         {
-            infoMenu.addRow(new List<GUIActor>{new GUIText("Contents:")});
-            foreach(KeyValuePair<Item.Type, int> entry in storageComponent.itemCount())
+            InfoMenu.AddRow(new List<GUIActor>{new GUIText("Contents:")});
+            foreach(KeyValuePair<Item.Type, int> entry in StorageComponent.ItemCount())
             {
-                infoMenu.addRow(new List<GUIActor>{new GUIText($"{Item.itemNames[entry.Key]}: %v", tickVar: () => entry.Value)});
+                InfoMenu.AddRow(new List<GUIActor>{new GUIText($"{Item.ItemNames[entry.Key]}: %v", tickVar: () => entry.Value)});
             }
         }
     }

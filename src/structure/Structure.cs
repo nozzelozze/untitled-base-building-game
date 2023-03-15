@@ -1,43 +1,45 @@
 using SFML.Graphics;
 using SFML.System;
+using System.Collections.Generic;
+using System.Linq;
 
 public class Structure : Transformable
 {
-    public Sprite sprite;
-    public Vector2i size;
+    public Sprite Sprite;
+    public Vector2i Size;
 
-    public Tile startTile;
+    public Tile StartTile;
 
-    public Texture texture = ResourceLoader.fetchTexture(ResourceLoader.TextureType.DefaultTexture);
-    public string name = "Structure";
+    public Texture Texture = ResourceLoader.FetchTexture(ResourceLoader.TextureType.DefaultTexture);
+    public string Name = "Structure";
 
-    public List<Tile> occupiedTiles = new List<Tile>();
+    public List<Tile> OccupiedTiles = new List<Tile>();
 
-    public Menu ? infoMenu;
+    public Menu? InfoMenu;
 
-    public bool built = false;
+    public bool Built = false;
 
-    public Dictionary<Item.Type, int> cost;
-    public Dictionary<Item.Type, int> deposit;
+    public Dictionary<Item.Type, int> Cost;
+    public Dictionary<Item.Type, int> Deposit;
 
     public Structure(string structName, Texture structTexture, Vector2i size, Dictionary<Item.Type, int> cost)
     {
-        this.size = size;
-        texture = structTexture;
-        name = structName;
+        Size = size;
+        Texture = structTexture;
+        Name = structName;
 
-        sprite = new Sprite(texture);
+        Sprite = new Sprite(Texture);
 
-        this.cost = cost;
+        Cost = cost;
 
-        deposit = cost.Keys.ToDictionary(key => key, key => 0);
+        Deposit = Cost.Keys.ToDictionary(key => key, key => 0);
     }
 
-    public static T ? getNearestStructure<T>() where T : Structure
+    public static T? GetNearestStructure<T>() where T : Structure
     {
-        foreach (Structure structure in Map.Instance.structures)
+        foreach (Structure structure in Map.Instance.Structures)
         {
-            if (structure.built)
+            if (structure.Built)
             {
                 if (structure is T)
                 {
@@ -48,117 +50,119 @@ public class Structure : Transformable
         return null;
     }
 
-    public virtual void placeStructure(Tile tile, bool instaBuild = false)
+    public virtual void PlaceStructure(Tile tile, bool instaBuild = false)
     {
-        Position = Map.Instance.getTilePosition(tile);
-        sprite.Position = Position;
-        Map.Instance.occupyTilesFromStructure(tile, this);
-        sprite.Color = new Color(200, 200, 200, 205);
-        Map.Instance.structures.Add(this);
-        Player.playerHighlight.unhighlight();
-        startTile = tile;
+        Position = Map.Instance.GetTilePosition(tile);
+        Sprite.Position = Position;
+        Map.Instance.OccupyTilesFromStructure(tile, this);
+        Sprite.Color = new Color(200, 200, 200, 205);
+        Map.Instance.Structures.Add(this);
+        Player.PlayerHighlight.Unhighlight();
+        StartTile = tile;
         if (instaBuild)
         {
-            build();
-        } else
+            Build();
+        }
+        else
         {
-            JobManager.addToQueue(new BuildJob(this));
+            JobManager.AddToQueue(new BuildJob(this));
         }
     }
 
-    public void build()
+    public void Build()
     {
-        built = true;
-        sprite.Color = Color.White;
-        SoundManager.playSFX(SoundManager.SoundType.Build);
+        Built = true;
+        Sprite.Color = Color.White;
+        SoundManager.PlaySFX(SoundManager.SoundType.Build);
     }
 
-    public virtual bool isTileValid(Tile tile)
+    public virtual bool IsTileValid(Tile tile)
     {
-        return !tile.isOccupied();
+        return !tile.IsOccupied();
     }
 
-    public bool isCurrentlyValid()
+    public bool IsCurrentlyValid()
     {
-        Tuple<int, int> firstTileIndex = Map.Instance.getTileIndex(Map.Instance.getTileAt(Position));
+        Tuple<int, int> firstTileIndex = Map.Instance.GetTileIndex(Map.Instance.GetTileAt(Position));
 
-        for (int x = firstTileIndex.Item1; x < firstTileIndex.Item1+size.X; x++)
+        for (int x = firstTileIndex.Item1; x < firstTileIndex.Item1 + Size.X; x++)
         {
-            for (int y = firstTileIndex.Item2; y < firstTileIndex.Item2+size.Y; y++)
+            for (int y = firstTileIndex.Item2; y < firstTileIndex.Item2 + Size.Y; y++)
+            {
+                if (IsTileValid(Map.Instance.Tiles[x, y]) == false)
                 {
-                    if (isTileValid(Map.Instance.tiles[x, y]) == false)
-                    {
-                        return false;
-                    }
-                }   
+                    return false;
+                }
+            }
         }
         return true;
     }
 
-    public bool wantMenu()
+    public bool WantMenu()
     {
-        return infoMenu != null && built;
+        return InfoMenu != null && Built;
     }
 
-    public bool isPaidFor()
+    public bool IsPaidFor()
     {
-        return  cost.OrderBy(x => x.Key).SequenceEqual(deposit.OrderBy(x => x.Key)) || built;
+        return Cost.OrderBy(x => x.Key).SequenceEqual(Deposit.OrderBy(x => x.Key)) || Built;
     }
 
-    public void cancelBuild()
+    public void CancelBuild()
     {
-        Player.playerHighlight.unhighlight();
-        foreach(Tile tile in occupiedTiles)
+        Player.PlayerHighlight.Unhighlight();
+        foreach (Tile tile in OccupiedTiles)
         {
-            tile.occupied = false;
+            tile.Occupied = false;
         }
-        Map.Instance.structures.Remove(this);
+        Map.Instance.Structures.Remove(this);
     }
 
-    public virtual void highlight()
+    public virtual void Highlight()
     {
-        infoMenu = new Menu("Structure", Menu.infoMenuPosition);
-        if (!built)
+        InfoMenu = new Menu(Name, Menu.InfoMenuPosition);
+        if (!Built)
         {
-            infoMenu.addItem(new GUIText("Needs resources:"));
+            InfoMenu.AddItem(new GUIText("Needs resources:"));
 
-            foreach (KeyValuePair<Item.Type, int> costPair in deposit)
+            foreach (KeyValuePair<Item.Type, int> costPair in Deposit)
             {
-                infoMenu.addItem(new GUIText($"{Item.itemNames[costPair.Key]}: {costPair.Value} / {cost[costPair.Key]}"));
+                InfoMenu.AddItem(new GUIText($"{Item.ItemNames[costPair.Key]}: {costPair.Value} / {Cost[costPair.Key]}"));
             }
 
-            infoMenu.addItem(new TextButton("Cancel Build", () => cancelBuild()));
+            InfoMenu.AddItem(new TextButton("Cancel Build", () => CancelBuild()));
         }
-        infoMenu.closeButton.buttonClicked += Player.playerHighlight.unhighlight;
+        InfoMenu.CloseButton.ButtonClicked += Player.PlayerHighlight.Unhighlight;
     }
 
-    public void renderHighlight()
-    {   
-        infoMenu?.render();
-    }
-
-    private void render()
+    public void RenderHighlight()
     {
-        RenderQueue.queue(sprite);
+        InfoMenu?.Render();
     }
 
-    public virtual void update()
+    private void Render()
     {
-        render();
-        if (isPaidFor() && !built)
+        RenderQueue.Queue(Sprite);
+    }
+
+    public virtual void Update()
+    {
+        Render();
+        if (IsPaidFor() && !Built)
         {
-            build();
+            Build();
         }
     }
 
-    public void tick()
+    public void Tick()
     {
-        if (built)
+        if (Built)
         {
-            update();
-        } else
+            Update();
+        }
+        else
         {
-            render();
+            Render();
         }
     }
 }

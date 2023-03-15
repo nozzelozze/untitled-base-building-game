@@ -2,37 +2,37 @@ using System;
 
 public class StorageJob : Job
 {
-    public StorageComponent storage;
-    public bool reverse;
+    public StorageComponent Storage;
+    public bool Reverse;
 
     public StorageJob(StorageComponent storage, Tile jobTile, bool reverse = false) : base(jobTile)
     {
-        this.storage = storage;
-        this.reverse = reverse;
+        this.Storage = storage;
+        this.Reverse = reverse;
     }
 
-    public override void doJob()
+    public override void DoJob()
     {
-        base.doJob();
-        foreach (Item item in colonist.storageComponent.getItems().ToList())
+        base.DoJob();
+        foreach (Item item in Colonist.StorageComponent.GetItems().ToList())
         {
-            colonist.storageComponent.swapItem(storage, item);
+            Colonist.StorageComponent.SwapItem(Storage, item);
         }
 
-        if (reverse)
+        if (Reverse)
         {
-            foreach (Item item in storage.getItems().ToList())
+            foreach (Item item in Storage.GetItems().ToList())
             {
-                storage.swapItem(colonist.storageComponent, item);
+                Storage.SwapItem(Colonist.StorageComponent, item);
             }    
         } else
         {
-            foreach (Item item in colonist.storageComponent.getItems().ToList())
+            foreach (Item item in Colonist.StorageComponent.GetItems().ToList())
             {
-                colonist.storageComponent.swapItem(storage, item);
+                Colonist.StorageComponent.SwapItem(Storage, item);
             }
         }
 
-        isDone = true;
+        IsDone = true;
     }
 }

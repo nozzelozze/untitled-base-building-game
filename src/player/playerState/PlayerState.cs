@@ -7,42 +7,42 @@ public class PlayerState
 
     public static PlayerState Instance = new PlayerState();
 
-    public virtual void onPlayerClick(Player player) {
-        if (PlayerMouse.onUI) return;
+    public virtual void OnPlayerClick(Player player) {
+        if (PlayerMouse.OnUI) return;
     }
-    public virtual void enter() {}
-    public virtual void leave() {}
-    public virtual void update(Player player) {}
+    public virtual void Enter() {}
+    public virtual void Leave() {}
+    public virtual void Update(Player player) {}
 
     public class IdleState : PlayerState
     {
         public static IdleState IdleInstance = new IdleState();
 
-        public override void onPlayerClick(Player player)
+        public override void OnPlayerClick(Player player)
         {
-            base.onPlayerClick(player);
-            if (PlayerMouse.onUI) return;
-            Player.playerHighlight.unhighlight();
-            Structure? clickedStructure = Map.Instance.getStructureFromTile(Map.Instance.getTileAt(Camera.winPositionToCam((Vector2f)PlayerMouse.getPosition())));
+            base.OnPlayerClick(player);
+            if (PlayerMouse.OnUI) return;
+            Player.PlayerHighlight.Unhighlight();
+            Structure? clickedStructure = Map.Instance.GetStructureFromTile(Map.Instance.GetTileAt(Camera.WinPositionToCam((Vector2f)PlayerMouse.GetPosition())));
             if (clickedStructure != null)
             {
-                Player.playerHighlight.highlight(
-                    clickedStructure.highlight, 
+                Player.PlayerHighlight.Highlight(
+                    clickedStructure.Highlight, 
                     () => {}, 
                     () => clickedStructure.Position, 
-                    new Vector2f(clickedStructure.size.X*Map.tileSize, clickedStructure.size.Y*Map.tileSize), 
-                    clickedStructure.renderHighlight
+                    new Vector2f(clickedStructure.Size.X*Map.TileSize, clickedStructure.Size.Y*Map.TileSize), 
+                    clickedStructure.RenderHighlight
                 );
             }
-            Tile clickedTile = Map.Instance.getTileAt(Camera.winPositionToCam((Vector2f)PlayerMouse.getPosition()));
-            if (clickedTile.isOccupied() == false && clickedTile.hasResource())
+            Tile clickedTile = Map.Instance.GetTileAt(Camera.WinPositionToCam((Vector2f)PlayerMouse.GetPosition()));
+            if (clickedTile.IsOccupied() == false && clickedTile.HasResource())
             {
-                Player.playerHighlight.highlight(
-                    clickedTile.resource.highlight,
+                Player.PlayerHighlight.Highlight(
+                    clickedTile.Resource.Highlight,
                     () => {},
-                    () => Map.Instance.getTilePosition(clickedTile),
-                    new Vector2f(Map.tileSize, Map.tileSize),
-                    () => clickedTile.resource.clickMenu.render()
+                    () => Map.Instance.GetTilePosition(clickedTile),
+                    new Vector2f(Map.TileSize, Map.TileSize),
+                    () => clickedTile.Resource.ClickMenu.Render()
                 );
             }
         }
@@ -52,42 +52,42 @@ public class PlayerState
     {
         public static BuildState BuildInstance = new BuildState();
 
-        Structure wantedStructure = new Chest();
+        Structure WantedStructure = new Chest();
 
-        public void enterBuild(Structure wanted)
+        public void EnterBuild(Structure wanted)
         {
-            base.enter();
-            wantedStructure = wanted;
+            base.Enter();
+            WantedStructure = wanted;
         }
 
-        public override void update(Player player)
+        public override void Update(Player player)
         {
-            base.update(player);
-            if (PlayerMouse.onUI) return;
-            Vector2f structurePosition = Map.Instance.getTilePosition(player.mouse.getTileFromMouse());
-            wantedStructure.sprite.Position = structurePosition;
-            wantedStructure.Position = structurePosition;
-            if (wantedStructure.isCurrentlyValid())
+            base.Update(player);
+            if (PlayerMouse.OnUI) return;
+            Vector2f structurePosition = Map.Instance.GetTilePosition(player.PlayerMouse.GetTileFromMouse());
+            WantedStructure.Sprite.Position = structurePosition;
+            WantedStructure.Position = structurePosition;
+            if (WantedStructure.IsCurrentlyValid())
             {
-                wantedStructure.sprite.Color = GUIColor.validGreenColor;
+                WantedStructure.Sprite.Color = GUIColor.ValidGreenColor;
             } else
             {
-                wantedStructure.sprite.Color = GUIColor.invalidRedColor;
+                WantedStructure.Sprite.Color = GUIColor.InvalidRedColor;
             }
-            RenderQueue.queue(wantedStructure.sprite);
-            if (Input.events.Contains(Mouse.Button.Right))
+            RenderQueue.Queue(WantedStructure.Sprite);
+            if (Input.Events.Contains(Mouse.Button.Right))
             {
-                player.enterNewState(IdleState.IdleInstance);
+                player.EnterNewState(IdleState.IdleInstance);
             }
         }
 
-        public override void onPlayerClick(Player player)
+        public override void OnPlayerClick(Player player)
         {
-            base.onPlayerClick(player);
-            if (wantedStructure.isCurrentlyValid())
+            base.OnPlayerClick(player);
+            if (WantedStructure.IsCurrentlyValid())
             {
-                wantedStructure.placeStructure(player.mouse.getTileFromMouse());
-                player.enterNewState(IdleState.IdleInstance);
+                WantedStructure.PlaceStructure(player.PlayerMouse.GetTileFromMouse());
+                player.EnterNewState(IdleState.IdleInstance);
             }
         }
     }

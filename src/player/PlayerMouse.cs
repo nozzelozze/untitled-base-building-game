@@ -5,34 +5,33 @@ using SFML.System;
 
 public class PlayerMouse
 {
-    Texture crosshairTexture;
-    Sprite crosshairSprite;
+    Texture CrosshairTexture;
+    Sprite CrosshairSprite;
 
-    public static bool onUI;
+    public static bool OnUI;
 
-    static Vector2i currentPosition;
+    static Vector2i CurrentPosition;
 
     public PlayerMouse()
     {
-        crosshairTexture = ResourceLoader.fetchTexture(ResourceLoader.TextureType.Crosshair);
-        crosshairSprite = new Sprite(crosshairTexture);
+        CrosshairTexture = ResourceLoader.FetchTexture(ResourceLoader.TextureType.Crosshair);
+        CrosshairSprite = new Sprite(CrosshairTexture);
     }
 
-    public static Vector2i getPosition()
+    public static Vector2i GetPosition()
     {
-        return currentPosition;
+        return CurrentPosition;
     }
 
-    public Tile getTileFromMouse()
+    public Tile GetTileFromMouse()
     {
-        return Map.Instance.getTileAt(Camera.winPositionToCam((Vector2f)getPosition()));
+        return Map.Instance.GetTileAt(Camera.WinPositionToCam((Vector2f)GetPosition()));
     }
 
-    public void renderCrosshair(RenderWindow renderWindow)
+    public void RenderCrosshair(RenderWindow renderWindow)
     {
-        currentPosition = Mouse.GetPosition(renderWindow);
-        crosshairSprite.Position = Map.Instance.getTilePosition(getTileFromMouse());
-        RenderQueue.queue(crosshairSprite);
+        CurrentPosition = Mouse.GetPosition(renderWindow);
+        CrosshairSprite.Position = Map.Instance.GetTilePosition(GetTileFromMouse());
+        RenderQueue.Queue(CrosshairSprite);
     }
-
 }

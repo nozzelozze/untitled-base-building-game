@@ -4,14 +4,14 @@ using SFML.System;
 
 public class ColonistWalk
 {
-    private List<Tile> currentPath = new List<Tile>();
-    private int currentPathIndex = 0;
-    private Pathfinding pathfinding = new Pathfinding();
-    private Vector2f direction = new Vector2f();
-    private Colonist colonist;
+    private List<Tile> CurrentPath = new List<Tile>();
+    private int CurrentPathIndex = 0;
+    private Pathfinding Pathfinding = new Pathfinding();
+    private Vector2f Direction = new Vector2f();
+    private Colonist Colonist;
     public ColonistWalk(Colonist colonist)
     {
-        this.colonist = colonist;
+        this.Colonist = colonist;
     }
 
     private static Vector2f Normalize(Vector2f vector)
@@ -27,52 +27,52 @@ public class ColonistWalk
         return vector;
     }
     
-    public Vector2f getColonistCenter()
+    public Vector2f GetColonistCenter()
     {
         Vector2f position = new Vector2f
         (
-            colonist.Position.X+colonist.sprite.Texture.Size.X/2,
-            colonist.Position.Y+colonist.sprite.Texture.Size.Y/2
+            Colonist.Position.X+Colonist.Sprite.Texture.Size.X/2,
+            Colonist.Position.Y+Colonist.Sprite.Texture.Size.Y/2
         );
         return position;
     }
 
-    public void beginWalk(Tile endTile)
+    public void BeginWalk(Tile endTile)
     {
-        currentPathIndex = 0;
-        currentPath = pathfinding.findPath(Map.Instance.getTileAt(colonist.Position), endTile);
-        if (!endTile.isWalkable())
+        CurrentPathIndex = 0;
+        CurrentPath = Pathfinding.FindPath(Map.Instance.GetTileAt(Colonist.Position), endTile);
+        if (!endTile.IsWalkable())
         {
-            currentPath.Remove(endTile);
+            CurrentPath.Remove(endTile);
         }
-        colonist.Position = Map.Instance.getTilePosition(currentPath[0]);
-        direction = Map.Instance.getTileCenter(currentPath[currentPathIndex]) - getColonistCenter();
-        direction = Normalize(direction);
+        Colonist.Position = Map.Instance.GetTilePosition(CurrentPath[0]);
+        Direction = Map.Instance.GetTileCenter(CurrentPath[CurrentPathIndex]) - GetColonistCenter();
+        Direction = Normalize(Direction);
     }  
 
-    public void update()
+    public void Update()
     {
-        if (currentPathIndex > currentPath.Count-1)
+        if (CurrentPathIndex > CurrentPath.Count-1)
         {
             return;
         }
-        if (currentPath.Count != 0)
+        if (CurrentPath.Count != 0)
         {
-            Tile beforeTile = Map.Instance.getTileAt(getColonistCenter());
-            colonist.Position += direction * 2.5f;
-            Tile afterTile = Map.Instance.getTileAt(getColonistCenter());
-            Vector2f tilePosition = Map.Instance.getTilePosition(currentPath[currentPathIndex]);
-            Vector2f distance = new Vector2f(tilePosition.X+Map.tileSize/2, tilePosition.Y+Map.tileSize/2) - getColonistCenter();
+            Tile beforeTile = Map.Instance.GetTileAt(GetColonistCenter());
+            Colonist.Position += Direction * 2.5f;
+            Tile afterTile = Map.Instance.GetTileAt(GetColonistCenter());
+            Vector2f tilePosition = Map.Instance.GetTilePosition(CurrentPath[CurrentPathIndex]);
+            Vector2f distance = new Vector2f(tilePosition.X+Map.TileSize/2, tilePosition.Y+Map.TileSize/2) - GetColonistCenter();
             if (Math.Abs(new Vector2(distance.X, distance.Y).Length()) < 2.5f)
             {
-                currentPathIndex ++;
-                if (currentPathIndex > currentPath.Count-1)
+                CurrentPathIndex ++;
+                if (CurrentPathIndex > CurrentPath.Count-1)
                 {
-                    colonist.walkDone();
+                    Colonist.WalkDone();
                     return;
                 }
-                direction = Map.Instance.getTileCenter(currentPath[currentPathIndex]) - getColonistCenter();
-                direction = Normalize(direction);
+                Direction = Map.Instance.GetTileCenter(CurrentPath[CurrentPathIndex]) - GetColonistCenter();
+                Direction = Normalize(Direction);
             }
         }
     }

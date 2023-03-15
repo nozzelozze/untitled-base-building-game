@@ -7,17 +7,17 @@ public class Item
     {
         Iron
     }
-    public static Dictionary<Type, string> itemNames = new Dictionary<Type, string>
+    public static Dictionary<Type, string> ItemNames = new Dictionary<Type, string>
     {
         {Type.Iron, "Iron"}
     };
 
-    string name;
-    public Type type;
+    string Name;
+    public Type ItemType;
 
     public Item(Type type)
     {
-        this.type = type;
-        this.name = itemNames[type];
+        this.ItemType = type;
+        this.Name = ItemNames[type];
     }
 }

@@ -1,11 +1,12 @@
 using System;
 using SFML.Graphics;
+using System.Collections.Generic;
 
 public class ResourceLoader
 {
 
-    private static string texturesPath = "assets/imgs/";
-    private static string fontsPath = "assets/fonts/";
+    private static string TexturesPath = "assets/imgs/";
+    private static string FontsPath = "assets/fonts/";
 
     public enum TextureType
     {
@@ -22,47 +23,47 @@ public class ResourceLoader
         BuildButton
     }
     
-    private static Dictionary<TextureType, Texture> loadedTextures = new Dictionary<TextureType, Texture>();
+    private static Dictionary<TextureType, Texture> LoadedTextures = new Dictionary<TextureType, Texture>();
 
-    private static Dictionary<string, Font> fonts = new Dictionary<string, Font>();
+    private static Dictionary<string, Font> Fonts = new Dictionary<string, Font>();
 
     public ResourceLoader()
     {
         // textures
-        loadedTextures.Add(TextureType.DirtOne, new Texture(texturesPath + "tiles/dirt1.png"));
-        loadedTextures.Add(TextureType.DirtTwo, new Texture(texturesPath + "tiles/dirt2.png"));
-        loadedTextures.Add(TextureType.Bed, new Texture(texturesPath + "structures/bed.png"));
-        loadedTextures.Add(TextureType.Crosshair, new Texture(texturesPath + "ui/crosshair.png"));
-        loadedTextures.Add(TextureType.CloseIcon, new Texture(texturesPath + "ui/closeWindowIcon.png"));
-        loadedTextures.Add(TextureType.Copper, new Texture(texturesPath + "tiles/copper.png"));
-        loadedTextures.Add(TextureType.Iron, new Texture(texturesPath + "tiles/iron.png"));
-        loadedTextures.Add(TextureType.Colonist, new Texture(texturesPath + "colonists/colonist.png"));
-        loadedTextures.Add(TextureType.DefaultTexture, new Texture(texturesPath + "defaultTexture.png"));
-        loadedTextures.Add(TextureType.Chest, new Texture(texturesPath + "structures/chest.png"));
-        loadedTextures.Add(TextureType.BuildButton, new Texture(texturesPath + "ui/buildButton.png"));
+        LoadedTextures.Add(TextureType.DirtOne, new Texture(TexturesPath + "tiles/dirt1.png"));
+        LoadedTextures.Add(TextureType.DirtTwo, new Texture(TexturesPath + "tiles/dirt2.png"));
+        LoadedTextures.Add(TextureType.Bed, new Texture(TexturesPath + "structures/bed.png"));
+        LoadedTextures.Add(TextureType.Crosshair, new Texture(TexturesPath + "ui/crosshair.png"));
+        LoadedTextures.Add(TextureType.CloseIcon, new Texture(TexturesPath + "ui/closeWindowIcon.png"));
+        LoadedTextures.Add(TextureType.Copper, new Texture(TexturesPath + "tiles/copper.png"));
+        LoadedTextures.Add(TextureType.Iron, new Texture(TexturesPath + "tiles/iron.png"));
+        LoadedTextures.Add(TextureType.Colonist, new Texture(TexturesPath + "colonists/colonist.png"));
+        LoadedTextures.Add(TextureType.DefaultTexture, new Texture(TexturesPath + "defaultTexture.png"));
+        LoadedTextures.Add(TextureType.Chest, new Texture(TexturesPath + "structures/chest.png"));
+        LoadedTextures.Add(TextureType.BuildButton, new Texture(TexturesPath + "ui/buildButton.png"));
         
 
         // fonts
-        fonts.Add("default", new Font(fontsPath + "default.ttf"));
+        Fonts.Add("default", new Font(FontsPath + "default.ttf"));
     }
 
-    public static Font fetchFont(string fontName)
+    public static Font FetchFont(string fontName)
     {
-        if (!fonts.ContainsKey(fontName))
+        if (!Fonts.ContainsKey(fontName))
         {
             Log.Error($"{fontName} does not exist.");
-            return fonts["default"];
+            return Fonts["default"];
         }
-        return fonts[fontName];
+        return Fonts[fontName];
     }
 
-    public static Texture fetchTexture(TextureType type)
+    public static Texture FetchTexture(TextureType type)
     {
-        if (!loadedTextures.ContainsKey(type))
+        if (!LoadedTextures.ContainsKey(type))
         {
             Log.Error($"{type} does not exist.");
-            return loadedTextures[TextureType.DefaultTexture];
+            return LoadedTextures[TextureType.DefaultTexture];
         }
-        return loadedTextures[type];
+        return LoadedTextures[type];
     }
 }

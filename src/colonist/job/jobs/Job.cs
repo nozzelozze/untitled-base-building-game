@@ -3,45 +3,45 @@ using System;
 public class Job
 {
 
-    private Tile jobTile;
-    private protected Colonist colonist;
+    private Tile JobTile;
+    private protected Colonist Colonist;
 
-    public bool isDone = false;
+    public bool IsDone = false;
 
     public Job(Tile tile)
     {
-        jobTile = tile;
+        JobTile = tile;
     }
 
-    private bool canWork()
+    private bool CanWork()
     {
-        if (Pathfinding.GetNeighborTiles(jobTile).Contains(Map.Instance.getTileAt(colonist.Position)))
+        if (Pathfinding.GetNeighborTiles(JobTile).Contains(Map.Instance.GetTileAt(Colonist.Position)))
         {
             return true;
         }
         return false;
     }
 
-    public virtual void doJob()
+    public virtual void DoJob()
     {
-        if (canWork())
+        if (CanWork())
         {
             
         }
     }
 
-    public virtual void beginJob(Colonist colonist)
+    public virtual void BeginJob(Colonist colonist)
     {
-        this.colonist = colonist;
-        this.colonist.walk.beginWalk(jobTile);
+        this.Colonist = colonist;
+        this.Colonist.Walk.BeginWalk(JobTile);
     }
 
-    public virtual void updateJob()
+    public virtual void UpdateJob()
     {
 
-        if (isDone)
+        if (IsDone)
         {
-            colonist.personalJobManager.jobDone();
+            Colonist.PersonalJobManager.JobDone();
         }
 
     }

@@ -3,53 +3,53 @@ using SFML.Window;
 
 class Input
 {
-    Dictionary<Mouse.Button, bool> mouseButtons = new Dictionary<Mouse.Button, bool>();
-    Dictionary<Keyboard.Key, bool> keyboardButtons = new Dictionary<Keyboard.Key, bool>();
+    Dictionary<Mouse.Button, bool> MouseButtons = new Dictionary<Mouse.Button, bool>();
+    Dictionary<Keyboard.Key, bool> KeyboardButtons = new Dictionary<Keyboard.Key, bool>();
     
-    public static List<object> events = new List<object>();
+    public static List<object> Events = new List<object>();
 
     public Input()
     {
         foreach (Mouse.Button mouseButton in Enum.GetValues(typeof(Mouse.Button)))
         {
-            mouseButtons.Add(mouseButton, false);
+            MouseButtons.Add(mouseButton, false);
         }
         foreach (Keyboard.Key keyboardButton in Enum.GetValues(typeof(Keyboard.Key)))
         {
-            if (!keyboardButtons.ContainsKey(keyboardButton)) keyboardButtons.Add(keyboardButton, false);
+            if (!KeyboardButtons.ContainsKey(keyboardButton)) KeyboardButtons.Add(keyboardButton, false);
         }
     }
     
-    public void getEvents()
+    public void GetEvents()
     {
-        PlayerMouse.onUI = false;
-        events.Clear();
-        foreach(KeyValuePair<Mouse.Button, bool> entry in mouseButtons)
+        PlayerMouse.OnUI = false;
+        Events.Clear();
+        foreach(KeyValuePair<Mouse.Button, bool> entry in MouseButtons)
         {
             if (Mouse.IsButtonPressed(entry.Key))
             {
                 if (!entry.Value)
                 {
-                    mouseButtons[entry.Key] = true;
-                    events.Add(entry.Key);
+                    MouseButtons[entry.Key] = true;
+                    Events.Add(entry.Key);
                 }
             } else
             {
-                mouseButtons[entry.Key] = false;
+                MouseButtons[entry.Key] = false;
             }
         }
-        foreach(KeyValuePair<Keyboard.Key, bool> entry in keyboardButtons)
+        foreach(KeyValuePair<Keyboard.Key, bool> entry in KeyboardButtons)
         {
             if (Keyboard.IsKeyPressed(entry.Key))
             {
                 if (!entry.Value)
                 {
-                    keyboardButtons[entry.Key] = true;
-                    events.Add(entry.Key);
+                    KeyboardButtons[entry.Key] = true;
+                    Events.Add(entry.Key);
                 }
             } else
             {
-                keyboardButtons[entry.Key] = false;
+                KeyboardButtons[entry.Key] = false;
             }
         }
     }

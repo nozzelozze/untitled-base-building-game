@@ -5,56 +5,56 @@ using SFML.System;
 public class PlayerHighlight
 {
 
-    public Action ? maximize;
-    public Action ? minimize;
+    public Action ? Maximize;
+    public Action ? Minimize;
 
-    public Action ? updateHighlight;
+    public Action ? UpdateHighlight;
 
-    public bool playerIsHighlighting;
+    public bool PlayerIsHighlighting;
 
-    public RectangleShape outlineRectangle;
-    public Func<Vector2f> ? getPosition;
+    public RectangleShape OutlineRectangle;
+    public Func<Vector2f> ? GetPosition;
 
     private int outlineThickness = 3;
 
     public PlayerHighlight()
     {
-        outlineRectangle = new RectangleShape();
-        outlineRectangle.OutlineColor = GUIColor.textColor;
-        outlineRectangle.OutlineThickness = outlineThickness;
-        outlineRectangle.FillColor = Color.Transparent;
+        OutlineRectangle = new RectangleShape();
+        OutlineRectangle.OutlineColor = GUIColor.TextColor;
+        OutlineRectangle.OutlineThickness = outlineThickness;
+        OutlineRectangle.FillColor = Color.Transparent;
     }
 
-    public void highlight(Action newMaximize, Action newMinimize, Action ? newUpdateHighlight = null)
+    public void Highlight(Action newMaximize, Action newMinimize, Action ? newUpdateHighlight = null)
     {
-        updateHighlight = newUpdateHighlight;
-        if (minimize != null) minimize();
-        maximize = newMaximize;
-        minimize = newMinimize;
-        maximize();
-        playerIsHighlighting = true;
+        UpdateHighlight = newUpdateHighlight;
+        if (Minimize != null) Minimize();
+        Maximize = newMaximize;
+        Minimize = newMinimize;
+        Maximize();
+        PlayerIsHighlighting = true;
     }
 
-    public void highlight(Action newMaximize, Action newMinimize, Func<Vector2f> rectPosition, Vector2f rectSize, Action ?  newUpdateHighlight = null)
+    public void Highlight(Action newMaximize, Action newMinimize, Func<Vector2f> rectPosition, Vector2f rectSize, Action ?  newUpdateHighlight = null)
     {
-        highlight(newMaximize, newMinimize, newUpdateHighlight);
-        outlineRectangle.Size = rectSize;
-        outlineRectangle.Position = rectPosition();
-        getPosition = rectPosition;
+        Highlight(newMaximize, newMinimize, newUpdateHighlight);
+        OutlineRectangle.Size = rectSize;
+        OutlineRectangle.Position = rectPosition();
+        GetPosition = rectPosition;
     }
 
-    public void unhighlight()
+    public void Unhighlight()
     {
-        if (minimize != null) minimize();
-        updateHighlight = null;
-        playerIsHighlighting = false;
-        getPosition = null;
+        if (Minimize != null) Minimize();
+        UpdateHighlight = null;
+        PlayerIsHighlighting = false;
+        GetPosition = null;
     }
 
-    public void update()
+    public void Update()
     {
-        if (updateHighlight != null) updateHighlight();
-        if (getPosition != null) outlineRectangle.Position = getPosition();
-        if (playerIsHighlighting) RenderQueue.queue(outlineRectangle);
+        if (UpdateHighlight != null) UpdateHighlight();
+        if (GetPosition != null) OutlineRectangle.Position = GetPosition();
+        if (PlayerIsHighlighting) RenderQueue.Queue(OutlineRectangle);
     }
 }
