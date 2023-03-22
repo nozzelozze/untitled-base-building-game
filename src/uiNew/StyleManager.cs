@@ -17,11 +17,11 @@ public class StyleManager
     static StyleManager()
     {
         DefaultStyle = new StyleManager();
-        DefaultStyle.BackgroundColor = Color.Black;
+        DefaultStyle.BackgroundColor = Color.Blue;
         DefaultStyle.TextColor = Color.White;
         DefaultStyle.OutlineColor = Color.Red;
         DefaultStyle.OutlineThickness = 2;
-        DefaultStyle.UIFont = new Font("path/to/font.ttf");
+        DefaultStyle.UIFont = ResourceLoader.FetchFont("default");
         DefaultStyle.BaseTextSize = 12;
     }
 }

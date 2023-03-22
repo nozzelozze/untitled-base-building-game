@@ -49,7 +49,7 @@ class Map
                if (structureTile == tile) return structure;
             }
         }
-        Log.Warning("Structure is not found from tile. (GetStructureFromTile)");
+        //Log.Warning("Structure is not found from tile. (GetStructureFromTile)");
         return null;
     }
 

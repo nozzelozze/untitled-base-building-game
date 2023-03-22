@@ -19,8 +19,11 @@ class Game
         ResourceLoader resourceLoader = new ResourceLoader();
         Camera camera = new Camera(new View(window.GetView()));
         View uiView = new View(window.GetView());
-        Input input = new Input();
+        Input input = new Input(window);
         Player player = new Player(camera);
+
+        GUIManager GuiManager = new GUIManager();
+
         for (int x = 0; x < 64; x++)
         {
             for (int y = 0; y < 64; y++)
@@ -31,6 +34,8 @@ class Game
         JobManager jobManager = new JobManager();
         Colonist colonist = new Colonist(1);
 
+        _Button b = new _Button(new Vector2f(250, 250), () => Log.Message("DAD"));
+
         window.SetVerticalSyncEnabled(true);
         window.Closed += (sender, args) => window.Close();
         window.MouseWheelScrolled += camera.Scroll;
@@ -39,11 +44,12 @@ class Game
             window.DispatchEvents();
             window.Clear(Color.Black);
             input.GetEvents();
+            GuiManager.Update();
 
             camera.UpdateCamera(window);
-            Map.Instance.Render();
+            //Map.Instance.Render();
 
-            colonist.Update();
+            //colonist.Update();
 
             player.UpdatePlayer(window);
             RenderQueue.Render(window, uiView);

@@ -1,5 +1,7 @@
 using System;
 using SFML.Window;
+using SFML.System;
+using SFML.Graphics;
 
 class Input
 {
@@ -8,7 +10,7 @@ class Input
     
     public static List<object> Events = new List<object>();
 
-    public Input()
+    public Input(RenderWindow window)
     {
         foreach (Mouse.Button mouseButton in Enum.GetValues(typeof(Mouse.Button)))
         {
@@ -17,6 +19,24 @@ class Input
         foreach (Keyboard.Key keyboardButton in Enum.GetValues(typeof(Keyboard.Key)))
         {
             if (!KeyboardButtons.ContainsKey(keyboardButton)) KeyboardButtons.Add(keyboardButton, false);
+        }
+        window.MouseButtonPressed += OnMouseButtonPressed;
+        window.MouseButtonReleased += OnMouseButtonReleased;
+    }
+
+    private void OnMouseButtonPressed(object sender, MouseButtonEventArgs e)
+    {
+        foreach (var element in GUIManager.InteractiveGUIElements)
+        {
+            element.OnMousePressed(e.Button);
+        }
+    }
+
+    private void OnMouseButtonReleased(object sender, MouseButtonEventArgs e)
+    {
+        foreach (var element in GUIManager.InteractiveGUIElements)
+        {
+            element.OnMouseReleased(e.Button);
         }
     }
     

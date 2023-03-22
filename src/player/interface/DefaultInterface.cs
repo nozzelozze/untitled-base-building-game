@@ -31,7 +31,7 @@ public class DefaultInterface
 
     public void Update()
     {
-        BuildButton.Render();
-        if (BuildMenu != null) BuildMenu.Render();
+        //BuildButton.Render();
+        //if (BuildMenu != null) BuildMenu.Render();
     }
 }
