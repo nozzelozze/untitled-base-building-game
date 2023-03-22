@@ -3,7 +3,7 @@ using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
 
-public class _Button : InteractiveGUIElement
+public abstract class _Button : InteractiveGUIElement
 {
 
     public enum ButtonState
@@ -24,18 +24,21 @@ public class _Button : InteractiveGUIElement
         ButtonClicked += OnClick;
     }
 
+    public override void OnMousePressed(Mouse.Button button)
+    {
+        if (button == Mouse.Button.Left && IsMouseOver)
+        {
+            State = ButtonState.Pressed;
+        }
+    }
+
     public override void OnMouseReleased(Mouse.Button button)
     {
-        if (button == Mouse.Button.Left)
+        if (button == Mouse.Button.Left && IsMouseOver)
         {
             ButtonClicked.Invoke();
             State = ButtonState.Hovered;
         }
-    }
-
-    public override void OnMousePressed(Mouse.Button button)
-    {
-        State = ButtonState.Pressed;
     }
 
     public override void OnMouseEnter()
