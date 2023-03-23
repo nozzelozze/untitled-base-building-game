@@ -10,7 +10,7 @@ public class StyleManager
     public Color OutlineColor { get; set; }
     public int OutlineThickness { get; set; }
     public Font UIFont { get; set; }
-    public uint BaseTextSize { get; set; }
+    public GUIText.TextSize BaseTextSize { get; set; }
 
     public static StyleManager DefaultStyle { get; private set; }
 
@@ -22,6 +22,6 @@ public class StyleManager
         DefaultStyle.OutlineColor = Color.Red;
         DefaultStyle.OutlineThickness = 2;
         DefaultStyle.UIFont = ResourceLoader.FetchFont("default");
-        DefaultStyle.BaseTextSize = 12;
+        DefaultStyle.BaseTextSize = GUIText.TextSize.Medium;
     }
 }
