@@ -29,8 +29,8 @@ public class Miner : Structure
         base.Highlight();
         if (WantMenu())
         {
-            InfoMenu.AddItem(new GUIText($"Harvesting {ResourceType}"));
-            InfoMenu.AddItem(new GUIText($"Ore Count: %v", tickVar: () => StorageComponent.GetCount()));
+            //InfoMenu.AddItem(new GUIText($"Harvesting {ResourceType}"));
+            //InfoMenu.AddItem(new GUIText($"Ore Count: %v", tickVar: () => StorageComponent.GetCount()));
         }
     }
 

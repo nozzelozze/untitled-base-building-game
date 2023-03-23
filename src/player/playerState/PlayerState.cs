@@ -41,8 +41,8 @@ public class PlayerState
                     clickedTile.Resource.Highlight,
                     () => {},
                     () => Map.Instance.GetTilePosition(clickedTile),
-                    new Vector2f(Map.TileSize, Map.TileSize),
-                    () => clickedTile.Resource.ClickMenu.Render()
+                    new Vector2f(Map.TileSize, Map.TileSize), () => {}
+                    //() => clickedTile.Resource.ClickMenu.Render()
                 );
             }
         }
@@ -69,10 +69,10 @@ public class PlayerState
             WantedStructure.Position = structurePosition;
             if (WantedStructure.IsCurrentlyValid())
             {
-                WantedStructure.Sprite.Color = GUIColor.ValidGreenColor;
+                WantedStructure.Sprite.Color = StyleManager.DarkBlueColor;
             } else
             {
-                WantedStructure.Sprite.Color = GUIColor.InvalidRedColor;
+                WantedStructure.Sprite.Color = StyleManager.DarkRedColor;
             }
             RenderQueue.Queue(WantedStructure.Sprite);
             if (Input.Events.Contains(Mouse.Button.Right))

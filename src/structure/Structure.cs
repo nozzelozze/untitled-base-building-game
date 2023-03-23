@@ -15,7 +15,7 @@ public class Structure : Transformable
 
     public List<Tile> OccupiedTiles = new List<Tile>();
 
-    public Menu? InfoMenu;
+    //public Menu? InfoMenu;
 
     public bool Built = false;
 
@@ -100,7 +100,8 @@ public class Structure : Transformable
 
     public bool WantMenu()
     {
-        return InfoMenu != null && Built;
+        //return InfoMenu != null && Built;
+        return false;
     }
 
     public bool IsPaidFor()
@@ -120,24 +121,24 @@ public class Structure : Transformable
 
     public virtual void Highlight()
     {
-        InfoMenu = new Menu(Name, Menu.InfoMenuPosition);
+        //InfoMenu = new Menu(Name, Menu.InfoMenuPosition);
         if (!Built)
         {
-            InfoMenu.AddItem(new GUIText("Needs resources:"));
+            //InfoMenu.AddItem(new GUIText("Needs resources:"));
 
             foreach (KeyValuePair<Item.Type, int> costPair in Deposit)
             {
-                InfoMenu.AddItem(new GUIText($"{Item.ItemNames[costPair.Key]}: {costPair.Value} / {Cost[costPair.Key]}"));
+                //InfoMenu.AddItem(new GUIText($"{Item.ItemNames[costPair.Key]}: {costPair.Value} / {Cost[costPair.Key]}"));
             }
 
-            InfoMenu.AddItem(new TextButton("Cancel Build", () => CancelBuild()));
+            //InfoMenu.AddItem(new TextButton("Cancel Build", () => CancelBuild()));
         }
-        InfoMenu.CloseButton.ButtonClicked += Player.PlayerHighlight.Unhighlight;
+        //InfoMenu.CloseButton.ButtonClicked += Player.PlayerHighlight.Unhighlight;
     }
 
     public void RenderHighlight()
     {
-        InfoMenu?.Render();
+        //InfoMenu?.Render();
     }
 
     private void Render()

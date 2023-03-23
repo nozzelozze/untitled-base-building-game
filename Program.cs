@@ -34,7 +34,8 @@ class Game
         JobManager jobManager = new JobManager();
         Colonist colonist = new Colonist(1);
 
-        _Button b = new _Button(new Vector2f(250, 250), () => Log.Message("DAD"));
+        LabelButton b = new LabelButton(new Vector2f(250, 250), () => Log.Message("DA"), "Tjena");
+        IconOnlyButton a = new IconOnlyButton(new Vector2f(500, 500), () => Log.Message("DA"), ResourceLoader.FetchTexture(ResourceLoader.TextureType.CloseIcon));
 
         window.SetVerticalSyncEnabled(true);
         window.Closed += (sender, args) => window.Close();

@@ -27,7 +27,7 @@ public class Resource
     public Vector2f Position;
     public Tile Tile;
 
-    public ResourceMenu? ClickMenu;
+    //public ResourceMenu? ClickMenu;
 
     public Resource(ResourceType resourceType, Tile tile)
     {
@@ -41,9 +41,9 @@ public class Resource
 
     public void Highlight()
     {
-        ClickMenu = new ResourceMenu("Iron", this);
-        ClickMenu.Position = Camera.CamPositionToWin(Position);
-        ClickMenu.CloseButton.ButtonClicked += Player.PlayerHighlight.Unhighlight;
+        //ClickMenu = new ResourceMenu("Iron", this);
+        //ClickMenu.Position = Camera.CamPositionToWin(Position);
+        //ClickMenu.CloseButton.ButtonClicked += Player.PlayerHighlight.Unhighlight;
     }
 
     public void Render()

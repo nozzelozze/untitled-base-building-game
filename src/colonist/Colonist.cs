@@ -24,7 +24,7 @@ public class Colonist : Transformable
     public ColonistJobManager PersonalJobManager;
     public ColonistWalk Walk;
 
-    Menu? InfoMenu;
+    //Menu? InfoMenu;
 
     public Colonist(int id)
     {
@@ -59,9 +59,9 @@ public class Colonist : Transformable
 
     public void Highlight()
     {
-        InfoMenu = new Menu("Peter xDDD", Menu.InfoMenuPosition);
-        InfoMenu.AddItem(new GUIText("Inventory: %v", tickVar: () => StorageComponent.GetItems().Count((item) => item.ItemType == Item.Type.Iron)));
-        InfoMenu.CloseButton.ButtonClicked += Player.PlayerHighlight.Unhighlight;
+        //InfoMenu = new Menu("Peter xDDD", Menu.InfoMenuPosition);
+        //InfoMenu.AddItem(new GUIText("Inventory: %v", tickVar: () => StorageComponent.GetItems().Count((item) => item.ItemType == Item.Type.Iron)));
+        //InfoMenu.CloseButton.ButtonClicked += Player.PlayerHighlight.Unhighlight;
     }
 
     public void Update()
@@ -80,9 +80,11 @@ public class Colonist : Transformable
                 Player.PlayerHighlight.Highlight(
                     Highlight,
                     () => { },
-                    () => Position,
+                    //() => Position,
+                    () => new Vector2f(),
                     (Vector2f)Sprite.Texture.Size,
-                    () => InfoMenu.Render()
+                    //() => InfoMenu.Render(),
+                    () => {}
                 );
             }
         }

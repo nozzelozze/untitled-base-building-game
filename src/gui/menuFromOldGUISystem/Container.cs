@@ -1,7 +1,7 @@
 using System;
 using SFML.System;
 
-public class Container : GUIActor
+/* public class Container : GUIActor
 {
 
     List<List<GUIActor>> Items;
@@ -114,3 +114,4 @@ public class Container : GUIActor
         }
     }
 }
+ */

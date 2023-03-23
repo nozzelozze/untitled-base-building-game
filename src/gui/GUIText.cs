@@ -15,12 +15,21 @@ public class GUIText : GUIElement
         HeadingLarge
     }
 
-    Text Text;
+    public enum AnchorPoint
+    {
+        Topleft,
+        Center,
+        Left
+    }
+    public AnchorPoint anchorPoint;
+
+    public Text Text { get; private set; }
     Func<object>? TickVar;
     string DisplayString;
+    
 
-    public GUIText(string text, Func<object>? tickVar = null, StyleManager ? style = null)
-    : base(new Vector2f(), style)
+    public GUIText(string text, Vector2f position, Func<object>? tickVar = null, StyleManager ? style = null, AnchorPoint anchorPoint = AnchorPoint.Topleft, bool hasBackgroundColor = false)
+    : base(position, style)
     {
         DisplayString = text;
         Text = new Text(text, Style.UIFont);
@@ -37,6 +46,45 @@ public class GUIText : GUIElement
             globalBounds.Width,
             globalBounds.Height
         );
+        this.anchorPoint = anchorPoint;
+        SetAnchorPosition();
+
+        if (!hasBackgroundColor)
+        {
+            Color transparentColor = new Color(BaseRect.FillColor);
+            transparentColor.A = 0;
+            BaseRect.FillColor = transparentColor;
+        }
+        BaseRect.OutlineThickness = 0;
+    }
+
+    private void CenterText(Text textToCenter, Vector2f centerPosition)
+    {
+        FloatRect textRect = textToCenter.GetLocalBounds();
+        textToCenter.Origin = new Vector2f(
+            textRect.Left + textRect.Width/2.0f,
+            textRect.Top + textRect.Height/2.0f
+        );
+        textToCenter.Position = centerPosition;
+    }
+
+    public void SetAnchorPosition()
+    {
+        switch (anchorPoint)
+        {
+            case AnchorPoint.Topleft:
+                Text.Position = Position;
+                break;
+            case AnchorPoint.Center:
+                CenterText(Text, Position);
+                break;
+            case AnchorPoint.Left:
+                Text.Position = new Vector2f(
+                    Position.X,
+                    Position.Y - Text.GetGlobalBounds().Height / 2
+                );
+                break;
+        }
     }
 
     private uint GetCharacterSize(TextSize textSize)
@@ -63,7 +111,6 @@ public class GUIText : GUIElement
     public override void Update()
     {
         base.Update();
-        Text.Position = Position;
         if (TickVar != null)
         {
             Text.DisplayedString = DisplayString.Replace("%v", TickVar().ToString());

@@ -2,7 +2,7 @@ using System;
 using SFML.Graphics;
 using SFML.System;
 
-public class Menu : Container
+/* public class Menu : Container
 {
     RectangleShape BarRect;
     Text TitleText;
@@ -63,3 +63,4 @@ public class Menu : Container
         CloseButton.Render(); 
     }
 }
+ */

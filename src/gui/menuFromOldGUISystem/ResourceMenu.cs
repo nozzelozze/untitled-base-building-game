@@ -1,7 +1,7 @@
 using System;
 using SFML.System;
 
-public class ResourceMenu : Menu
+/* public class ResourceMenu : Menu
 {
 
     public ResourceMenu(string title, Resource resource) 
@@ -20,3 +20,4 @@ public class ResourceMenu : Menu
     }
 
 }
+ */

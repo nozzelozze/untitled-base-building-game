@@ -3,7 +3,7 @@ using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
 
-public abstract class _Button : InteractiveGUIElement
+public abstract class Button : InteractiveGUIElement
 {
 
     public enum ButtonState
@@ -18,8 +18,8 @@ public abstract class _Button : InteractiveGUIElement
 
     public event Action ButtonClicked;
 
-    public _Button(Vector2f Position, Action OnClick)
-    : base(Position)
+    public Button(Vector2f Position, Action OnClick, StyleManager ? style = null)
+    : base(Position, style)
     {
         ButtonClicked += OnClick;
     }
@@ -51,7 +51,7 @@ public abstract class _Button : InteractiveGUIElement
         State = ButtonState.Normal;
     }
 
-    protected void UpdateAppearance()
+    protected virtual void UpdateAppearance()
     {
         switch(State)
         {

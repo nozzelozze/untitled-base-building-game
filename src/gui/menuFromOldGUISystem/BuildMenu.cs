@@ -1,7 +1,7 @@
 using System;
 using SFML.System;
 
-public class BuildMenu : Menu
+/* public class BuildMenu : Menu
 {
 
     Dictionary<Structure, Func<Structure>> Structures = new Dictionary<Structure, Func<Structure>>
@@ -29,3 +29,4 @@ public class BuildMenu : Menu
         MarginOffsetY = 0;
     }
 }
+ */

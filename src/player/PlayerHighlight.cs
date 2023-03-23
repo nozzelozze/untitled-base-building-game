@@ -20,7 +20,7 @@ public class PlayerHighlight
     public PlayerHighlight()
     {
         OutlineRectangle = new RectangleShape();
-        OutlineRectangle.OutlineColor = GUIColor.TextColor;
+        OutlineRectangle.OutlineColor = StyleManager.WhiteColor;
         OutlineRectangle.OutlineThickness = outlineThickness;
         OutlineRectangle.FillColor = Color.Transparent;
     }

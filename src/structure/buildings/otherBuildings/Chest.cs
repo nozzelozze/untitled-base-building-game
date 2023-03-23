@@ -22,10 +22,10 @@ public class Chest : Structure
         base.Highlight();
         if (WantMenu())
         {
-            InfoMenu.AddRow(new List<GUIActor>{new GUIText("Contents:")});
+            //InfoMenu.AddRow(new List<GUIActor>{new GUIText("Contents:")});
             foreach(KeyValuePair<Item.Type, int> entry in StorageComponent.ItemCount())
             {
-                InfoMenu.AddRow(new List<GUIActor>{new GUIText($"{Item.ItemNames[entry.Key]}: %v", tickVar: () => entry.Value)});
+                //InfoMenu.AddRow(new List<GUIActor>{new GUIText($"{Item.ItemNames[entry.Key]}: %v", tickVar: () => entry.Value)});
             }
         }
     }
