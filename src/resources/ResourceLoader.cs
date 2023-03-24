@@ -20,7 +20,8 @@ public class ResourceLoader
         Iron,
         Colonist,
         Chest,
-        BuildButton
+        BuildButton,
+        Grass
     }
     
     private static Dictionary<TextureType, Texture> LoadedTextures = new Dictionary<TextureType, Texture>();
@@ -41,6 +42,7 @@ public class ResourceLoader
         LoadedTextures.Add(TextureType.DefaultTexture, new Texture(TexturesPath + "defaultTexture.png"));
         LoadedTextures.Add(TextureType.Chest, new Texture(TexturesPath + "structures/chest.png"));
         LoadedTextures.Add(TextureType.BuildButton, new Texture(TexturesPath + "ui/buildButton.png"));
+        LoadedTextures.Add(TextureType.Grass, new Texture(TexturesPath + "tiles/grass.png"));
         
 
         // fonts

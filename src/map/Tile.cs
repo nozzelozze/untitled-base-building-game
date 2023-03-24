@@ -7,7 +7,9 @@ public class Tile
 
     public enum Type
     {
-        Dirt,
+        Dirt1,
+        Dirt2,
+        Grass,
         Ore
     }
 
@@ -18,11 +20,22 @@ public class Tile
 
     public Tile(Type tileType)
     {
-        if (tileType == Type.Dirt)
-        {
-            Texture = new Random().Next(5) == 1 ? ResourceLoader.FetchTexture(ResourceLoader.TextureType.DirtTwo) : ResourceLoader.FetchTexture(ResourceLoader.TextureType.DirtOne);
-        }
+        Texture = GetTexture(tileType);
         this.Sprite = new Sprite(Texture);
+    }
+
+    private Texture GetTexture(Type tileType)
+    {
+        switch (tileType)
+        {
+            case Type.Dirt1:
+                return ResourceLoader.FetchTexture(ResourceLoader.TextureType.DirtOne);
+            case Type.Dirt2:
+                return ResourceLoader.FetchTexture(ResourceLoader.TextureType.DirtTwo);
+            case Type.Grass:
+                return ResourceLoader.FetchTexture(ResourceLoader.TextureType.Grass);
+        }
+        return ResourceLoader.FetchTexture(ResourceLoader.TextureType.DefaultTexture);
     }
 
     public bool IsOccupied()

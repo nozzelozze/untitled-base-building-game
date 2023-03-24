@@ -24,18 +24,15 @@ class Game
 
         GUIManager GuiManager = new GUIManager();
 
-        for (int x = 0; x < 64; x++)
-        {
-            for (int y = 0; y < 64; y++)
-            {
-                if (new Random().Next(7) == 0) new Resource(Resource.ResourceType.Iron, Map.Instance.Tiles[x, y]);
-            }
-        }
+        //for (int x = 0; x < 64; x++)
+        //{
+        //    for (int y = 0; y < 64; y++)
+        //    {
+        //        if (new Random().Next(7) == 0) new Resource(Resource.ResourceType.Iron, Map.Instance.Tiles[x, y]);
+        //    }
+        //}
         JobManager jobManager = new JobManager();
         Colonist colonist = new Colonist(1);
-
-        LabelButton b = new LabelButton(new Vector2f(250, 250), () => Log.Message("DA"), "Tjena");
-        IconOnlyButton a = new IconOnlyButton(new Vector2f(500, 500), () => Log.Message("DA"), ResourceLoader.FetchTexture(ResourceLoader.TextureType.CloseIcon));
 
         window.SetVerticalSyncEnabled(true);
         window.Closed += (sender, args) => window.Close();
@@ -48,7 +45,7 @@ class Game
             GuiManager.Update();
 
             camera.UpdateCamera(window);
-            //Map.Instance.Render();
+            Map.Instance.Render();
 
             //colonist.Update();
 

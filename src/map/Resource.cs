@@ -29,11 +29,11 @@ public class Resource
 
     //public ResourceMenu? ClickMenu;
 
-    public Resource(ResourceType resourceType, Tile tile)
+    public Resource(ResourceType resourceType, Tile tile, Vector2f tilePosition)
     {
         Type = resourceType;
         Sprite = new Sprite(ResourceTextures[resourceType]);
-        Sprite.Position = Map.Instance.GetTilePosition(tile);
+        Sprite.Position = tilePosition;
         Position = Sprite.Position;
         tile.GiveResource(this);
         this.Tile = tile;

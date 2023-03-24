@@ -13,13 +13,8 @@ class Map
 
     private Map()
     {
-        for (int x = 0; x < MapWidth; x++)
-        {
-            for (int y = 0; y < MapHeight; y++)
-            {
-                Tiles[x,y] = new Tile(Tile.Type.Dirt);
-            }
-        }
+        MapGenerator mapGenerator = new MapGenerator(MapWidth, MapHeight, seed: 123313);
+        Tiles = mapGenerator.GenerateMap();
     }
 
     public void OccupyTile(Tile tile)
