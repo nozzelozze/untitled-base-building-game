@@ -7,6 +7,7 @@ using SFML.System;
 public class Camera
 {
     Vector2i CameraMouseOffset;
+    Vector2i OldCameraMouseOffset;
     static View View = new View();
     static Vector2f DefaultSize = new Vector2f(1920, 1080);
     Vector2f TargetSize = new Vector2f(1920, 1080);
@@ -60,7 +61,11 @@ public class Camera
     public void UpdateCamera(RenderWindow renderWindow)
     {
         renderWindow.SetView(View);
-        if (Input.Events.Contains(Mouse.Button.Right)) CameraMouseOffset = -Mouse.GetPosition(renderWindow) - (Vector2i)View.Center;
+        if (Input.Events.Contains(Mouse.Button.Right))
+        {
+            CameraMouseOffset = -Mouse.GetPosition(renderWindow) - (Vector2i)View.Center;
+        }
+        Player.Instance.IsPanning = false;
         if (Mouse.IsButtonPressed(Mouse.Button.Right))
         {
             Vector2 zoomWeight;

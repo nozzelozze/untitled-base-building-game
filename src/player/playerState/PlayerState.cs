@@ -2,10 +2,8 @@ using System;
 using SFML.Window;
 using SFML.System;
 
-public class PlayerState
+/* public abstract class PlayerState
 {
-
-    public static PlayerState Instance = new PlayerState();
 
     public virtual void OnPlayerClick(Player player) {
         if (PlayerMouse.OnUI) return;
@@ -13,6 +11,7 @@ public class PlayerState
     public virtual void Enter() {}
     public virtual void Leave() {}
     public virtual void Update(Player player) {}
+    public abstract string GetName(); 
 
     public class IdleState : PlayerState
     {
@@ -45,6 +44,16 @@ public class PlayerState
                     //() => clickedTile.Resource.ClickMenu.Render()
                 );
             }
+        }
+    }
+
+    public class SelectState : PlayerState
+    {
+        public static SelectState SelectInstance = new SelectState();
+
+        public override void Update(Player player)
+        {
+            base.Update(player);
         }
     }
 
@@ -90,5 +99,99 @@ public class PlayerState
                 player.EnterNewState(IdleState.IdleInstance);
             }
         }
+    }
+}
+ */
+
+public abstract class PlayerState
+{
+    public virtual void OnPlayerClick(Player player, Mouse.Button button) {
+        if (PlayerMouse.OnUI) return;
+    }
+    public virtual void OnPlayerRelease(Player player, Mouse.Button button) {}
+    public virtual void Enter() {}
+    public virtual void Leave() {}
+    public virtual void Update(Player player) {}
+    public abstract string GetName();
+
+    // Add a factory method to create PlayerStates based on their names
+    public static PlayerState CreateState(string stateName)
+    {
+        switch (stateName)
+        {
+            case "Idle":
+                return new IdleState();
+            case "Build":
+                return new BuildState();
+            // Add more cases here as you expand your game
+            default:
+                throw new ArgumentException($"Invalid state name: {stateName}");
+        }
+    }
+
+    public class IdleState : PlayerState
+    {
+        public override string GetName() => "Idle";
+
+        // (...)
+    }
+
+    public class BuildState : PlayerState
+    {
+        public Structure WantedStructure { get; set; }
+
+        public BuildState(Structure wanted = null)
+        {
+            WantedStructure = wanted ?? new Chest();
+        }
+
+        public override string GetName() => "Build";
+
+        public void SetWantedStructure(Structure wanted)
+        {
+            WantedStructure = wanted;
+        }
+
+        private void UpdateStructurePosition(Vector2f position, Player player)
+        {
+            Vector2f structurePosition = Map.Instance.GetTilePosition(player.PlayerMouse.GetTileFromMouse());
+            WantedStructure.Sprite.Position = structurePosition;
+            WantedStructure.Position = structurePosition;
+        }
+
+        private void UpdateStructureColor(bool isValid)
+        {
+            WantedStructure.Sprite.Color = isValid ? SFML.Graphics.Color.Green : StyleManager.DarkRedColor;
+        }
+
+        public override void Update(Player player)
+        {
+            if (PlayerMouse.OnUI) return;
+            Vector2f structurePosition = Map.Instance.GetTilePosition(player.PlayerMouse.GetTileFromMouse());
+            UpdateStructurePosition(structurePosition, player);
+            bool isValid = WantedStructure.IsCurrentlyValid();
+            UpdateStructureColor(isValid);
+            RenderQueue.Queue(WantedStructure.Sprite);
+        }
+
+        public override void OnPlayerRelease(Player player, Mouse.Button button)
+        {
+            base.OnPlayerRelease(player, button);
+            if (button == Mouse.Button.Right && !player.IsPanning)
+            {
+                player.EnterNewState(PlayerState.CreateState("Idle"));
+            }
+        }
+
+        public override void OnPlayerClick(Player player, Mouse.Button button)
+        {
+            base.OnPlayerClick(player, button);
+            if (WantedStructure.IsCurrentlyValid() && button == Mouse.Button.Left)
+            {
+                WantedStructure.PlaceStructure(player.PlayerMouse.GetTileFromMouse());
+                player.EnterNewState(PlayerState.CreateState("Idle"));
+            }
+        }
+
     }
 }

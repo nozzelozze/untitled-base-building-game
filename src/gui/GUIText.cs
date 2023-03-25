@@ -44,7 +44,7 @@ public class GUIText : GUIElement
         FloatRect globalBounds = Text.GetGlobalBounds();
         BaseRect.Size = new Vector2f(
             globalBounds.Width,
-            globalBounds.Height
+            globalBounds.Height*1.25f
         );
         this.anchorPoint = anchorPoint;
         SetAnchorPosition();
@@ -85,6 +85,7 @@ public class GUIText : GUIElement
                 );
                 break;
         }
+        BaseRect.Position = Text.Position;
     }
 
     private uint GetCharacterSize(TextSize textSize)
@@ -116,5 +117,14 @@ public class GUIText : GUIElement
             Text.DisplayedString = DisplayString.Replace("%v", TickVar().ToString());
         }
         RenderQueue.QueueGUI(Text);
+        SetAnchorPosition();
+        if (TickVar != null)
+        {
+            FloatRect globalBounds = Text.GetGlobalBounds();
+            BaseRect.Size = new Vector2f(
+                globalBounds.Width,
+                globalBounds.Height*1.25f
+            );
+        }
     }
 }

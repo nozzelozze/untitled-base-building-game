@@ -1,11 +1,17 @@
 using System;
 using SFML.System;
+using SFML.Window;
 
 public class DefaultInterface
 {
     
-    IconButton BuildButton;
+    //IconButton BuildButton;
     //BuildMenu? BuildMenu;
+
+    IconButton MineButton;
+    IconButton BuildButton;
+
+    MouseBox MouseBox;
 
     Player Player;
 
@@ -18,6 +24,9 @@ public class DefaultInterface
         //    new Vector2f(50, 50),
         //    "Build"
         //);
+
+        MineButton = new IconButton(new Vector2f(100, 1080-100), () => Player.EnterNewState(PlayerState.CreateState("Build")), ResourceLoader.FetchTexture(ResourceLoader.TextureType.MineButton), "Mine");
+        MouseBox = new MouseBox();
     }
 
     public void OnBuildButtonClick()
@@ -33,5 +42,6 @@ public class DefaultInterface
     {
         //BuildButton.Render();
         //if (BuildMenu != null) BuildMenu.Render();
+        MouseBox.Position = (Vector2f)PlayerMouse.GetPosition() + new Vector2f(25, 25);
     }
 }

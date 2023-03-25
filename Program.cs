@@ -18,9 +18,9 @@ class Game
 
         ResourceLoader resourceLoader = new ResourceLoader();
         Camera camera = new Camera(new View(window.GetView()));
+        Player.Initialize(camera);
         View uiView = new View(window.GetView());
         Input input = new Input(window);
-        Player player = new Player(camera);
 
         GUIManager GuiManager = new GUIManager();
 
@@ -49,7 +49,7 @@ class Game
 
             //colonist.Update();
 
-            player.UpdatePlayer(window);
+            Player.Instance.UpdatePlayer(window);
             RenderQueue.Render(window, uiView);
             window.Display();
         }

@@ -74,7 +74,7 @@ public class Colonist : Transformable
         CollisionRect.Left = collisionPosition.X;
         if (CollisionRect.Contains(mousePosition.X, mousePosition.Y))
         {
-            if (Input.Events.Contains(Mouse.Button.Left) && Player.CurrentState == PlayerState.IdleState.IdleInstance)
+            if (Input.Events.Contains(Mouse.Button.Left) && Player.Instance.CurrentState is PlayerState.IdleState)
             {
                 Input.Events.Remove(Mouse.Button.Left);
                 Player.PlayerHighlight.Highlight(

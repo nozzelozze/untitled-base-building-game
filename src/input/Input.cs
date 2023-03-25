@@ -30,6 +30,7 @@ class Input
         {
             element.OnMousePressed(e.Button);
         }
+        Player.Instance.CurrentState.OnPlayerClick(Player.Instance, e.Button);
     }
 
     private void OnMouseButtonReleased(object sender, MouseButtonEventArgs e)
@@ -38,6 +39,7 @@ class Input
         {
             element.OnMouseReleased(e.Button);
         }
+        Player.Instance.CurrentState.OnPlayerRelease(Player.Instance, e.Button);
     }
     
     public void GetEvents()

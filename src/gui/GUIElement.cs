@@ -9,12 +9,12 @@ public abstract class GUIElement : Transformable
 
     protected StyleManager Style;
 
-    public GUIElement(Vector2f startPosition, StyleManager? style = null)
+    public GUIElement(Vector2f startPosition, StyleManager? style = null, Vector2f ? size = null)
     {
         Position = startPosition;
         BaseRect = new RectangleShape();
         this.Style = style ?? StyleManager.DefaultStyle;
-        BaseRect.Size = new Vector2f(500, 500);
+        BaseRect.Size = size ?? new Vector2f();
         BaseRect.FillColor = Style.BackgroundColor;
         BaseRect.OutlineColor = Style.OutlineColor;
         BaseRect.OutlineThickness = Style.OutlineThickness;

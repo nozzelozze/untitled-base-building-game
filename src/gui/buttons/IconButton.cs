@@ -9,8 +9,8 @@ public class IconButton : Button
     private Sprite IconSprite;
     private GUIText Label;
 
-    public IconButton(Vector2f position, Action onClick, Texture iconTexture, string label)
-    : base(position, onClick, StyleManager.WhiteBackgroundBlackText)
+    public IconButton(Vector2f position, Action onClick, Texture iconTexture, string label, StyleManager ? style = null)
+    : base(position, onClick, style)
     {
         IconSprite = new Sprite(iconTexture);
         Label = new GUIText(

@@ -16,6 +16,7 @@ public class StyleManager
     // styles
     public static StyleManager DefaultStyle { get; private set; }
     public static StyleManager WhiteBackgroundBlackText { get; private set; }
+    public static StyleManager MouseBoxStyle { get; private set; }
     // ----
 
 
@@ -47,6 +48,14 @@ public class StyleManager
         {
             BackgroundColor = WhiteColor,
             TextColor = DarkColor,
+            OutlineThickness = 0,
+            UIFont = ResourceLoader.FetchFont("default"),
+            BaseTextSize = GUIText.TextSize.HeadingMedium
+        };
+
+        MouseBoxStyle = new StyleManager
+        {
+            BackgroundColor = GreyColor,
             OutlineThickness = 0,
             UIFont = ResourceLoader.FetchFont("default"),
             BaseTextSize = GUIText.TextSize.HeadingMedium
