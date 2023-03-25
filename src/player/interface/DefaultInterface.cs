@@ -25,7 +25,10 @@ public class DefaultInterface
         //    "Build"
         //);
 
-        MineButton = new IconButton(new Vector2f(100, 1080-100), () => Player.EnterNewState(PlayerState.CreateState("Build")), ResourceLoader.FetchTexture(ResourceLoader.TextureType.MineButton), "Mine");
+    MineButton = new IconButton(new Vector2f(100, 1080-100), () => 
+    {
+        Player.EnterNewState(PlayerState.CreateState("Build")); PlayerState.BuildState.GetWantedStructure = () => new Chest();
+    }, ResourceLoader.FetchTexture(ResourceLoader.TextureType.MineButton), "Mine");
         MouseBox = new MouseBox();
     }
 

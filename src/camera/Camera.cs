@@ -7,7 +7,7 @@ using SFML.System;
 public class Camera
 {
     Vector2i CameraMouseOffset;
-    Vector2i OldCameraMouseOffset;
+    Vector2i OldViewCenter;
     static View View = new View();
     static Vector2f DefaultSize = new Vector2f(1920, 1080);
     Vector2f TargetSize = new Vector2f(1920, 1080);
@@ -64,17 +64,20 @@ public class Camera
         if (Input.Events.Contains(Mouse.Button.Right))
         {
             CameraMouseOffset = -Mouse.GetPosition(renderWindow) - (Vector2i)View.Center;
+            OldViewCenter = (Vector2i)View.Center;
         }
         Player.Instance.IsPanning = false;
         if (Mouse.IsButtonPressed(Mouse.Button.Right))
         {
-            Vector2 zoomWeight;
-            float zoomWeightLength;
-            zoomWeight.X = DefaultSize.X / TargetSize.X;
-            zoomWeight.Y = DefaultSize.Y / TargetSize.Y;
-            zoomWeightLength = zoomWeight.Length();
-            
-            View.Center = -(Vector2f)Mouse.GetPosition(renderWindow) - (Vector2f)CameraMouseOffset;
+            Vector2i mPos = Mouse.GetPosition(renderWindow);
+            if (mPos.X > 0 && mPos.Y > 0 && mPos.X < renderWindow.Size.X && mPos.Y < renderWindow.Size.Y)
+            {
+                View.Center = -(Vector2f)Mouse.GetPosition(renderWindow) - (Vector2f)CameraMouseOffset;
+            }
+            if (OldViewCenter != (Vector2i)View.Center)
+            {
+                Player.Instance.IsPanning = true;
+            }
         }
         View.Size += (TargetSize - View.Size) * .05f;
         renderWindow.SetView(View);

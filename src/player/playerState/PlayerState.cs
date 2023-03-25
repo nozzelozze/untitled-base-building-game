@@ -138,19 +138,15 @@ public abstract class PlayerState
 
     public class BuildState : PlayerState
     {
-        public Structure WantedStructure { get; set; }
+        public Structure ? WantedStructure { private get; set; }
+        public static Func<Structure> ? GetWantedStructure;
 
-        public BuildState(Structure wanted = null)
+        public BuildState()
         {
-            WantedStructure = wanted ?? new Chest();
+            
         }
 
         public override string GetName() => "Build";
-
-        public void SetWantedStructure(Structure wanted)
-        {
-            WantedStructure = wanted;
-        }
 
         private void UpdateStructurePosition(Vector2f position, Player player)
         {
@@ -167,11 +163,21 @@ public abstract class PlayerState
         public override void Update(Player player)
         {
             if (PlayerMouse.OnUI) return;
+            if (WantedStructure == null) WantedStructure = GetWantedStructure();
             Vector2f structurePosition = Map.Instance.GetTilePosition(player.PlayerMouse.GetTileFromMouse());
             UpdateStructurePosition(structurePosition, player);
             bool isValid = WantedStructure.IsCurrentlyValid();
             UpdateStructureColor(isValid);
             RenderQueue.Queue(WantedStructure.Sprite);
+            if (Mouse.IsButtonPressed(Mouse.Button.Left))
+            {
+                if (WantedStructure.IsCurrentlyValid())
+                {
+                    WantedStructure.PlaceStructure(player.PlayerMouse.GetTileFromMouse());
+                    if (GetWantedStructure != null) WantedStructure = GetWantedStructure();
+                    //player.EnterNewState(PlayerState.CreateState("Idle"));
+                }
+            }
         }
 
         public override void OnPlayerRelease(Player player, Mouse.Button button)
@@ -179,16 +185,6 @@ public abstract class PlayerState
             base.OnPlayerRelease(player, button);
             if (button == Mouse.Button.Right && !player.IsPanning)
             {
-                player.EnterNewState(PlayerState.CreateState("Idle"));
-            }
-        }
-
-        public override void OnPlayerClick(Player player, Mouse.Button button)
-        {
-            base.OnPlayerClick(player, button);
-            if (WantedStructure.IsCurrentlyValid() && button == Mouse.Button.Left)
-            {
-                WantedStructure.PlaceStructure(player.PlayerMouse.GetTileFromMouse());
                 player.EnterNewState(PlayerState.CreateState("Idle"));
             }
         }
