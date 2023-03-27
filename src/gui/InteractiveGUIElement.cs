@@ -8,8 +8,8 @@ public abstract class InteractiveGUIElement : GUIElement
 
     public bool IsMouseOver { get; set; }
 
-    public InteractiveGUIElement(Vector2f startPosition, StyleManager ? style = null)
-    : base(startPosition, style)
+    public InteractiveGUIElement(GUIElementConfig config)
+    : base(config)
     {
 
     }

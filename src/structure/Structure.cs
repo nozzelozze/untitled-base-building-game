@@ -15,7 +15,7 @@ public class Structure : Transformable
 
     public List<Tile> OccupiedTiles = new List<Tile>();
 
-    //public Menu? InfoMenu;
+    public Container InfoContainer;
 
     public bool Built = false;
 
@@ -33,6 +33,9 @@ public class Structure : Transformable
         Cost = cost;
 
         Deposit = Cost.Keys.ToDictionary(key => key, key => 0);
+        
+        InfoContainer = new Container(new GUIElementConfig());
+
     }
 
     public static T? GetNearestStructure<T>() where T : Structure
@@ -121,10 +124,12 @@ public class Structure : Transformable
 
     public virtual void Highlight()
     {
-        //InfoMenu = new Menu(Name, Menu.InfoMenuPosition);
+        InfoContainer.ClearElements();
+        Player.Instance.DefaultInterface.TopRightContainer.AddElement(InfoContainer);
+        //InfoContainer.add name of structure 
         if (!Built)
         {
-            //InfoMenu.AddItem(new GUIText("Needs resources:"));
+            //InfoContainer.AddElement(new GUIText("Needs resources:"));
 
             foreach (KeyValuePair<Item.Type, int> costPair in Deposit)
             {

@@ -18,8 +18,8 @@ public abstract class Button : InteractiveGUIElement
 
     public event Action ButtonClicked;
 
-    public Button(Vector2f Position, Action OnClick, StyleManager ? style = null)
-    : base(Position, style)
+    public Button(GUIElementConfig config, Action OnClick)
+    : base(config)
     {
         ButtonClicked += OnClick;
     }

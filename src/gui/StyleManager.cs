@@ -30,6 +30,7 @@ public class StyleManager
     public static Color LightBlueColor { get; } = new Color(91, 122, 140);
     public static Color LightRedColor { get; } = new Color(189, 59, 59);
     public static Color TransparentColor { get; } = new Color(0, 0, 0, 0);
+    public static Color MenuBarColor { get; } = new Color(238, 91, 91);
     // ----
 
     static StyleManager()

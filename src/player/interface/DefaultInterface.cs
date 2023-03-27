@@ -11,6 +11,8 @@ public class DefaultInterface
     IconButton MineButton;
     IconButton BuildButton;
 
+    public Container TopRightContainer;
+
     MouseBox MouseBox;
 
     Player Player;
@@ -25,11 +27,18 @@ public class DefaultInterface
         //    "Build"
         //);
 
-    MineButton = new IconButton(new Vector2f(100, 1080-100), () => 
-    {
-        Player.EnterNewState(PlayerState.CreateState("Build")); PlayerState.BuildState.GetWantedStructure = () => new Chest();
-    }, ResourceLoader.FetchTexture(ResourceLoader.TextureType.MineButton), "Mine");
+        MineButton = new IconButton(
+            new GUIElementConfig{ StartPosition = new Vector2f(100, 1080-100) }, 
+            () => { Player.EnterNewState(PlayerState.CreateState("Build")); PlayerState.BuildState.GetWantedStructure = () => new Chest(); }, 
+            ResourceLoader.FetchTexture(ResourceLoader.TextureType.MineButton), 
+            "Mine"
+        );
+
         MouseBox = new MouseBox();
+
+        TopRightContainer = new Container(new GUIElementConfig{ StartPosition = new Vector2f(0, 0) });
+        TopRightContainer.AddElement(new GUIText("MAP! :D", new GUIElementConfig{ RelativeTo = new Vector2f(0, 0) }, hasBackgroundColor: true));
+        TopRightContainer.AddElement(new GUIText("MAPasdasdasd :D", new GUIElementConfig{ RelativeTo = new Vector2f(0, 0) }, hasBackgroundColor: true));
     }
 
     public void OnBuildButtonClick()
@@ -45,6 +54,6 @@ public class DefaultInterface
     {
         //BuildButton.Render();
         //if (BuildMenu != null) BuildMenu.Render();
-        MouseBox.Position = (Vector2f)PlayerMouse.GetPosition() + new Vector2f(25, 25);
+        MouseBox.ElementPosition = (Vector2f)PlayerMouse.GetPosition() + new Vector2f(25, 25);
     }
 }

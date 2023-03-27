@@ -9,11 +9,11 @@ public class MouseBox : GUIElement
     private GUIText InfoText;
 
     public MouseBox()
-    : base((Vector2f)Mouse.GetPosition(), StyleManager.MouseBoxStyle)
+    : base(new GUIElementConfig{StartPosition = (Vector2f)Mouse.GetPosition(), Style = StyleManager.MouseBoxStyle})
     {
         InfoText = new GUIText(
             "%v", 
-            (Vector2f)Mouse.GetPosition(), 
+            new GUIElementConfig{ StartPosition = (Vector2f)Mouse.GetPosition() }, 
             () => Player.Instance.CurrentState.GetName(),
             anchorPoint: GUIText.AnchorPoint.Left,
             hasBackgroundColor: true
@@ -24,7 +24,7 @@ public class MouseBox : GUIElement
     public override void Update()
     {
         base.Update();
-        InfoText.Position = Position;
+        InfoText.ElementPosition = Position;
     }
 
 }

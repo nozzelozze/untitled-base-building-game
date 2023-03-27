@@ -28,11 +28,12 @@ public class GUIText : GUIElement
     string DisplayString;
     
 
-    public GUIText(string text, Vector2f position, Func<object>? tickVar = null, StyleManager ? style = null, AnchorPoint anchorPoint = AnchorPoint.Topleft, bool hasBackgroundColor = false)
-    : base(position, style)
+    public GUIText(string text, GUIElementConfig config, Func<object>? tickVar = null, AnchorPoint anchorPoint = AnchorPoint.Topleft, bool hasBackgroundColor = false)
+    : base(config)
     {
         DisplayString = text;
-        Text = new Text(text, Style.UIFont);
+        DisplayString = DisplayString.Replace("%n", Environment.NewLine);
+        Text = new Text(DisplayString, Style.UIFont);
         Text.CharacterSize = GetCharacterSize(Style.BaseTextSize);
         Text.FillColor = Style.TextColor;
         TickVar = tickVar;

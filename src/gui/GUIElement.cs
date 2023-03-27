@@ -8,28 +8,32 @@ public abstract class GUIElement : Transformable
     protected bool IsTransparent;
 
     protected Vector2f PositionRelativeTo;
-    protected Vector2f LocalPosition;
+    private Vector2f LocalPosition;
     // Tranformable.Position is 'GlobalPosition'
+    public Vector2f ElementPosition
+    {
+        get { return Position; }
+        set { LocalPosition = value; }
+    }
 
     protected StyleManager Style;
 
-    public GUIElement(Vector2f startPosition, StyleManager? style = null, Vector2f ? size = null, Vector2f ? relativeTo = null)
+    public GUIElement(GUIElementConfig config)
     {
         BaseRect = new RectangleShape();
-        this.Style = style ?? StyleManager.DefaultStyle;
-        BaseRect.Size = size ?? new Vector2f();
+        this.Style = config.Style ?? StyleManager.DefaultStyle;
+        BaseRect.Size = config.Size ?? new Vector2f();
         BaseRect.FillColor = Style.BackgroundColor;
         BaseRect.OutlineColor = Style.OutlineColor;
         BaseRect.OutlineThickness = Style.OutlineThickness;
 
-        if (relativeTo != null)
-        {
-            PositionRelativeTo = new Vector2f(relativeTo.Value.X, relativeTo.Value.Y);
-        } else
-        {
+        if (config.RelativeTo != null)
+            PositionRelativeTo = new Vector2f(config.RelativeTo.Value.X, config.RelativeTo.Value.Y);
+        else
             PositionRelativeTo = new Vector2f(0, 0);
-            LocalPosition = startPosition;
-        }
+        LocalPosition = config.StartPosition;
+
+        UpdateRelativeTo();
 
         GUIManager.AddGUIElement(this);
     }

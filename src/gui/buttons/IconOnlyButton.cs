@@ -7,8 +7,8 @@ public class IconOnlyButton : Button
 {
     private Sprite Icon { get; set; }
 
-    public IconOnlyButton(Vector2f position, Action onClick, Texture iconTexture)
-    : base(position, onClick)
+    public IconOnlyButton(GUIElementConfig config, Action onClick, Texture iconTexture)
+    : base(config, onClick)
     {
         Icon = new Sprite(iconTexture);
         Icon.Position = Position;

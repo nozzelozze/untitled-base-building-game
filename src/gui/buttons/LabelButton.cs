@@ -8,20 +8,19 @@ public class LabelButton : Button
 
     private GUIText Label { get; set; }
 
-    public LabelButton(Vector2f position, Action onClick, string labelText, StyleManager ? style = null)
-    : base (position, onClick, style)
+    public LabelButton(GUIElementConfig config, Action onClick, string labelText)
+    : base (config, onClick)
     {
         Label = new GUIText(
             labelText,
-            new Vector2f(),
-            anchorPoint: GUIText.AnchorPoint.Center,
-            style: style
+            new GUIElementConfig{ StartPosition = new Vector2f(), Style = config.Style },
+            anchorPoint: GUIText.AnchorPoint.Center
         );
         BaseRect.Size = new Vector2f(
             Label.Text.GetGlobalBounds().Width * 2.3f,
             Label.Text.GetGlobalBounds().Height * 2.3f
         );
-        Label.Position = new Vector2f(position.X+BaseRect.Size.X/2, position.Y+BaseRect.Size.Y/2);
+        Label.ElementPosition = new Vector2f(config.StartPosition.X+BaseRect.Size.X/2, config.StartPosition.Y+BaseRect.Size.Y/2);
         Label.SetAnchorPosition();
     }
 
