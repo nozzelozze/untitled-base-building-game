@@ -11,6 +11,7 @@ public class Camera
     static View View = new View();
     static Vector2f DefaultSize = new Vector2f(1920, 1080);
     Vector2f TargetSize = new Vector2f(1920, 1080);
+    float zoomFactor;
 
     public Camera(View cameraView)
     {
@@ -58,28 +59,41 @@ public class Camera
         return newPosition;
     }
 
+    // chatgpt do not touch
+    bool wasRightMouseButtonDown = false;
+    Vector2i previousMousePosition;
     public void UpdateCamera(RenderWindow renderWindow)
     {
-        renderWindow.SetView(View);
-        if (Input.Events.Contains(Mouse.Button.Right))
+        zoomFactor = View.Size.X / DefaultSize.X;
+        bool isRightMouseButtonDown = Mouse.IsButtonPressed(Mouse.Button.Right);
+
+        if (!wasRightMouseButtonDown && isRightMouseButtonDown)
         {
-            CameraMouseOffset = -Mouse.GetPosition(renderWindow) - (Vector2i)View.Center;
-            OldViewCenter = (Vector2i)View.Center;
+            previousMousePosition = Mouse.GetPosition(renderWindow);
         }
+
         Player.Instance.IsPanning = false;
-        if (Mouse.IsButtonPressed(Mouse.Button.Right))
+
+        if (isRightMouseButtonDown)
         {
-            Vector2i mPos = Mouse.GetPosition(renderWindow);
-            if (mPos.X > 0 && mPos.Y > 0 && mPos.X < renderWindow.Size.X && mPos.Y < renderWindow.Size.Y)
-            {
-                View.Center = -(Vector2f)Mouse.GetPosition(renderWindow) - (Vector2f)CameraMouseOffset;
-            }
-            if (OldViewCenter != (Vector2i)View.Center)
+            Vector2i currentMousePosition = Mouse.GetPosition(renderWindow);
+            Vector2f delta = WinPositionToCam((Vector2f)currentMousePosition) - WinPositionToCam((Vector2f)previousMousePosition);
+
+            View.Center -= delta;
+
+            if ((Vector2i)View.Center != OldViewCenter)
             {
                 Player.Instance.IsPanning = true;
             }
+
+            previousMousePosition = currentMousePosition;
         }
+
         View.Size += (TargetSize - View.Size) * .05f;
         renderWindow.SetView(View);
+
+        wasRightMouseButtonDown = isRightMouseButtonDown;
     }
+    // chatgpt do not touch
+
 }
