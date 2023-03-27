@@ -34,6 +34,8 @@ class Game
         JobManager jobManager = new JobManager();
         Colonist colonist = new Colonist(1);
 
+        Menu TestMenu = new Menu("BASE", new Dictionary<string, List<GUIElement>>(), new Vector2f(500, 500));
+
         window.SetVerticalSyncEnabled(true);
         window.Closed += (sender, args) => window.Close();
         window.MouseWheelScrolled += camera.Scroll;
