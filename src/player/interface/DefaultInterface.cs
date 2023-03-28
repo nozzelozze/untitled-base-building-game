@@ -37,8 +37,8 @@ public class DefaultInterface
         MouseBox = new MouseBox();
 
         TopRightContainer = new Container(new GUIElementConfig{ StartPosition = new Vector2f(0, 0) });
-        TopRightContainer.AddElement(new GUIText("MAP! :D", new GUIElementConfig{ RelativeTo = new Vector2f(0, 0) }, hasBackgroundColor: true));
-        TopRightContainer.AddElement(new GUIText("MAPasdasdasd :D", new GUIElementConfig{ RelativeTo = new Vector2f(0, 0) }, hasBackgroundColor: true));
+        //TopRightContainer.AddElement(new GUIText("MAP! :D", new GUIElementConfig{ RelativeTo = new Vector2f(0, 0) }, hasBackgroundColor: true));
+        //TopRightContainer.AddElement(new GUIText("MAPasdasdasd :D", new GUIElementConfig{ RelativeTo = new Vector2f(0, 0) }, hasBackgroundColor: true));
     }
 
     public void OnBuildButtonClick()

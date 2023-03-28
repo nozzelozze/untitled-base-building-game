@@ -1,5 +1,6 @@
 using SFML.Graphics;
 using SFML.System;
+using SFML.Window;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,6 +13,8 @@ public class Structure : Transformable
 
     public Texture Texture = ResourceLoader.FetchTexture(ResourceLoader.TextureType.DefaultTexture);
     public string Name = "Structure";
+
+    public FloatRect MouseCollideRect;
 
     public List<Tile> OccupiedTiles = new List<Tile>();
 
@@ -35,6 +38,9 @@ public class Structure : Transformable
         Deposit = Cost.Keys.ToDictionary(key => key, key => 0);
         
         InfoContainer = new Container(new GUIElementConfig());
+        Player.Instance.DefaultInterface.TopRightContainer.AddElement(InfoContainer);
+
+        MouseCollideRect = new FloatRect(0, 0, size.X*Map.TileSize, size.Y*Map.TileSize);
 
     }
 
@@ -57,6 +63,8 @@ public class Structure : Transformable
     {
         Position = Map.Instance.GetTilePosition(tile);
         Sprite.Position = Position;
+        MouseCollideRect.Top = Position.Y;
+        MouseCollideRect.Left = Position.X;
         Map.Instance.OccupyTilesFromStructure(tile, this);
         Sprite.Color = new Color(200, 200, 200, 205);
         Map.Instance.Structures.Add(this);
@@ -124,9 +132,11 @@ public class Structure : Transformable
 
     public virtual void Highlight()
     {
-        InfoContainer.ClearElements();
-        Player.Instance.DefaultInterface.TopRightContainer.AddElement(InfoContainer);
-        //InfoContainer.add name of structure 
+        GUIText StructureName = new GUIText(
+            Name,
+            new GUIElementConfig{ Style = StyleManager.WhiteBackgroundBlackText },
+            hasBackgroundColor: true
+            );
         if (!Built)
         {
             //InfoContainer.AddElement(new GUIText("Needs resources:"));
@@ -157,6 +167,12 @@ public class Structure : Transformable
         if (IsPaidFor() && !Built)
         {
             Build();
+        }
+        InfoContainer.ClearElements();
+        Vector2i mousePosition = PlayerMouse.GetPosition();
+        if (MouseCollideRect.Contains(mousePosition.X, mousePosition.Y))
+        {
+            Highlight();
         }
     }
 

@@ -34,7 +34,7 @@ class Game
         JobManager jobManager = new JobManager();
         Colonist colonist = new Colonist(1);
 
-        Menu TestMenu = new Menu(new GUIElementConfig{StartPosition = new Vector2f(500, 500)}, "BASE", new Dictionary<string, List<GUIElement>>());
+        //Menu TestMenu = new Menu(new GUIElementConfig{StartPosition = new Vector2f(500, 500)}, "BASE", new Dictionary<string, List<GUIElement>>());
 
         window.SetVerticalSyncEnabled(true);
         window.Closed += (sender, args) => window.Close();
@@ -50,6 +50,12 @@ class Game
             Map.Instance.Render();
 
             //colonist.Update();
+
+            if (Input.Events.Contains(Keyboard.Key.Space))
+            {
+                Chest newChest = new Chest();
+                newChest.PlaceStructure(Map.Instance.GetTileAt(new Vector2f(250, 250)));
+            }
 
             Player.Instance.UpdatePlayer(window);
             RenderQueue.Render(window, uiView);
