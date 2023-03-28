@@ -137,18 +137,18 @@ public class Structure : Transformable
             new GUIElementConfig{ Style = StyleManager.WhiteBackgroundBlackText },
             hasBackgroundColor: true
             );
+        InfoContainer.AddElement(StructureName);
         if (!Built)
         {
-            //InfoContainer.AddElement(new GUIText("Needs resources:"));
+            InfoContainer.AddElement(new GUIText("Needs resources:", new GUIElementConfig()));
 
             foreach (KeyValuePair<Item.Type, int> costPair in Deposit)
             {
-                //InfoMenu.AddItem(new GUIText($"{Item.ItemNames[costPair.Key]}: {costPair.Value} / {Cost[costPair.Key]}"));
+                InfoContainer.AddElement(new GUIText($"{Item.ItemNames[costPair.Key]}: {costPair.Value} / {Cost[costPair.Key]}", new GUIElementConfig()));
             }
 
-            //InfoMenu.AddItem(new TextButton("Cancel Build", () => CancelBuild()));
+            InfoContainer.AddElement(new LabelButton(new GUIElementConfig(), () => CancelBuild(), "Cancel Build"));
         }
-        //InfoMenu.CloseButton.ButtonClicked += Player.PlayerHighlight.Unhighlight;
     }
 
     public void RenderHighlight()
@@ -170,6 +170,9 @@ public class Structure : Transformable
         }
         InfoContainer.ClearElements();
         Vector2i mousePosition = PlayerMouse.GetPosition();
+        Vector2f mouseCollPos = Camera.CamPositionToWin(Position);
+        MouseCollideRect.Left = mouseCollPos.X;
+        MouseCollideRect.Top = mouseCollPos.Y; 
         if (MouseCollideRect.Contains(mousePosition.X, mousePosition.Y))
         {
             Highlight();

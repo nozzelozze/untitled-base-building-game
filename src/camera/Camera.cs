@@ -81,7 +81,7 @@ public class Camera
 
             View.Center -= delta;
 
-            if ((Vector2i)View.Center != OldViewCenter)
+            if ((Vector2i)View.Center != (Vector2i)OldViewCenter)
             {
                 Player.Instance.IsPanning = true;
             }

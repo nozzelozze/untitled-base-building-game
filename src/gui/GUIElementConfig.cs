@@ -8,4 +8,5 @@ public class GUIElementConfig
     public StyleManager ? Style  { get; set; }
     public Vector2f ? Size { get; set; }
     public Vector2f ? RelativeTo { get; set; }
+    public Func<Vector2f> ? GetRelativeTo { get; set; }
 }

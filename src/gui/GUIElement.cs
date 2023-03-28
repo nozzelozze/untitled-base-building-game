@@ -7,7 +7,8 @@ public abstract class GUIElement : Transformable
     public RectangleShape BaseRect;
     protected bool IsTransparent;
 
-    protected Vector2f PositionRelativeTo;
+    private Vector2f PositionRelativeTo;
+    private Func<Vector2f> ? GetRelativeTo;
     private Vector2f LocalPosition;
     // Tranformable.Position is 'GlobalPosition'
     public Vector2f ElementPosition
@@ -15,6 +16,8 @@ public abstract class GUIElement : Transformable
         get { return Position; }
         set { LocalPosition = value; }
     }
+
+    protected List<GUIElement> ChildGUIElements = new List<GUIElement>();
 
     protected StyleManager Style;
 
@@ -31,16 +34,28 @@ public abstract class GUIElement : Transformable
             PositionRelativeTo = new Vector2f(config.RelativeTo.Value.X, config.RelativeTo.Value.Y);
         else
             PositionRelativeTo = new Vector2f(0, 0);
+        
         LocalPosition = config.StartPosition;
-
+        GetRelativeTo = config.GetRelativeTo;
         UpdateRelativeTo();
 
         GUIManager.AddGUIElement(this);
     }
 
+    public IReadOnlyList<GUIElement> GetChildGUIElements()
+    {
+        return ChildGUIElements.AsReadOnly();
+    }
+
     public void UpdateRelativeTo()
     {
-        Position = LocalPosition + PositionRelativeTo;
+        if (GetRelativeTo != null)
+        {
+            Position = LocalPosition + GetRelativeTo();
+        } else
+        {
+            Position = LocalPosition + PositionRelativeTo;
+        }
     }
 
     public virtual void Update()

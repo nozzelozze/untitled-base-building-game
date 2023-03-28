@@ -18,11 +18,25 @@ public class Container : GUIElement
         ChildElements.Add(element);
     }
 
-    public void ClearElements() { ChildElements.Clear(); }
+    public void ClearElements(bool removeElements = true)
+    {
+        if (removeElements)
+        {
+            foreach (GUIElement guiElement in ChildElements)
+            {
+                GUIManager.RemoveGUIElement(guiElement);
+            }
+        }
+        ChildElements.Clear();
+    }
 
-    public void RemoveElement(GUIElement element)
+    public void RemoveElement(GUIElement element, bool removeElement = true)
     {
         ChildElements.Remove(element);
+        if (removeElement)
+        {
+            GUIManager.RemoveGUIElement(element);
+        }
     }
 
     public override void Update()

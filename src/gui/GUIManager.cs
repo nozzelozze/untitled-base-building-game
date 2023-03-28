@@ -29,6 +29,14 @@ public class GUIManager
         {
             InteractiveGUIElements.Remove(interactiveElement);
         }
+        IReadOnlyList<GUIElement> childElements = element.GetChildGUIElements();
+        if (childElements.Count > 0)
+        {
+            foreach (GUIElement child in childElements)
+            {
+                RemoveGUIElement(child);
+            }
+        }
     }
 
     public void Update()
