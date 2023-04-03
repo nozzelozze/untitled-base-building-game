@@ -1,4 +1,5 @@
 using System;
+using SFML.Graphics;
 
 public class Item
 {
@@ -20,4 +21,10 @@ public class Item
         this.ItemType = type;
         this.Name = ItemNames[type];
     }
+
+    public Texture GetTexture()
+    {
+        return ResourceLoader.FetchTexture(ResourceLoader.TextureType.Colonist);
+    }
+
 }

@@ -18,10 +18,13 @@ public class Tile
     public bool Occupied = false;
     public Resource? Resource = null;
 
+    public List<Structure> OccupyingStructures { get; private set; }
+
     public Tile(Type tileType)
     {
         Texture = GetTexture(tileType);
         this.Sprite = new Sprite(Texture);
+        OccupyingStructures = new List<Structure>();
     }
 
     private Texture GetTexture(Type tileType)

@@ -34,6 +34,12 @@ class Game
         JobManager jobManager = new JobManager();
         Colonist colonist = new Colonist(1);
 
+        //ConveyorBelt a = new ConveyorBelt();
+        //ConveyorBelt b = new ConveyorBelt();
+        //a.PlaceStructure(Map.Instance.GetTileAt(new Vector2f(250,250)));
+        //b.PlaceStructure(Map.Instance.GetTileAt(new Vector2f(250+65,250)));
+        //a.AddItem(new Item(Item.Type.Iron));
+
         //Menu TestMenu = new Menu(new GUIElementConfig{StartPosition = new Vector2f(500, 500)}, "BASE", new Dictionary<string, List<GUIElement>>());
 
         window.SetVerticalSyncEnabled(true);
@@ -45,7 +51,7 @@ class Game
             window.Clear(Color.Black);
             input.GetEvents();
             GuiManager.Update();
-
+            
             camera.UpdateCamera(window);
             Map.Instance.Render();
 
@@ -53,8 +59,15 @@ class Game
 
             if (Input.Events.Contains(Keyboard.Key.Space))
             {
-                Chest newChest = new Chest();
-                newChest.PlaceStructure(Map.Instance.GetTileAt(new Vector2f(250, 250)));
+                foreach (Structure s in Map.Instance.StructureManager.Structures)
+                {
+                    if (s is ConveyorBelt)
+                    {
+                        ConveyorBelt d = (ConveyorBelt)s;
+                        d.AddItem(new Item(Item.Type.Iron));
+                        break;
+                    }
+                }
             }
 
             Player.Instance.UpdatePlayer(window);

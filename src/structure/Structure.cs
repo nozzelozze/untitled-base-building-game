@@ -46,7 +46,7 @@ public class Structure : Transformable
 
     public static T? GetNearestStructure<T>() where T : Structure
     {
-        foreach (Structure structure in Map.Instance.Structures)
+        foreach (Structure structure in Map.Instance.StructureManager.Structures)
         {
             if (structure.Built)
             {
@@ -59,7 +59,7 @@ public class Structure : Transformable
         return null;
     }
 
-    public virtual void PlaceStructure(Tile tile, bool instaBuild = false)
+    public virtual void PlaceStructure(Tile tile, bool instaBuild = true)
     {
         Position = Map.Instance.GetTilePosition(tile);
         Sprite.Position = Position;
@@ -67,7 +67,7 @@ public class Structure : Transformable
         MouseCollideRect.Left = Position.X;
         Map.Instance.OccupyTilesFromStructure(tile, this);
         Sprite.Color = new Color(200, 200, 200, 205);
-        Map.Instance.Structures.Add(this);
+        Map.Instance.StructureManager.Structures.Add(this);
         Player.PlayerHighlight.Unhighlight();
         StartTile = tile;
         if (instaBuild)
@@ -127,7 +127,7 @@ public class Structure : Transformable
         {
             tile.Occupied = false;
         }
-        Map.Instance.Structures.Remove(this);
+        Map.Instance.StructureManager.Structures.Remove(this);
     }
 
     public virtual void Highlight()

@@ -1,7 +1,7 @@
 using System;
 using SFML.System;
 
-class Map
+public class Map
 {
     public static Map Instance = new Map();
 
@@ -9,12 +9,13 @@ class Map
     const int MapWidth = 64;
     const int MapHeight = 64;
     public Tile[,] Tiles = new Tile[MapWidth,MapHeight];
-    public List<Structure> Structures = new List<Structure>();
+    public StructureManager StructureManager { get; private set; }
 
     private Map()
     {
         MapGenerator mapGenerator = new MapGenerator(MapWidth, MapHeight, seed: 123313);
         Tiles = mapGenerator.GenerateMap();
+        StructureManager = new StructureManager(this);
     }
 
     public void OccupyTile(Tile tile)
@@ -31,13 +32,47 @@ class Map
             {
                 OccupyTile(Tiles[i, j]);
                 structure.OccupiedTiles.Add(Tiles[i, j]);
+                Tiles[i, j].OccupyingStructures.Add(structure);
             }
         }
     }
 
+    public Tile GetAdjacentTile(Tile startTile, ConveyorBelt.Direction direction)
+    {
+        Tuple<int, int> tileIndex = GetTileIndex(startTile);
+        switch (direction)
+        {
+            case ConveyorBelt.Direction.Up:
+                if (tileIndex.Item2 > 0)
+                {
+                    return Tiles[tileIndex.Item1, tileIndex.Item2 - 1];
+                }
+                break;
+            case ConveyorBelt.Direction.Down:
+                if (tileIndex.Item2 < MapHeight - 1)
+                {
+                    return Tiles[tileIndex.Item1, tileIndex.Item2 + 1];
+                }
+                break;
+            case ConveyorBelt.Direction.Left:
+                if (tileIndex.Item1 > 0)
+                {
+                    return Tiles[tileIndex.Item1 - 1, tileIndex.Item2];
+                }
+                break;
+            case ConveyorBelt.Direction.Right:
+                if (tileIndex.Item1 < MapWidth - 1)
+                {
+                    return Tiles[tileIndex.Item1 + 1, tileIndex.Item2];
+                }
+                break;
+        }
+        return null;
+    }
+
     public Structure? GetStructureFromTile(Tile tile)
     {
-        foreach (Structure structure in Structures)
+        foreach (Structure structure in StructureManager.Structures)
         {
             foreach (Tile structureTile in structure.OccupiedTiles)
             {
@@ -81,10 +116,7 @@ class Map
                 }
             }
         }
-        foreach (Structure structure in Structures)
-        {
-            structure.Update();
-        }
+        StructureManager.UpdateStructures();
     }
     
     public Vector2f GetTilePosition(Tile tile)
