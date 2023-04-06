@@ -1,5 +1,6 @@
 using System;
 using SFML.System;
+using SFML.Graphics;
 using System.Collections.Generic;
 
 public class ConveyorBelt : Structure
@@ -14,6 +15,8 @@ public class ConveyorBelt : Structure
         Undefined
     }
     
+    public static Direction BUILDDIRECTION = Direction.Right;
+
     public Direction ConveyorDirection;
     public Queue<Tuple<Item, float>> ItemsOnBelt;
     private const float ItemMoveTime = 1f;
@@ -22,11 +25,38 @@ public class ConveyorBelt : Structure
     private Clock UpdateClock;
 
     public ConveyorBelt()
-    : base ("Conveyor Belt", ResourceLoader.FetchTexture(ResourceLoader.TextureType.Copper), new Vector2i(1, 1), new Dictionary<Item.Type, int>())
+    : base ("Conveyor Belt", ResourceLoader.FetchTexture(ResourceLoader.TextureType.ConveyorArrow), new Vector2i(1, 1), new Dictionary<Item.Type, int>())
     {
         ConveyorDirection = Direction.Undefined;
         ItemsOnBelt = new Queue<Tuple<Item, float>>();
         UpdateClock = new Clock();
+        RotateSprite();
+    }
+
+    private void RotateSprite()
+    {
+        switch (BUILDDIRECTION)
+        {
+            case Direction.Up:
+                Sprite.Origin = new Vector2f(Sprite.Texture.Size.Y, 0);
+                Sprite.Rotation = -90;
+                break;
+            case Direction.Down:
+                Sprite.Origin = new Vector2f(0, Sprite.Texture.Size.X);
+                Sprite.Rotation = 90;
+                break;
+            case Direction.Left:
+                Sprite.Origin = new Vector2f(Sprite.Texture.Size.X, Sprite.Texture.Size.Y);
+                Sprite.Rotation = -180;
+                break;
+            case Direction.Right:
+                Sprite.Origin = new Vector2f(0, 0);
+                Sprite.Rotation = 0;
+                break; 
+            case Direction.Undefined:
+
+                break;
+        }
     }
 
     public void SetDirectionBasedOnNeighbours()
@@ -53,8 +83,30 @@ public class ConveyorBelt : Structure
         {
             ConveyorDirection = Direction.Right;
         }
-        //ConveyorDirection = Direction.Right;
         Console.WriteLine(ConveyorDirection); */
+
+        ConveyorDirection = BUILDDIRECTION;
+
+    }
+
+    public override void Rotate()
+    {
+        switch (BUILDDIRECTION)
+        {
+            case Direction.Up:
+                BUILDDIRECTION = Direction.Right;
+                break;
+            case Direction.Right:
+                BUILDDIRECTION = Direction.Down;
+                break;
+            case Direction.Down:
+                BUILDDIRECTION = Direction.Left;
+                break;
+            case Direction.Left:
+                BUILDDIRECTION = Direction.Up;
+                break;
+        }
+        RotateSprite();
     }
 
     public override void PlaceStructure(Tile tile, bool instaBuild = true)

@@ -61,7 +61,7 @@ public class Structure : Transformable
         return null;
     }
 
-    public void Rotate()
+    public virtual void Rotate()
     {
         if (!Built)
         {

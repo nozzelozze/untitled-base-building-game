@@ -22,7 +22,8 @@ public class ResourceLoader
         Chest,
         BuildButton,
         Grass,
-        MineButton
+        MineButton,
+        ConveyorArrow
     }
     
     private static Dictionary<TextureType, Texture> LoadedTextures = new Dictionary<TextureType, Texture>();
@@ -45,6 +46,7 @@ public class ResourceLoader
         LoadedTextures.Add(TextureType.BuildButton, new Texture(TexturesPath + "ui/buildButton.png"));
         LoadedTextures.Add(TextureType.Grass, new Texture(TexturesPath + "tiles/grass.png"));
         LoadedTextures.Add(TextureType.MineButton, new Texture(TexturesPath + "ui/mineButton.png"));
+        LoadedTextures.Add(TextureType.ConveyorArrow, new Texture(TexturesPath + "structures/conveyorArrow.png"));
         
 
         // fonts

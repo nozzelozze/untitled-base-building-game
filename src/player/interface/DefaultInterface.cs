@@ -29,7 +29,7 @@ public class DefaultInterface
 
         MineButton = new IconButton(
             new GUIElementConfig{ StartPosition = new Vector2f(100, 1080-100) }, 
-            () => { Player.EnterNewState(PlayerState.CreateState("Build")); PlayerState.BuildState.GetWantedStructure = () => new Miner(); }, 
+            () => { Player.EnterNewState(PlayerState.CreateState("Build")); PlayerState.BuildState.GetWantedStructure = () => new ConveyorBelt(); }, 
             ResourceLoader.FetchTexture(ResourceLoader.TextureType.MineButton), 
             "Mine"
         );
