@@ -31,7 +31,8 @@ public class ConveyorBelt : Structure
 
     public void SetDirectionBasedOnNeighbours()
     {
-        Tile upTile = Map.Instance.GetAdjacentTile(OccupiedTiles[0], Direction.Up);
+        // Add this later, rotation will work for now
+        /*         Tile upTile = Map.Instance.GetAdjacentTile(OccupiedTiles[0], Direction.Up);
         Tile downTile = Map.Instance.GetAdjacentTile(OccupiedTiles[0], Direction.Down);
         Tile leftTile = Map.Instance.GetAdjacentTile(OccupiedTiles[0], Direction.Left);
         Tile rightTile = Map.Instance.GetAdjacentTile(OccupiedTiles[0], Direction.Right);
@@ -52,7 +53,8 @@ public class ConveyorBelt : Structure
         {
             ConveyorDirection = Direction.Right;
         }
-        ConveyorDirection = Direction.Right;
+        //ConveyorDirection = Direction.Right;
+        Console.WriteLine(ConveyorDirection); */
     }
 
     public override void PlaceStructure(Tile tile, bool instaBuild = true)

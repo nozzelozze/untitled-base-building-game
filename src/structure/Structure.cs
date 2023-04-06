@@ -18,6 +18,8 @@ public class Structure : Transformable
 
     public List<Tile> OccupiedTiles = new List<Tile>();
 
+    private bool HasRotated = false;
+
     public Container InfoContainer;
 
     public bool Built = false;
@@ -57,6 +59,27 @@ public class Structure : Transformable
             }
         }
         return null;
+    }
+
+    public void Rotate()
+    {
+        if (!Built)
+        {
+            int oldX = Size.X;
+            int oldY = Size.Y;
+            Size = new Vector2i(oldY, oldX); // swap x & y
+            if (!HasRotated)
+            {
+                Sprite.Origin = new Vector2f(0, Sprite.Texture.Size.Y);
+                Sprite.Rotation += 90;
+                HasRotated = true;
+            } else
+            {
+                Sprite.Origin = new Vector2f(0, 0);
+                Sprite.Rotation -= 90;
+                HasRotated = false;
+            }
+        }
     }
 
     public virtual void PlaceStructure(Tile tile, bool instaBuild = true)

@@ -58,7 +58,7 @@ public class Tile
     public void GiveResource(Resource newResource)
     {
         Resource = newResource;
-        Occupied = true;
+        //Occupied = true;
     }
 
     public bool HasResource()

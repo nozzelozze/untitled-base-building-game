@@ -160,6 +160,11 @@ public abstract class PlayerState
             WantedStructure.Sprite.Color = isValid ? SFML.Graphics.Color.Green : StyleManager.DarkRedColor;
         }
 
+        private void RotateStructure()
+        {
+            WantedStructure.Rotate();
+        }
+
         public override void Update(Player player)
         {
             if (PlayerMouse.OnUI) return;
@@ -177,6 +182,10 @@ public abstract class PlayerState
                     if (GetWantedStructure != null) WantedStructure = GetWantedStructure();
                     //player.EnterNewState(PlayerState.CreateState("Idle"));
                 }
+            }
+            if (Input.Events.Contains(Keyboard.Key.R))
+            {
+                RotateStructure();
             }
         }
 
